@@ -27,7 +27,7 @@ void myMouseEvent (int x, int y, int button, int event)
 		if (button == LEFT_BUTTON)
 		{
 			MovePen(mx,my);
-			DrawArc(1,0,180);
+			DrawArc(1,0,360);
 		}
 			
 		display();
