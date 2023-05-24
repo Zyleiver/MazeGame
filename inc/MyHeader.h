@@ -15,7 +15,10 @@
 #include"strlib.h"
 
 //my own inc
-
+#include"clue.h"
+#include"display.h"
+#include"file.h"
+#include"reaction.h"
 
 #endif
 
