@@ -2,9 +2,8 @@
 
 void Main()
 {
-	SetWindowTitle("画些什么东西");
+	SetWindowTitle("MazeGame");
 	InitGraphics();
 	display();
-	int a;
 	registerMouseEvent(myMouseEvent);
 }
