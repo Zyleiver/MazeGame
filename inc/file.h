@@ -14,7 +14,7 @@ void SaveGame_ingame(void);
 void SaveAsTemplate(void);
 
 //显示使用说明
-void Instruction(void);
+void Instruct(void);
 
 //显示关于
 void AboutGame(void);

@@ -5,6 +5,6 @@
 int find_way(int curx,int cury);
 
 //提示下一步,输入curx、cury（当前横纵坐标），返回下一步的方向
-nextway next_move(int curx,int cury);
+int next_move(int curx,int cury);
 
 #endif
