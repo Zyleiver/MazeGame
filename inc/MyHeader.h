@@ -30,19 +30,19 @@
 
 //setup
 
-//½çÃæ×´Ì¬£¬MAIN_PAGEÎªÖ÷Ò³Ãæ£¬GAME_PAGEÎªÓÎÏ·½çÃæ
+//ç•Œé¢çŠ¶æ€ï¼ŒMAIN_PAGEä¸ºä¸»é¡µé¢ï¼ŒGAME_PAGEä¸ºæ¸¸æˆç•Œé¢
 typedef enum{
 	MAIN_PAGE = 0,
 	GAME_PAGE,
 }page_stage;
 
-//°´Å¥×´Ì¬£¬OFFÎªËÉ¿ª£¬ONÎª°´ÏÂ
+//æŒ‰é’®çŠ¶æ€ï¼ŒOFFä¸ºæ¾å¼€ï¼ŒONä¸ºæŒ‰ä¸‹
 typedef enum{
 	OFF = 0 ,
 	ON,
 }button_stage;
 
-//°´Å¥½á¹¹£¬nameÎª°´Å¥Ãû×Ö£¬stageÎª°´Å¥×´Ì¬,x¡¢yÎª°´Å¥×óÉÏ½Çºá×İ×ø±ê£¬lx¡¢lyÎª°´Å¥x¡¢y·½Ïò³¤¶È,visibleÎª°´Å¥ÊÇ·ñ¿É¼û
+//æŒ‰é’®ç»“æ„ï¼Œnameä¸ºæŒ‰é’®åå­—ï¼Œstageä¸ºæŒ‰é’®çŠ¶æ€,xã€yä¸ºæŒ‰é’®å·¦ä¸Šè§’æ¨ªçºµåæ ‡ï¼Œlxã€lyä¸ºæŒ‰é’®xã€yæ–¹å‘é•¿åº¦,visibleä¸ºæŒ‰é’®æ˜¯å¦å¯è§
 struct button{
 	char* name;
 	int stage;
@@ -53,7 +53,7 @@ struct button{
     int visible;
 };
 
-//·½¿éÔªËØ£¬ROADÎªÂ·£¬WALLÎªÇ½£¬COINÎª½ğ±Ò
+//æ–¹å—å…ƒç´ ï¼ŒROADä¸ºè·¯ï¼ŒWALLä¸ºå¢™ï¼ŒCOINä¸ºé‡‘å¸
 typedef enum{
     START,
     ROAD ,
@@ -62,7 +62,7 @@ typedef enum{
     END,
 }element;
 
-//ÌáÊ¾ÏÂÒ»²½µÄ·½Ïò
+//æç¤ºä¸‹ä¸€æ­¥çš„æ–¹å‘
 typedef enum{
     UP,
     DOWN,
@@ -70,7 +70,7 @@ typedef enum{
     RIGHT,
 }nextway;
 
-//½ÇÉ«½á¹¹£¬hpÎªÉúÃüÖµ£¬xÎªºá×ø±ê£¬yÎª×İ×ø±ê
+//è§’è‰²ç»“æ„ï¼Œhpä¸ºç”Ÿå‘½å€¼ï¼Œxä¸ºæ¨ªåæ ‡ï¼Œyä¸ºçºµåæ ‡
 struct Charactor
 {
     int hp;
@@ -78,14 +78,14 @@ struct Charactor
     int y;
 };
 
-//ÖÕµãÂ·¾¶£¬x¡¢yÎª½ÚµãµÄ×ø±ê£¬nextÎªÏÂÒ»¸ö½ÚµãµÄµØÖ·
+//ç»ˆç‚¹è·¯å¾„ï¼Œxã€yä¸ºèŠ‚ç‚¹çš„åæ ‡ï¼Œnextä¸ºä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„åœ°å€
 struct Way{
     int x;
     int y;
     struct Way* next;
 };
 
-//µØÍ¼£¬16*16
+//åœ°å›¾ï¼Œ16*16
 int Map[16][16]={ROAD};
 
 
