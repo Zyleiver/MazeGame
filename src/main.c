@@ -1,6 +1,6 @@
 #include "MyHeader.h"
 
-// åœ°å›¾ï¼Œ16*16
+// µØÍ¼£¬16*16
 int Map[16][16] = {ROAD};
 
 void Main()
