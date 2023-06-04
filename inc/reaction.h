@@ -22,7 +22,7 @@ void OpenMap_ingame(void);
 // 返回主菜单
 void BackToMainPage(void);
 
-// 判断游戏事件（碰到怪兽、金币、终点）
+// 判断游戏事件（碰到墙、怪兽、金币、终点）
 void TellStuff(void);
 
 #endif
