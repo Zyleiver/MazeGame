@@ -1,22 +1,22 @@
 #ifndef FILE_H_
 #define FILE_H_
 
-//è¯»å–å­˜æ¡£
+//¶ÁÈ¡´æµµ
 void ReadData(void);
 
-//è¯»å–æ¨¡æ¿
+//¶ÁÈ¡Ä£°å
 void ReadTemplate(void);
 
-//å­˜æ¡£
+//´æµµ
 void SaveGame_ingame(void);
 
-//ä¿å­˜ä¸ºæ¨¡æ¿
+//±£´æÎªÄ£°å
 void SaveAsTemplate(void);
 
-//æ˜¾ç¤ºä½¿ç”¨è¯´æ˜
+//ÏÔÊ¾Ê¹ÓÃËµÃ÷
 void Instruct(void);
 
-//æ˜¾ç¤ºå…³äº
+//ÏÔÊ¾¹ØÓÚ
 void AboutGame(void);
 
 #endif
