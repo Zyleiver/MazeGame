@@ -27,73 +27,85 @@
 #include "file.h"
 #include "reaction.h"
 #include "setup.h"
+#include "initgame.h"
 
 //*************************setup**************************
 
-// ç•Œé¢ç›¸å…³â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+// ½çÃæÏà¹Ø¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-#define WINDOWS_WIDTH (double)100
-#define WINDOWS_HEIGHT (double)100
+#define WINDOWS_WIDTH (double)300
+#define WINDOWS_HEIGHT (double)200
 
-// ç•Œé¢çŠ¶æ€ï¼ŒMAIN_PAGEä¸ºä¸»é¡µé¢ï¼ŒGAME_PAGEä¸ºæ¸¸æˆç•Œé¢
-typedef enum
+// ½çÃæ×´Ì¬
+enum Page_Stage
 {
-    MAIN_PAGE = 0,
-    GAME_PAGE,
-} page_stage;
+    MAIN_PAGE = 0, // Ö÷½çÃæ
+    GAME_PAGE,     // ÓÎÏ·½çÃæ
+    END_PAGE,      // ½áÊø½çÃæ
+};
 
+extern int page_stage;
 
+// °´Å¥Ïà¹Ø¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-// æŒ‰é’®ç›¸å…³â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
-
-// æŒ‰é’®ç»“æ„ï¼Œnameä¸ºæŒ‰é’®åå­—ï¼Œstageä¸ºæŒ‰é’®çŠ¶æ€,xã€yä¸ºæŒ‰é’®å·¦ä¸Šè§’æ¨ªçºµåæ ‡ï¼Œlxã€lyä¸ºæŒ‰é’®xã€yæ–¹å‘é•¿åº¦,visibleä¸ºæŒ‰é’®æ˜¯å¦å¯è§
+// °´Å¥½á¹¹£¬nameÎª°´Å¥Ãû×Ö£¬stageÎª°´Å¥×´Ì¬,x¡¢yÎª°´Å¥×óÉÏ½Çºá×İ×ø±ê£¬lx¡¢lyÎª°´Å¥x¡¢y·½Ïò³¤¶È,visibleÎª°´Å¥ÊÇ·ñ¿É¼û
 typedef struct
 {
     char *name;
     int stage;
-    int x;
-    int y;
-    int lx;
-    int ly;
+    double x;
+    double y;
+    double lx;
+    double ly;
     int visible;
 } Button;
+typedef Button *PButton;
 
-// æŒ‰é’®çŠ¶æ€ï¼ŒOFFä¸ºæ¾å¼€ï¼ŒONä¸ºæŒ‰ä¸‹
-typedef enum
+// °´Å¥×´Ì¬£¬Button_UPÎªËÉ¿ª£¬Button_DOWNÎª°´ÏÂ
+enum Button_stage
 {
-    OFF = 0,
-    ON,
-} Button_stage;
+    Button_UP = 0, // ËÉ¿ª
+    Button_DOWN,   // °´ÏÂ
+};
 
-// æ‰€æœ‰çš„æŒ‰é’®
-Button StartNewGame;     // å¼€å§‹æ–°æ¸¸æˆ
-Button BuildMapAuto;     // è‡ªåŠ¨ç”Ÿæˆåœ°å›¾
-Button BuildMapManu;     // æ‰‹åŠ¨ç”Ÿæˆåœ°å›¾
-Button EmptyMap;         // ç©ºç™½åœ°å›¾
-Button UseTemp;          // ä½¿ç”¨æ¨¡æ¿
-Button TempFromSys;      // ç³»ç»Ÿæ¨¡æ¿
-Button TempFromFile;     // å­˜æ¡£æ¨¡æ¿
-Button ReadFiles;        // è¯»å–å­˜æ¡£
-Button ExitGame;         // é€€å‡º
-Button Menu;             // èœå•
-Button CrtNewMap;        // æ–°å»ºåœ°å›¾ï¼ˆCtrl+cï¼‰
-Button OpenMap;          // æ‰“å¼€åœ°å›¾ï¼ˆCtrl+oï¼‰
-Button SaveGame;         // å­˜æ¡£ï¼ˆCtrl+sï¼‰
-Button SaveAsTemp;       // ä¿å­˜ä¸ºæ¨¡æ¿ï¼ˆCtrl+mï¼‰
-Button BackToMP;         // è¿”å›ä¸»ç•Œé¢ï¼ˆCtrl+bï¼‰
-Button Tools;            // å·¥å…·
-Button EditMap;          // ç¼–è¾‘åœ°å›¾ï¼ˆCtrl+eï¼‰
-Button PromptNextStep;   // æç¤ºä¸‹ä¸€æ­¥ï¼ˆAlt+pï¼‰
-Button ShowShortestPath; // æ˜¾ç¤ºæœ€çŸ­è·¯å¾„ï¼ˆAlt+rï¼‰
-Button ShowAllPath;      // æ˜¾ç¤ºå…¨éƒ¨è·¯å¾„ï¼ˆAlt+aï¼‰
-Button LeftShiftPath;    // æ˜¾ç¤ºå…¨éƒ¨è·¯å¾„æ—¶å·¦åˆ‡
-Button RightShiftPath;   // æ˜¾ç¤ºå…¨éƒ¨è·¯å¾„æ—¶å³åˆ‡
-Button Instruction;      // ä½¿ç”¨è¯´æ˜
-Button About_Game;       // å…³äº
+// °´Å¥¿ÉÊÓ×´Ì¬£¬VISIBLEÎª¿ÉÊÓ£¬UNVISIBLEÎª²»¿ÉÊÓ
+enum Button_visible
+{
+    UNVISIBLE = 0, // ²»¿ÉÊÓ
+    VISIBLE,       // ¿ÉÊÓ
+};
 
-// å…ƒç´ ç›¸å…³â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+// °´Å¥
 
-// æ–¹å—å…ƒç´ ï¼ŒROADä¸ºè·¯ï¼ŒWALLä¸ºå¢™ï¼ŒCOINä¸ºé‡‘å¸
+// ËùÓĞµÄ°´Å¥
+extern Button StartNewGame;     // ¿ªÊ¼ĞÂÓÎÏ·
+extern Button BuildMapAuto;     // ×Ô¶¯Éú³ÉµØÍ¼
+extern Button BuildMapManu;     // ÊÖ¶¯Éú³ÉµØÍ¼
+extern Button EmptyMap;         // ¿Õ°×µØÍ¼
+extern Button UseTemp;          // Ê¹ÓÃÄ£°å
+extern Button TempFromSys;      // ÏµÍ³Ä£°å
+extern Button TempFromFile;     // ´æµµÄ£°å
+extern Button ReadFiles;        // ¶ÁÈ¡´æµµ
+extern Button ExitGame;         // ÍË³ö
+extern Button Menu;             // ²Ëµ¥
+extern Button CrtNewMap;        // ĞÂ½¨µØÍ¼£¨Ctrl+c£©
+extern Button OpenMap;          // ´ò¿ªµØÍ¼£¨Ctrl+o£©
+extern Button SaveGame;         // ´æµµ£¨Ctrl+s£©
+extern Button SaveAsTemp;       // ±£´æÎªÄ£°å£¨Ctrl+m£©
+extern Button BackToMP;         // ·µ»ØÖ÷½çÃæ£¨Ctrl+b£©
+extern Button Tools;            // ¹¤¾ß
+extern Button EditMap;          // ±à¼­µØÍ¼£¨Ctrl+e£©
+extern Button PromptNextStep;   // ÌáÊ¾ÏÂÒ»²½£¨Alt+p£©
+extern Button ShowShortestPath; // ÏÔÊ¾×î¶ÌÂ·¾¶£¨Alt+r£©
+extern Button ShowAllPath;      // ÏÔÊ¾È«²¿Â·¾¶£¨Alt+a£©
+extern Button LeftShiftPath;    // ÏÔÊ¾È«²¿Â·¾¶Ê±×óÇĞ
+extern Button RightShiftPath;   // ÏÔÊ¾È«²¿Â·¾¶Ê±ÓÒÇĞ
+extern Button Instruction;      // Ê¹ÓÃËµÃ÷
+extern Button About_Game;       // ¹ØÓÚ
+
+// ÔªËØÏà¹Ø¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+// ·½¿éÔªËØ£¬ROADÎªÂ·£¬WALLÎªÇ½£¬COINÎª½ğ±Ò
 typedef enum
 {
     START,
@@ -103,7 +115,7 @@ typedef enum
     END,
 } element;
 
-// è§’è‰²ç»“æ„ï¼Œhpä¸ºç”Ÿå‘½å€¼ï¼Œxä¸ºæ¨ªåæ ‡ï¼Œyä¸ºçºµåæ ‡
+// ½ÇÉ«½á¹¹£¬hpÎªÉúÃüÖµ£¬xÎªºá×ø±ê£¬yÎª×İ×ø±ê
 typedef struct
 {
     int hp;
@@ -111,36 +123,41 @@ typedef struct
     int y;
 } Charactor;
 
-// æ‰€æœ‰è§’è‰²
-Charactor MajorRole; // ä¸»è§’
-Charactor Monster;   // æ€ªå…½
+// ËùÓĞ½ÇÉ«
+Charactor MajorRole; // Ö÷½Ç
+Charactor Monster;   // ¹ÖÊŞ
 
-// è·¯çº¿ç›¸å…³â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+// Â·ÏßÏà¹Ø¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-// æç¤ºä¸‹ä¸€æ­¥çš„æ–¹å‘
-typedef enum
+// µØÍ¼¹æ¸ñ MAP_LENGTH=map_length
+#define MAP_LENGTH map_length
+extern int map_length;
+
+// ÌáÊ¾ÏÂÒ»²½µÄ·½Ïò
+enum nextway
 {
-    UP,
+    UP = 0,
     DOWN,
     LEFT,
     RIGHT,
-} nextway;
+};
 
-// ç»ˆç‚¹è·¯å¾„ï¼Œxã€yä¸ºèŠ‚ç‚¹çš„åæ ‡ï¼Œnextä¸ºä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„åœ°å€
+// ÖÕµãÂ·¾¶£¬x¡¢yÎª½ÚµãµÄ×ø±ê£¬nextÎªÏÂÒ»¸ö½ÚµãµÄµØÖ·
 struct Way
 {
     int x;
     int y;
     struct Way *next;
 };
-typedef struct Way *pWay; // è·¯å¾„ç»“æ„çš„æŒ‡é’ˆ
+typedef struct Way *pWay; // Â·¾¶½á¹¹µÄÖ¸Õë
 
-// å…¨éƒ¨è·¯å¾„çš„é“¾è¡¨
+// È«²¿Â·¾¶µÄÁ´±í
 struct AllWay
 {
     pWay ThisWay;
     struct AllWay *Next;
 };
-typedef struct AllWay *Pallway; // è·¯å¾„é“¾è¡¨çš„æŒ‡é’ˆ
+typedef struct AllWay *Pallway; // Â·¾¶Á´±íµÄÖ¸Õë
+extern Pallway AllHead;
 
 #endif

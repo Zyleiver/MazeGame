@@ -1,13 +1,16 @@
 #include "MyHeader.h"
 
-// åœ°å›¾ï¼Œ16*16
-int Map[16][16] = {ROAD};
+/*¶ÔÏóÉùÃ÷*/
+int map_length;											//µØÍ¼¹æ¸ñ
+int page_stage=MAIN_PAGE;								//Ò³Ãæ×´Ì¬ 1¡¢MAIN_PAGE 2¡¢GAME_PAGE 3¡¢END_PAGE
+int Map[100][100];										//µØÍ¼Êý×é£¬×î´óÎª100*100
 
 void Main()
 {
 	SetWindowTitle("MazeGame");
 	SetWindowSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	InitGraphics();
+	InitGame();
 	display();
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);

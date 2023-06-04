@@ -1,17 +1,17 @@
 #ifndef SETUP_H_
 #define SETUP_H_
 
-//åˆ›å»ºä¸€ä¸ªéšæœºçš„æ–°åœ°å›¾
+//´´½¨Ò»¸öËæ»úµÄĞÂµØÍ¼
 void CreateNewMap(void);
 
-//æ‰‹åŠ¨åˆ›å»ºåœ°å›¾/åœ°å›¾ç¼–è¾‘
+//ÊÖ¶¯´´½¨µØÍ¼/µØÍ¼±à¼­
 void BuildMap(void);
 
-//ä½¿ç”¨æ¨¡æ¿
+//Ê¹ÓÃÄ£°å
 void UseTemplate(void);
 
-//æ¸¸æˆåˆå§‹åŒ–ï¼ˆäººç‰©ã€æ€ªå…½ã€é‡‘å¸åˆå§‹åŒ–ï¼‰
-void GameInit(void);
+//ÓÎÏ·³õÊ¼»¯£¨ÈËÎï¡¢¹ÖÊŞ¡¢½ğ±Ò³õÊ¼»¯£©
+void InitMap(void);
 
 
 #endif
