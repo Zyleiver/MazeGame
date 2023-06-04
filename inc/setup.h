@@ -11,7 +11,7 @@ void BuildMap(void);
 void UseTemplate(void);
 
 //游戏初始化（人物、怪兽、金币初始化）
-void GameInit(void);
+void InitMap(void);
 
 
 #endif
