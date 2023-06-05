@@ -108,8 +108,8 @@ extern Button About_Game;       // 关于
 // 方块元素，ROAD为路，WALL为墙，COIN为金币
 typedef enum
 {
-    START,
     ROAD,
+    START,
     WALL,
     COIN,
     END,
