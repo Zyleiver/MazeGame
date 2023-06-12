@@ -25,6 +25,7 @@ Button LeftShiftPath;    // 显示全部路径时左切
 Button RightShiftPath;   // 显示全部路径时右切
 Button Instruction;      // 使用说明
 Button About_Game;       // 关于
+Button Back;             // 回退
 
 void InitGame(void)
 {

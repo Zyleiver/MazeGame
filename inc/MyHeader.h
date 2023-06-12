@@ -7,6 +7,7 @@
 #include <string.h>
 #include <file.h>
 #include <stdlib.h>
+#include <winuser.h>
 
 // inc from teacher
 #include "boolean.h"
@@ -102,14 +103,15 @@ extern Button LeftShiftPath;    // 显示全部路径时左切
 extern Button RightShiftPath;   // 显示全部路径时右切
 extern Button Instruction;      // 使用说明
 extern Button About_Game;       // 关于
+extern Button Back;             // 回退
 
 // 元素相关——————————————————————————————————————————————————————
 
 // 方块元素，ROAD为路，WALL为墙，COIN为金币
 typedef enum
 {
-    START,
     ROAD,
+    START,
     WALL,
     COIN,
     END,

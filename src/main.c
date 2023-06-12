@@ -15,4 +15,5 @@ void Main()
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
+	registerCharEvent(mycharEvent);
 }
