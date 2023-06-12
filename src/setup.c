@@ -6,7 +6,7 @@ Charactor Monster2;
 Charactor Monster3;
 	
 //循环变量群 
-int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11;
+int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13;
 
 //用于随机选择未访问方格的过程中，存放随机序号
 int rnum;
@@ -31,6 +31,15 @@ struct nonvisit
 //******自动生成迷宫函数******//
 void CreateNewMap(void)
 {
+    //地图恢复原始状态为建立作准备
+    for (i12 = 0; i12 <= 100; i12++)
+    {
+        for(i13 = 0; i13 <= 100; i13++)
+        {
+            Map[i12][i13] = ROAD;
+        }
+    }
+
     //全图最外层一圈设置为墙，但在前端不显示出来，只是便于算法实现，免去讨论边界情况
     for(i1 = 0; i1<=MZX+1; i1++)
     {
@@ -196,8 +205,8 @@ void CreateNewMap(void)
     }//退出循环
 
     //至此迷宫基础部分生成完成，存放于二维数组Map中，只有WALL和ROAD
-    //但注意Map数组实际要画出的内容仅为[1][1]到[17][17]
-    //终点位于[17][17],起点位于[1][1]，如有需要可以更改其位置或者地图大小
+    //但注意Map数组实际要画出的内容仅为[1][1]到[MZX][MZY]
+    //终点位于[MZX][MZY],起点位于[1][1]，如有需要可以更改其位置或者地图大小
 
     //画出地图
     display();
@@ -253,8 +262,11 @@ void GameInit(void)
         coiny = rand()%(MZY)+1;
         if((coinx>=MZX/3 || coiny>=MZY/3) && (coinx<=4*MZX/5 || coiny<=4*MZY/5) && (Map[coinx][coiny] == ROAD))
         {
-            Map[coinx][coiny] = COIN;
-            i6++;
+            if(coinx%2!=0 && coiny%2!=0)
+            {
+                Map[coinx][coiny] = COIN;
+                i6++;
+            }
         }
     }//金币生成在距离合适的ROAD上
 
@@ -266,6 +278,7 @@ void GameInit(void)
         Monster1.y = rand()%(MZY)+1;
         if((Monster1.x>=MZX/3 || Monster1.y>=MZY/3) && (Monster1.x<=4*MZX/5 || Monster1.y<=4*MZY/5) && (Map[Monster1.x][Monster1.y] == ROAD))
         {
+            if(Monster1.x%2!=0 && Monster1.y%2!=0)
             break;
         }
     }
@@ -278,7 +291,10 @@ void GameInit(void)
         if((Monster2.x>=MZX/3 || Monster2.y>=MZY/3) && (Monster2.x<=4*MZX/5 || Monster2.y<=4*MZY/5) && (Map[Monster2.x][Monster2.y] == ROAD))
         {
             if(fabs(Monster2.x-Monster1.x)>MZX/4 || fabs(Monster2.y-Monster1.y)>MZY/4)
-            break;
+            {
+                if(Monster2.x%2!=0 && Monster2.y%2!=0)
+                break;
+            }
         }
     }
     
@@ -293,7 +309,10 @@ void GameInit(void)
             if(fabs(Monster3.x-Monster1.x)>MZX/4 || fabs(Monster3.y-Monster1.y)>MZY/4)
             {
                 if(fabs(Monster3.x-Monster2.x)>MZX/4 || fabs(Monster3.y-Monster2.y)>MZY/4)
+                {
+                    if(Monster3.x%2!=0 && Monster3.y%2!=0)
                     break;
+                }
             }
         }
     }
@@ -303,7 +322,7 @@ void GameInit(void)
     display();
 
     //下来令怪兽在适当范围内移动
-    startTimer(MonsterTimer,SPEED);
+    //startTimer(MonsterTimer,SPEED);
     //这里需要在时间回调函数里继续写...
     //还需要在MyHeader.h中再写一下时间回调函数的各种timeID
 }
@@ -315,3 +334,4 @@ void BuildMap(void)
     //这里也需要用到回调函数，判断用户选择的button做出动作
     
 }
+
