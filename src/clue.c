@@ -1,5 +1,7 @@
 #include"MyHeader.h"
 
+Pallway AllHead;
+
 int find_way(int curx,int cury)
 {
 
