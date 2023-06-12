@@ -8,6 +8,7 @@
 #include <file.h>
 #include <stdlib.h>
 #include <winuser.h>
+#include<windows.h>
 
 // inc from teacher
 #include "boolean.h"
@@ -133,7 +134,9 @@ Charactor Monster;   // 怪兽
 
 // 地图规格 MAP_LENGTH=map_length
 #define MAP_LENGTH map_length
-extern int map_length;
+extern int map_xlength;
+extern int map_ylength;
+extern int Map[100][100];
 
 // 提示下一步的方向
 enum nextway

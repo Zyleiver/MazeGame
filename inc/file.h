@@ -8,7 +8,7 @@ void ReadData(void);
 void ReadTemplate(void);
 
 //读取系统模板
-void ReadSysTemplate(void);
+void OpenTemp(void);
 
 //存档
 void SaveGame_ingame(void);

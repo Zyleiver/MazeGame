@@ -1,7 +1,6 @@
 #ifndef SETUP_H_
 #define SETUP_H_
 
-extern Map[100][100];
 
 //暂时先令怪兽移动时间间隔（速度）为1000
 #define SPEED 1000

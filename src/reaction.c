@@ -10,31 +10,31 @@ void myMouseEvent(int x, int y, int button, int event)
     mouse_y = ScaleYInches(y);
     if (button == LEFT_BUTTON && event == Button_DOWN)
     {
-        if (TellPress(mouse_x, mouse_y, Instruction))
+        if (TellPress(mouse_x, mouse_y, Instruction))//点击使用说明
         {
-            //
+            Instruct();
         }
-        else if (TellPress(mouse_x, mouse_y, About_Game))
+        else if (TellPress(mouse_x, mouse_y, About_Game))//点击关于
         {
-            //
+            AboutGame();
         }
         else
         {
             switch (page_stage)
             {
-            case MAIN_PAGE:
+            case MAIN_PAGE://主页面状态
 
                 MainPageTell(mouse_x, mouse_y);
 
                 break;
 
-            case GAME_PAGE:
+            case GAME_PAGE://游戏页面状态
 
                 GamePageTell(mouse_x, mouse_y);
 
                 break;
 
-            case END_PAGE:
+            case END_PAGE://结束页面状态
 
                 break;
             }
@@ -52,8 +52,7 @@ void MainPageTell(double mouse_x, double mouse_y)
     else if (TellPress(mouse_x, mouse_y, ReadFiles)) // 按下读取存档
     {
         ReadData();
-        ReadFilesPage();
-        // 待定
+        page_stage=GAME_PAGE;
     }
     else if (TellPress(mouse_x, mouse_y, ExitGame)) // 按下退出游戏
     {
@@ -146,8 +145,9 @@ void StartNewGamePage(void)
 // 进入存档选择页面
 void ReadFilesPage(void)
 {
+    ReadData();
     MainAllUnvisible();
-    // 待定
+    page_stage=GAME_PAGE;
 }
 
 // 进入空白地图、使用模板页面
@@ -207,7 +207,7 @@ void GamePageTell(double mouse_x, double mouse_y)
     }
     else if (TellPress(mouse_x, mouse_y, PromptNextStep))
     {
-        next_move(MajorRole.x, MajorRole.y);
+        next_move();
     }
     else if (TellPress(mouse_x, mouse_y, ShowShortestPath))
     {
@@ -309,36 +309,36 @@ void myKeyboardEvent(int key, int event)
 // 角色向上移动
 void Moveup(void)
 {
-    if (Map(MajorRole.x, MajorRole.y + 1) != WALL)
+    if (Map[MajorRole.x, MajorRole.y + 1] != WALL)
     {
-        MajorRole.y++;
+        MajorRole.y=MajorRole.y+2;
     }
 }
 
 // 角色向下运动
 void Movedown(void)
 {
-    if (Map(MajorRole.x, MajorRole.y - 1) != WALL)
+    if (Map[MajorRole.x, MajorRole.y - 1] != WALL)
     {
-        MajorRole.y--;
+        MajorRole.y=MajorRole.y-2;
     }
 }
 
 // 角色向左运动
 void Moveleft(void)
 {
-    if (Map(MajorRole.x - 1, MajorRole.y) != WALL)
+    if (Map[MajorRole.x - 1, MajorRole.y] != WALL)
     {
-        MajorRole.x--;
+        MajorRole.x=MajorRole.x+2;
     }
 }
 
 // 角色向右运动
 void Moveright(void)
 {
-    if (Map(MajorRole.x + 1, MajorRole.y) != WALL)
+    if (Map[MajorRole.x + 1, MajorRole.y] != WALL)
     {
-        MajorRole.x++;
+        MajorRole.x=MajorRole.x-2;
     }
 }
 
@@ -370,8 +370,30 @@ void mycharEvent(char ch)
             case 'b'://回到主页面
                 page_stage=MAIN_PAGE;
                 MainAllUnvisible();
-                
+                StartNewGame.visible = VISIBLE;
+                ReadFiles.visible = VISIBLE;
+                ExitGame.visible = VISIBLE;
+                break;
+
             }
+        }else if(ifshift==1)
+        {
+            switch (ch)
+            {
+            case 'p'://提示下一步
+                next_move();
+                break;
+            
+            case 'r':
+                find_way_shortest(MajorRole.x,MajorRole.y);
+                break;
+
+            case 'a':
+                find_way_all(MajorRole.x,MajorRole.y);
+                break;
+
+            }
+           
         }
     }
 }
@@ -379,20 +401,25 @@ void mycharEvent(char ch)
 
 void Exit(void)
 {
+    ExitGraphics();
 }
 
 void CreateMap_ingame(void)
 {
+    page_stage=MAIN_PAGE;
+    StartNewGamePage();
+
 }
 
 void OpenMap_ingame(void)
 {
+    ReadData();
+
 }
 
 void BackToMainPage(void)
 {
+    InitGame();
 }
 
-void TellStuff(void)
-{
-}
+

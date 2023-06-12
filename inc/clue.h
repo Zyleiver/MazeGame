@@ -13,6 +13,6 @@ int find_way_shortest(int curx,int cury);
 int find_way_all(int curx, int cury);
 
 //提示下一步,输入curx、cury（当前横纵坐标），返回下一步的方向，返回0无解
-int next_move(int curx,int cury);
+int next_move(void);
 
 #endif

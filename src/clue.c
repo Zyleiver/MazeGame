@@ -154,7 +154,7 @@ int find_way_all(int curx, int cury)
 }
 
 
-int next_move(int curx,int cury)
+int next_move(void)
 {
     
 }
