@@ -7,8 +7,8 @@
 #include <string.h>
 #include <file.h>
 #include <stdlib.h>
-#include <winuser.h>
-#include<windows.h>
+#include <windows.h>
+#include <stddef.h>
 
 // inc from teacher
 #include "boolean.h"
