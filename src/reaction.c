@@ -84,7 +84,7 @@ void MainPageTell(double mouse_x, double mouse_y)
     }
     else if (TellPress(mouse_x, mouse_y, TempFromSys)) // 按下系统模板
     {
-        ReadSysTemplate();
+        
         // 待定
     }
 }
@@ -185,7 +185,7 @@ void GamePageTell(double mouse_x, double mouse_y)
     else if (TellPress(mouse_x, mouse_y, OpenMap))
     {
         OpenMap_ingame();
-        GameAllPageUnvisible;
+        GameAllPageUnvisible();
     }
     else if (TellPress(mouse_x, mouse_y, SaveGame))
     {
