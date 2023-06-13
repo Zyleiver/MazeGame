@@ -1,25 +1,31 @@
 #ifndef REACTION_H_
 #define REACTION_H_
 
-//é¼ æ ‡äº‹ä»¶ï¼Œåˆ¤æ–­è§¦å‘äº†ä»€ä¹ˆäº‹ä»¶
-void myMouseEvent (int x, int y, int button, int event);
+int ifctrl=0;
+int ifshift=0;
 
-//æŒ‰é”®è§¦å‘äº‹ä»¶ï¼Œå¿«æ·é”®
-void myKeyboardEvent(void);
+// Êó±êÊÂ¼ş£¬ÅĞ¶Ï´¥·¢ÁËÊ²Ã´ÊÂ¼ş
+void myMouseEvent(int x, int y, int button, int event);
 
-//é€€å‡ºç¨‹åº
+// ¿ØÖÆ°´¼ü´¥·¢ÊÂ¼ş£¬¿ì½İ¼ü
+void myKeyboardEvent(int key, int event);
+
+//ÆÕÍ¨°´¼ü´¥·¢ÊÂ¼ş
+void mycharEvent(char ch);
+
+// ÍË³ö³ÌĞò
 void Exit(void);
 
-//æ–°å»ºåœ°å›¾
+// ĞÂ½¨µØÍ¼
 void CreateMap_ingame(void);
 
-//æ‰“å¼€åœ°å›¾
+// ´ò¿ªµØÍ¼
 void OpenMap_ingame(void);
 
-//è¿”å›ä¸»èœå•
+// ·µ»ØÖ÷²Ëµ¥
 void BackToMainPage(void);
 
-//åˆ¤æ–­æ¸¸æˆäº‹ä»¶ï¼ˆç¢°åˆ°æ€ªå…½ã€é‡‘å¸ã€ç»ˆç‚¹ï¼‰
+// ÅĞ¶ÏÓÎÏ·ÊÂ¼ş£¨Åöµ½Ç½¡¢¹ÖÊŞ¡¢½ğ±Ò¡¢ÖÕµã£©
 void TellStuff(void);
 
 #endif

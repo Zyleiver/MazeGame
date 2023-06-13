@@ -4,11 +4,11 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = build/main.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o build/clue.o build/display.o build/file.o build/reaction.o
-LINKOBJ  = build/main.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o build/clue.o build/display.o build/file.o build/reaction.o
+OBJ      = build/main.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o build/clue.o build/display.o build/file.o build/reaction.o build/initgame.o
+LINKOBJ  = build/main.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o build/clue.o build/display.o build/file.o build/reaction.o build/initgame.o
 LIBS     = -L"D:/Dev-Cpp/MinGW64/lib" -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -mwindows -g3
-INCS     = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/ZJUrecord/课程作业/C大程/MazeGame_Git/MazeGame/include" -I"D:/ZJUrecord/课程作业/C大程/MazeGame_Git/MazeGame/inc"
-CXXINCS  = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"D:/ZJUrecord/课程作业/C大程/MazeGame_Git/MazeGame/include" -I"D:/ZJUrecord/课程作业/C大程/MazeGame_Git/MazeGame/inc"
+INCS     = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"include" -I"inc"
+CXXINCS  = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"include" -I"inc"
 BIN      = bin/MazeGame.exe
 CXXFLAGS = $(CXXINCS) -g3
 CFLAGS   = $(INCS) -g3
@@ -62,3 +62,6 @@ build/file.o: src/file.c
 
 build/reaction.o: src/reaction.c
 	$(CC) -c src/reaction.c -o build/reaction.o $(CFLAGS)
+
+build/initgame.o: src/initgame.c
+	$(CC) -c src/initgame.c -o build/initgame.o $(CFLAGS)

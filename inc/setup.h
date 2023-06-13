@@ -1,17 +1,32 @@
 #ifndef SETUP_H_
 #define SETUP_H_
 
-//åˆ›å»ºä¸€ä¸ªéšæœºçš„æ–°åœ°å›¾
+
+//ÔÝÊ±ÏÈÁî¹ÖÊÞÒÆ¶¯Ê±¼ä¼ä¸ô£¨ËÙ¶È£©Îª1000
+#define SPEED 1000
+
+//ÔÝÊ±ÏÈÁîµØÍ¼Îª18*18£¬ºê¶¨ÒåÊýÖµ¼ÆËã¹«Ê½
+//ÓÃ»§ÊäÈëµØÍ¼³ß´çX¡¢Y.  MZX = X*2 - 1; MZY = Y*2 - 1
+//Õâ¾ÍÒâÎ¶×ÅÉú³ÉµÄµØÍ¼²»½«Ç½Ëã½øÓÃ»§Ö¸¶¨µÄ¸ñÊýÖÐ
+//¿ÉÒÔ»­Ï¸ÆæÊýÁÐÅ¼ÊýÐÐµÄ·½¸ñ£¨¡ª¡ª£©ºÍÅ¼ÊýÁÐÆæÊýÐÐµÄ·½¸ñ£¨|£©¡ª¡ª¡ª¡ª¼´Ç½
+//²¢ÇÒ½«Å¼ÊýÁÐÅ¼ÊýÐÐµÄ·½¸ñ»­³É£¨.£©¡ª¡ª¡ª¡ªÕâ¸öÎ»ÖÃÓÀÔ¶¶¼ÊÇÇ½
+//ÆæÊýÁÐÆæÊýÐÐÔòÒ»¶¨ÊÇROAD»òCOIN»òSTART»òEND
+//¶øÇÒÔÚÖ÷½ÇºÍ¹ÖÊÞÒÆ¶¯Ê±£¬ÐèÒªÔÚ³ÌÐòÉÏ¿çÔ½Á½¸öROAD£¬ÕâÑùÇ°¶ËÏÔÊ¾²ÅÊÇ¿çÔ½ÁËÒ»¸ö¡°·½¸ñ¡±
+//À´±£³ÖÕûÌå·½ÐÎÇÒÂú×ãÓÃ»§ÒªÇó
+#define MZX 35
+#define MZY 35
+
+//´´½¨Ò»¸öËæ»úµÄÐÂµØÍ¼
 void CreateNewMap(void);
 
-//æ‰‹åŠ¨åˆ›å»ºåœ°å›¾/åœ°å›¾ç¼–è¾‘
+//ÊÖ¶¯´´½¨µØÍ¼/µØÍ¼±à¼­
 void BuildMap(void);
 
-//ä½¿ç”¨æ¨¡æ¿
+//Ê¹ÓÃÄ£°å
 void UseTemplate(void);
 
-//æ¸¸æˆåˆå§‹åŒ–ï¼ˆäººç‰©ã€æ€ªå…½ã€é‡‘å¸åˆå§‹åŒ–ï¼‰
-void GameInit(void);
+//ÓÎÏ·³õÊ¼»¯£¨ÈËÎï¡¢¹ÖÊÞ¡¢½ð±Ò³õÊ¼»¯£©
+void InitMap(void);
 
 
 #endif

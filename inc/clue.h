@@ -1,10 +1,18 @@
 #ifndef CLUE_H_
 #define CLUE_H_
 
-//è·¯å¾„å¯»æ‰¾ï¼Œè¾“å…¥curxã€curyï¼ˆå½“å‰æ¨ªçºµåæ ‡ï¼‰ï¼Œå°†è·¯å¾„å­˜åœ¨é“¾è¡¨é‡Œï¼Œè¿”å›0ä¸ºæœªæ‰¾åˆ°ï¼Œè¿”å›1ä¸ºæ‰¾åˆ°
-int find_way(int curx,int cury);
+#define MZX 35
+#define MZY 35
 
-//æç¤ºä¸‹ä¸€æ­¥,è¾“å…¥curxã€curyï¼ˆå½“å‰æ¨ªçºµåæ ‡ï¼‰ï¼Œè¿”å›ä¸‹ä¸€æ­¥çš„æ–¹å‘
-nextway next_move(int curx,int cury);
+extern Map[100][100];
+
+//×î¶ÌÂ·¾¶Ñ°ÕÒ£¬ÊäÈëcurx¡¢cury£¨µ±Ç°ºá×İ×ø±ê£©£¬½«Â·¾¶´æÔÚÁ´±íÀï£¬·µ»Ø0ÎªÎ´ÕÒµ½£¬·µ»Ø1ÎªÕÒµ½
+int find_way_shortest(int curx,int cury);
+
+//ËùÓĞÂ·¾¶Ñ°ÕÒ£¬·µ»Ø0ÎŞ½â
+int find_way_all(int curx, int cury);
+
+//ÌáÊ¾ÏÂÒ»²½,ÊäÈëcurx¡¢cury£¨µ±Ç°ºá×İ×ø±ê£©£¬·µ»ØÏÂÒ»²½µÄ·½Ïò£¬·µ»Ø0ÎŞ½â
+int next_move(void);
 
 #endif
