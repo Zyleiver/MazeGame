@@ -199,7 +199,9 @@ void ToolPageTell(double mouse_x,double mouse_y)
     {
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[ShowShortestPath]))
-    {
+    {   
+        ButtonEnum[ShowShortestPath].stage=1-ButtonEnum[ShowShortestPath].stage;
+        find_way_shortest(MajorRole.x,MajorRole.y);
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[ShowAllPath]))
     {   

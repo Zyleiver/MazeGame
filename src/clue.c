@@ -1,6 +1,6 @@
 #include"MyHeader.h"
 
-Pallway Allhead = NULL;
+Pallway AllHead = NULL;
 Pallway Alltail;
 
 extern Map[100][100];
@@ -45,16 +45,16 @@ printf("%d %d\n",queue[t].x,queue[t].y);//该行测试点
 int find_way_shortest(int curx,int cury)
 {
      //清空路径链表
-    if(Allhead!=NULL)
+    if(AllHead!=NULL)
     {
-    	Pallway tempp1 = Allhead->Next;
+    	Pallway tempp1 = AllHead->Next;
     	while(tempp1 != NULL)
     	{
-        	pWay tempp2 = tempp1->Next;
+        	Pallway tempp2 = tempp1->Next;
         	free(tempp1);
         	tempp1 = tempp2;
     	}
-    Allhead = NULL;
+    AllHead = NULL;
 	}
 
     header = 1; tailer = 1;
@@ -128,13 +128,13 @@ int find_way_shortest(int curx,int cury)
     f(tailer - 1);
 
     //存入allway总路径表
-    Alltail = Allhead;
+    Alltail = AllHead;
     Pallway tempq;
     tempq = (Pallway)malloc(sizeof(struct AllWay));
     tempq->ThisWay = head1;
     tempq->Next = NULL;
-    if(Allhead==NULL)
-        Allhead = tempq;
+    if(AllHead==NULL)
+        AllHead = tempq;
     else 
         Alltail->Next = tempq;
 
@@ -233,8 +233,8 @@ void dfs(int x, int y)
         temdp->ThisWay = dpthisheader;
         temdp->Next = NULL;
         
-        if(Allhead = NULL)
-        	Allhead = temdp;
+        if(AllHead = NULL)
+        	AllHead = temdp;
         else
         	Alltail->Next = temdp;
         	
@@ -292,17 +292,17 @@ int find_way_all(int curx, int cury)
     solution =0;
 
     //清空路径链表
-    if(Allhead!=NULL)
+    if(AllHead!=NULL)
     {
-    	Pallway tempp1 = Allhead->Next;
+    	Pallway tempp1 = AllHead->Next;
     	while(tempp1 != NULL)
     	{
-        	pWay tempp2 = tempp1->Next;
+        	Pallway tempp2 = tempp1->Next;
         	free(tempp1);
         	tempp1 = tempp2;
     	}
-    Allhead = NULL;
-    Alltail = Allhead;
+    AllHead = NULL;
+    Alltail = AllHead;
 	}
     
 
