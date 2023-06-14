@@ -1,8 +1,5 @@
 #include"MyHeader.h"
 
-#define MZX 35
-#define MZY 35
-
 Pallway Allhead = NULL;
 Pallway Alltail;
 
@@ -64,7 +61,7 @@ int find_way_shortest(int curx,int cury)
 
     //初始化终点、访问数组、临时节点
     int finalx = MZX, finaly = MZY;
-    int visit[MZX+4][MZY+4] = {0};
+    int visit[100+4][100+4] = {0};
     int tx,ty, txwall, tywall;
     
     //初始化方向
@@ -186,7 +183,7 @@ int find_way_shortest(int curx,int cury)
 //使用深度优先搜索DFS
 int dir[4][4] = {{2,0,1,0},{-2,0,-1,0},{0,2,0,1},{0,-2,0,-1}};
 
-int visiter[MZX+4][MZY+4] = {0};
+int visiter[100+4][100+4] = {0};
 
 int txdp,tydp,txdpwall,tydpwall;
 

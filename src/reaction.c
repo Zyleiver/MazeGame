@@ -139,7 +139,7 @@ void ChoseMapPageTell(double mouse_x,double mouse_y)
 {
     if(TellPress(mouse_x,mouse_y,ButtonEnum[BuildMapAuto]))
     {
-        //CreateNewMap();
+        CreateNewMap();
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[BuildMapManu]))
     {
@@ -170,6 +170,7 @@ void MenuPageTell(double mouse_x, double mouse_y)
     {
         ButtonEnum[CrtNewMap].stage=Button_DOWN;
         ShiftPageTo(CHOSEMAP_PAGE);
+        
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[OpenMap]))
     {
         ReadData();
