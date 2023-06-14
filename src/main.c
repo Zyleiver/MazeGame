@@ -19,10 +19,6 @@ void Main()
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
 	registerCharEvent(mycharEvent);
-	startTimer(1,100);
 }
-void myTimerEvent(int timerID)
-{
-	display();
-}
+
 

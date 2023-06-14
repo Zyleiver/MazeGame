@@ -170,4 +170,6 @@ struct AllWay
 typedef struct AllWay *Pallway; // 路径链表的指针
 extern Pallway AllHead;
 
+//时钟ID
+
 #endif
