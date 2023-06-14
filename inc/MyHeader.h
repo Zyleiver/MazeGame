@@ -171,5 +171,11 @@ typedef struct AllWay *Pallway; // 路径链表的指针
 extern Pallway AllHead;
 
 //时钟ID
+typedef enum{
+    MonsterTimer,
+    FlashTimer,
+    GameTouchTimer,
+}timeID;
+
 
 #endif

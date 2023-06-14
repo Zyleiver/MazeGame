@@ -330,7 +330,6 @@ printf("%d\n",solution);
 int next_move(void)
 {
     //调用广搜函数（最短路径函数）
-    find_way_shortest(curx, cury);
-    display();
+    find_way_shortest(MajorRole.x, MajorRole.y);
     //但display时只显示下一步
 }
