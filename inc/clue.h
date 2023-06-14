@@ -1,8 +1,6 @@
 #ifndef CLUE_H_
 #define CLUE_H_
 
-#define MZX 35
-#define MZY 35
 
 extern Map[100][100];
 
