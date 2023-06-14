@@ -12,7 +12,7 @@
 
 // inc from teacher
 #include "boolean.h"
-#include "exception.h"
+// #include "exception.h"
 #include "extgraph.h"
 #include "gcalloc.h"
 #include "genlib.h"
@@ -42,7 +42,11 @@
 enum Page_Stage
 {
     MAIN_PAGE = 0, // 主界面
+    CHOSEMAP_PAGE, // 选择生成地图方式界面
     GAME_PAGE,     // 游戏界面
+    EDIT_PAGE,     // 地图编辑界面
+    MENU_PAGE,     // 菜单界面
+    TOOL_PAGE,     // 工具界面
     END_PAGE,      // 结束界面
 };
 
@@ -63,6 +67,7 @@ typedef struct
 } Button;
 typedef Button *PButton;
 
+extern Button ButtonEnum[25];
 // 按钮状态，Button_UP为松开，Button_DOWN为按下
 enum Button_stage
 {
@@ -78,7 +83,7 @@ enum Button_visible
 };
 
 // 按钮
-
+/*
 // 所有的按钮
 extern Button StartNewGame;     // 开始新游戏
 extern Button BuildMapAuto;     // 自动生成地图
@@ -97,15 +102,15 @@ extern Button SaveAsTemp;       // 保存为模板（Ctrl+m）
 extern Button BackToMP;         // 返回主界面（Ctrl+b）
 extern Button Tools;            // 工具
 extern Button EditMap;          // 编辑地图（Ctrl+e）
-extern Button PromptNextStep;   // 提示下一步（Alt+p）
-extern Button ShowShortestPath; // 显示最短路径（Alt+r）
-extern Button ShowAllPath;      // 显示全部路径（Alt+a）
+extern Button PromptNextStep;   // 提示下一步（Shift+p）
+extern Button ShowShortestPath; // 显示最短路径（Shift+r）
+extern Button ShowAllPath;      // 显示全部路径（Shift+a）
 extern Button LeftShiftPath;    // 显示全部路径时左切
 extern Button RightShiftPath;   // 显示全部路径时右切
 extern Button Instruction;      // 使用说明
 extern Button About_Game;       // 关于
 extern Button Back;             // 回退
-
+*/
 // 元素相关——————————————————————————————————————————————————————
 
 // 方块元素，ROAD为路，WALL为墙，COIN为金币

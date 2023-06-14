@@ -1,9 +1,5 @@
 #include "MyHeader.h"
 
-void ReadData(void)
-{
-}
-
 void ReadTemplate(void)
 {
 }
@@ -49,10 +45,9 @@ void saveMap()
             fclose(file);
         }
     }
-    Monster.hp = 100;
 }
 
-void openMap()
+int ReadData(void)
 {
     OPENFILENAME ofn;
     char szFile[MAX_PATH] = "";
@@ -84,6 +79,11 @@ void openMap()
             fscanf(file, "%d %d %d\n", &MajorRole.hp, &MajorRole.x, &MajorRole.y);
             fclose(file);
         }
+        return 1;
+    }
+    else
+    {
+        return 0;
     }
 }
 
@@ -158,7 +158,7 @@ void SaveAsTemplate(void)
 
 void Instruct(void)
 {
-    int INSTRUCTION = MessageBox(NULL, "", "使用说明", MB_OK| MB_ICONINFORMATION );
+    int INSTRUCTION = MessageBox(NULL, "", "使用说明", MB_OK | MB_ICONINFORMATION);
 }
 
 void AboutGame(void)
