@@ -1,8 +1,13 @@
 #include"MyHeader.h"
 
-Pallway Allhead;
+#define MZX 35
+#define MZY 35
 
-//路径节点
+Pallway Allhead = NULL;
+Pallway Alltail;
+
+extern Map[100][100];
+
 struct listnote
 {
         int x;
@@ -16,7 +21,7 @@ struct listnote
     
     //申请队列
     struct listnote queue[10000];
-    int header = 1, tailer = 1, i1;
+    int header = 1, tailer = 1, i1,i2;
 
 void f(int t)
 {
@@ -42,8 +47,21 @@ printf("%d %d\n",queue[t].x,queue[t].y);//该行测试点
 //使用广度优先搜索BFS
 int find_way_shortest(int curx,int cury)
 {
+     //清空路径链表
+    if(Allhead!=NULL)
+    {
+    	Pallway tempp1 = Allhead->Next;
+    	while(tempp1 != NULL)
+    	{
+        	pWay tempp2 = tempp1->Next;
+        	free(tempp1);
+        	tempp1 = tempp2;
+    	}
+    Allhead = NULL;
+	}
 
-    
+    header = 1; tailer = 1;
+
     //初始化终点、访问数组、临时节点
     int finalx = MZX, finaly = MZY;
     int visit[MZX+4][MZY+4] = {0};
@@ -97,6 +115,8 @@ int find_way_shortest(int curx,int cury)
             }
             
         }
+        //找到则退出
+        if(flag == 1) break;
 
 		//队首出队头标后移 
         header++;
@@ -109,12 +129,27 @@ int find_way_shortest(int curx,int cury)
 	//递归存储最短路径解 
 	tail1 = head1;
     f(tailer - 1);
-    
-    
+
+    //存入allway总路径表
+    Alltail = Allhead;
+    Pallway tempq;
+    tempq = (Pallway)malloc(sizeof(struct AllWay));
+    tempq->ThisWay = head1;
+    tempq->Next = NULL;
+    if(Allhead==NULL)
+        Allhead = tempq;
+    else 
+        Alltail->Next = tempq;
+
+        Alltail = tempq;
+
+
+/*
     //测试用 
     pWay q = head1;
     while(q!=NULL)
     {
+    	system("cls");
     	printf("%d %d\n",q->x,q->y);
        	int i8,j8; 
     	for(i8 = MZX+1;i8>=0;i8--)
@@ -141,6 +176,7 @@ int find_way_shortest(int curx,int cury)
     	getchar();
 	}
 	//测试结束 
+*/
 	
 	//找到解返回1 
     return 1;
@@ -148,13 +184,153 @@ int find_way_shortest(int curx,int cury)
 }
 
 //使用深度优先搜索DFS
+int dir[4][4] = {{2,0,1,0},{-2,0,-1,0},{0,2,0,1},{0,-2,0,-1}};
+
+int visiter[MZX+4][MZY+4] = {0};
+
+int txdp,tydp,txdpwall,tydpwall;
+
+typedef struct depthlist{
+    int x;
+    int y;
+} dplist;
+
+dplist s[10000];
+
+int top = 0;
+int solution = 0;
+
+Pallway dpalltail;
+pWay dpthistail;
+
+
+void dfs(int x, int y)
+{
+    if(visiter[MZX+1][MZY+1]==1)
+    {
+    	printf("find\n");
+    	getchar();
+        solution ++;
+		printf("%d\n",solution);
+		
+		pWay dpthisheader = NULL;
+		pWay dpthistailer;
+		dpthistailer = dpthisheader;
+		
+        for(i1 = 0; i1<=top;i1++)
+        {
+            pWay tt = (pWay)malloc(sizeof(struct Way));
+            tt->x = s[i1].x;
+            tt->y = s[i1].y;
+            tt->next = NULL;
+
+            if(dpthisheader == NULL)
+                dpthisheader = tt;
+            else 
+				dpthistailer->next = tt;
+				
+                dpthistailer = tt;
+        }
+        
+        Pallway temdp = (Pallway)malloc(sizeof(struct AllWay));
+        temdp->ThisWay = dpthisheader;
+        temdp->Next = NULL;
+        
+        if(Allhead = NULL)
+        	Allhead = temdp;
+        else
+        	Alltail->Next = temdp;
+        	
+        	Alltail = temdp;
+
+		
+        return;
+    }
+
+    for(i1 = 0; i1<=3; i1++)
+        {
+        	
+        	//该方向上相邻的单元格 
+            txdp = x + dir[i1][0];
+            tydp = y + dir[i1][1];
+			
+			//用于判断该方向上是否有墙 
+            txdpwall = x + dir[i1][2];
+            tydpwall = y + dir[i1][3];
+		
+            if(visiter[txdp+1][tydp+1]==0 && Map[txdpwall][tydpwall] == ROAD)
+            {
+            	//若满足条件则将新单元入队 
+                visiter[txdp+1][tydp+1]=1;
+                top++;
+                s[top].y = tydp;
+                s[top].x = txdp;
+                
+printf("%d %d\n",txdp,tydp);
+getchar();
+				int temi1 = i1;
+                dfs(txdp,tydp);
+                i1 = temi1;
+				printf("退");
+                visiter[txdp+1][tydp+1]=0;
+                top--;
+            }
+
+        }
+}
+
+
 int find_way_all(int curx, int cury)
 {
+
+    //清理初始化
+    for(i1 = 0; i1<MZX+4 ; i1++)
+    {
+        for(i2 = 0; i2<MZY+4 ; i2++)
+        {
+            visiter[i1][i2] = 0;
+        }
+    }
+    top = 0;
+    solution =0;
+
+    //清空路径链表
+    if(Allhead!=NULL)
+    {
+    	Pallway tempp1 = Allhead->Next;
+    	while(tempp1 != NULL)
+    	{
+        	pWay tempp2 = tempp1->Next;
+        	free(tempp1);
+        	tempp1 = tempp2;
+    	}
+    Allhead = NULL;
+    Alltail = Allhead;
+	}
+    
+
+    //起点初始化
+    visiter[curx+1][cury+1] = 1;
+    s[0].x = curx;
+    s[0].y = cury;
+
+	
+    
+    //开始递归
+    dfs(curx,cury);
+    
+printf("%d\n",solution);
+    
+    if(solution==0) return 0 ;
+    else return 1;
     
 }
 
 
 int next_move(void)
 {
-    
+    //调用广搜函数（最短路径函数）
+    find_way_shortest(curx, cury);
+    display();
+    //但display时只显示下一步
 }
