@@ -1,9 +1,7 @@
 #include "MyHeader.h"
 
-#define MZX 35
-#define MZY 35
-
-extern Map[100][100];
+int MZX;
+int MZY;
 	
 //循环变量群 
 int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14;
@@ -76,7 +74,7 @@ void CreateNewMap(void)
     //迷宫最开始时设置了都为ROAD，所以只需要设置初始WALL即可
 
     //初始化将所有方格设为未访问
-    int visit[MZX+4][MZY+4];
+    int visit[100+4][100+4];
     for(i10 = 0;i10<=MZX+3;i10++)
     {
     	for(i11 = 0;i11<=MZY+3;i11++)
@@ -86,6 +84,9 @@ void CreateNewMap(void)
 	}
     //visit[x+1][y+1]是用于判断ROAD方格是否被访问过的数组，x和y为横纵坐标
     //+1是防止下方visit判断过程边界击穿
+
+
+
 
     //迷宫从（1，1）开始，（MZX，MZY）结束
     Map[1][1] = START;
@@ -121,10 +122,11 @@ void CreateNewMap(void)
     }
     p = head;
 
+	printf("t\n");
+
     //首先访问起点（1，1）
     visit[1+1][1+1]=YES;
     printf("%d",visit[2][2]);
-    getchar();
     vnum++;
     head = head->next;
     p = head;
@@ -213,8 +215,6 @@ void CreateNewMap(void)
     //但注意Map数组实际要画出的内容仅为[1][1]到[MZX][MZY]
     //终点位于[MZX][MZY],起点位于[1][1]，如有需要可以更改其位置或者地图大小
 
-    //画出地图
-    display();
 
     //以下为人物、怪兽、金币初始化
     GameInit();
@@ -238,7 +238,6 @@ void CreateNewMap(void)
 			}
 			printf("\n");
 		}
-		getchar();
 		//测试结束 
 }
 
@@ -254,8 +253,7 @@ void GameInit(void)
     MajorRole.x = 1;
     MajorRole.y = 1;
 
-    //画出主角
-    display();
+
 
     //三个金币状态初始化
     int coinx, coiny;

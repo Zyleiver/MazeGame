@@ -13,8 +13,8 @@ extern int monsternum;
 //奇数列奇数行则一定是ROAD或COIN或START或END
 //而且在主角和怪兽移动时，需要在程序上跨越两个ROAD，这样前端显示才是跨越了一个“方格”
 //来保持整体方形且满足用户要求
-#define MZX 35
-#define MZY 35
+extern int MZX;
+extern int MZY;
 
 //创建一个随机的新地图
 void CreateNewMap(void);
@@ -29,5 +29,5 @@ void UseTemplate(void);
 //游戏初始化（人物、怪兽、金币初始化）
 void InitMap(void);
 
-
+extern int Map[100][100];
 #endif

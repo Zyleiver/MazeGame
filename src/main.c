@@ -14,12 +14,17 @@ void Main()
 	InitConsole(); 
 	InitGraphics();
 	InitGame();
-	display();
+	
+	xscale=yscale=20;
+	MZX=xscale*2-1;
+	MZY=yscale*2-1;
+	
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
 	registerCharEvent(mycharEvent);
 	startTimer(MonsterTimer,MONSTERSPEED);
+	startTimer(FlashTimer,10);
 }
 
 

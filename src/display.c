@@ -5,7 +5,9 @@ int xscale,yscale;
 void display(void)
 {
 	DisplayClear();
-
+	if(page_stage!=MAIN_PAGE && page_stage!=CHOSEMAP_PAGE)
+	{
+		
 	int imap,jmap;
 	double Xlength;
 	double Ylength;
@@ -13,7 +15,7 @@ void display(void)
 	double x0;
 	double y0;
 
-	length=-0.75*((double)xscale+(double)yscale)+36;
+	length=-0.7*((double)xscale+(double)yscale)+34;
 	Xlength=(double)xscale*length;
 	Ylength=(double)yscale*length;
 	x0=150-Xlength/2;
@@ -35,20 +37,28 @@ void display(void)
 					
 				}
     			if(Map[jmap][imap]==COIN)
-    			{
-					drawBox(x0+(jmap-1)/2*length+length/3,y0+(imap-1)/2*length+length/3,length*2/3,length*2/3,1,"",'M',"Yellow");
+    			{	
+    				SetPenColor("Yellow");
+					drawBox(x0+(jmap-1)/2*length+length/3,y0+(imap-1)/2*length+length/3,length/6,length/6,1,"",'M',"Yellow");
+					SetPenColor("Red");
 				}
     			if(Map[jmap][imap]==END)
-				{
-					drawBox(x0+(jmap-1)/2*length+length/3,y0+(imap-1)/2*length+length/3,length*2/3,length*2/3,1,"",'M',"Green");
+				{	
+					SetPenColor("Green");
+					drawBox(x0+(jmap-1)/2*length+length/6,y0+(imap-1)/2*length+length/6,length*2/3,length*2/3,1,"",'M',"Green");
+					SetPenColor("Red");
 				}
     			if(Map[jmap][imap]==START)
     			{
-					drawBox(x0+(jmap-1)/2*length+length/3,y0+(imap-1)/2*length+length/3,length*2/3,length*2/3,1,"",'M',"Blue");
+    				SetPenColor("Blue");
+					drawBox(x0+(jmap-1)/2*length+length/6,y0+(imap-1)/2*length+length/6,length*2/3,length*2/3,1,"",'M',"Blue");
+					SetPenColor("Red");
 				}
 			}
 			
 		}
+	}
+	
 
 	int j=0;
 	for(j;j<25;j++){
