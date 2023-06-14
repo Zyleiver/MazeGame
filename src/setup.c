@@ -1,20 +1,19 @@
 #include "MyHeader.h"
 
-//暂时先令自动生成地图时生成三个怪兽
-Charactor Monster1;
-Charactor Monster2;
-Charactor Monster3;
-
 #define MZX 35
 #define MZY 35
+
+extern Map[100][100];
 	
 //循环变量群 
-int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13;
+int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14;
 
 //用于随机选择未访问方格的过程中，存放随机序号
 int rnum;
 //用于随机选择未访问方格的过程中，存放对应随机序号方格的坐标
 int rnumx,rnumy;
+
+int monsternum;
 
 //用于在迷宫生成算法中判断方格是否被访问过
 typedef enum
@@ -35,13 +34,14 @@ struct nonvisit
 void CreateNewMap(void)
 {
     //地图恢复原始状态为建立作准备
-    for (i12 = 0; i12 <= 100; i12++)
+    for (i12 = 0; i12 < 100; i12++)
     {
-        for(i13 = 0; i13 <= 100; i13++)
+        for(i13 = 0; i13 < 100; i13++)
         {
             Map[i12][i13] = ROAD;
         }
     }
+    
 
     //全图最外层一圈设置为墙，但在前端不显示出来，只是便于算法实现，免去讨论边界情况
     for(i1 = 0; i1<=MZX+1; i1++)
@@ -123,6 +123,8 @@ void CreateNewMap(void)
 
     //首先访问起点（1，1）
     visit[1+1][1+1]=YES;
+    printf("%d",visit[2][2]);
+    getchar();
     vnum++;
     head = head->next;
     p = head;
@@ -217,7 +219,7 @@ void CreateNewMap(void)
     //以下为人物、怪兽、金币初始化
     GameInit();
     
-    //测试点，可删去
+    	//测试点 
     	int i,j;
     	for(i = MZX+1;i>=0;i--)
     	{
@@ -237,7 +239,7 @@ void CreateNewMap(void)
 			printf("\n");
 		}
 		getchar();
-    //测试点结束
+		//测试结束 
 }
 
 
@@ -274,67 +276,105 @@ void GameInit(void)
     }//金币生成在距离合适的ROAD上
 
     //三只怪兽状态初始化
-    Monster1.hp = 100;
+    if(monsternum > 0)
+  	Monster[0].hp = 100;
+
     while (1)
     {
-        Monster1.x = rand()%(MZX)+1;
-        Monster1.y = rand()%(MZY)+1;
-        if((Monster1.x>=MZX/3 || Monster1.y>=MZY/3) && (Monster1.x<=4*MZX/5 || Monster1.y<=4*MZY/5) && (Map[Monster1.x][Monster1.y] == ROAD))
+        Monster[0].x = rand()%(MZX)+1;
+        Monster[0].y = rand()%(MZY)+1;
+        if((Monster[0].x>=MZX/3 || Monster[0].y>=MZY/3) && (Monster[0].x<=4*MZX/5 || Monster[0].y<=4*MZY/5) && (Map[Monster[0].x][Monster[0].y] == ROAD))
         {
-            if(Monster1.x%2!=0 && Monster1.y%2!=0)
+            if(Monster[0].x%2!=0 && Monster[0].y%2!=0)
             break;
         }
     }
 
-    Monster2.hp = 100;
+    if(monsternum > 1)
+    Monster[1].hp = 100;
+
     while (1)
     {
-        Monster2.x = rand()%(MZX)+1;
-        Monster2.y = rand()%(MZY)+1;
-        if((Monster2.x>=MZX/3 || Monster2.y>=MZY/3) && (Monster2.x<=4*MZX/5 || Monster2.y<=4*MZY/5) && (Map[Monster2.x][Monster2.y] == ROAD))
+        Monster[1].x = rand()%(MZX)+1;
+        Monster[1].y = rand()%(MZY)+1;
+        if((Monster[1].x>=MZX/3 || Monster[1].y>=MZY/3) && (Monster[1].x<=4*MZX/5 || Monster[1].y<=4*MZY/5) && (Map[Monster[1].x][Monster[1].y] == ROAD))
         {
-            if(fabs(Monster2.x-Monster1.x)>MZX/4 || fabs(Monster2.y-Monster1.y)>MZY/4)
+            if(fabs(Monster[1].x-Monster[0].x)>MZX/4 || fabs(Monster[1].y-Monster[0].y)>MZY/4)
             {
-                if(Monster2.x%2!=0 && Monster2.y%2!=0)
+                if(Monster[1].x%2!=0 && Monster[1].y%2!=0)
                 break;
             }
         }
     }
     
-    Monster3.hp = 100;
+    if(monsternum > 2)
+    Monster[2].hp = 100;
+    
     while (1)
     {
     	
-        Monster3.x = rand()%(MZX)+1;
-        Monster3.y = rand()%(MZY)+1;
-        if((Monster3.x>=MZX/3 || Monster3.y>=MZY/3) && (Monster3.x<=4*MZX/5 || Monster3.y<=4*MZY/5) && (Map[Monster3.x][Monster3.y] == ROAD))
+        Monster[2].x = rand()%(MZX)+1;
+        Monster[2].y = rand()%(MZY)+1;
+        if((Monster[2].x>=MZX/3 || Monster[2].y>=MZY/3) && (Monster[2].x<=4*MZX/5 || Monster[2].y<=4*MZY/5) && (Map[Monster[2].x][Monster[2].y] == ROAD))
         {
-            if(fabs(Monster3.x-Monster1.x)>MZX/4 || fabs(Monster3.y-Monster1.y)>MZY/4)
+            if(fabs(Monster[2].x-Monster[0].x)>MZX/4 || fabs(Monster[2].y-Monster[0].y)>MZY/4)
             {
-                if(fabs(Monster3.x-Monster2.x)>MZX/4 || fabs(Monster3.y-Monster2.y)>MZY/4)
+                if(fabs(Monster[2].x-Monster[1].x)>MZX/4 || fabs(Monster[2].y-Monster[1].y)>MZY/4)
                 {
-                    if(Monster3.x%2!=0 && Monster3.y%2!=0)
+                    if(Monster[2].x%2!=0 && Monster[2].y%2!=0)
                     break;
                 }
             }
         }
     }
-    //生成三只怪兽的初始坐标，且距离适当
-
-    //画出初始怪兽1、2、3
-    display();
-
     //下来令怪兽在适当范围内移动
-    //startTimer(MonsterTimer,SPEED);
-    //这里需要在时间回调函数里继续写...
-    //还需要在MyHeader.h中再写一下时间回调函数的各种timeID
+    
+    
 }
 
 
 //******手动生成地图******//
 void BuildMap(void)
 {
-    //这里也需要用到回调函数，判断用户选择的button做出动作
     
 }
 
+
+void myTimerEvent(int timerID)
+{
+    switch (timerID)
+    {
+    case MonsterTimer:
+            if(Monster[0].hp != 100) break;
+            for(i14 = 0;i14<3;i14 ++)
+            {
+                if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
+                {   
+                    Monster[i14].y++;
+                    Monster[i14].y++;
+                }
+                else if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                {
+                    Monster[i14].x++;
+                    Monster[i14].x++;
+                }
+                else if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
+                {
+                    Monster[i14].x--;
+                    Monster[i14].x--;
+                }
+                else if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
+                {
+                    Monster[i14].y--;
+                    Monster[i14].y--;
+                }
+            }  
+
+            //画出移动后的怪兽
+            display();
+        break;
+    
+    default:
+        break;
+    }
+}

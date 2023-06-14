@@ -125,7 +125,7 @@ typedef struct
 
 // 侭嗤叔弼
 Charactor MajorRole; // 麼叔
-Charactor Monster;   // 講舗
+Charactor Monster[3];   // 講舗
 
 // 揃�瀟犢悄�！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 
