@@ -47,26 +47,18 @@ printf("%d %d\n",queue[t].x,queue[t].y);//该行测试点
 //使用广度优先搜索BFS
 int find_way_shortest(int curx,int cury)
 {
-    //清空路径链表
-    Pallway tempp1 = Allhead;
-    while(tempp1 != NULL)
+     //清空路径链表
+    if(Allhead!=NULL)
     {
-        pWay temppp1 = Allhead->ThisWay;
-        while (temppp1 != NULL)
-        {
-            Allhead->ThisWay = temppp1->next;
-            free(temppp1);
-            temppp1 = Allhead->ThisWay;
-        }
-        Allhead = tempp1->Next;
-        free(tempp1);
-        tempp1 = Allhead->Next;
-    }
-    tempp1 = Allhead = NULL;
-
-    
-
-    //
+    	Pallway tempp1 = Allhead->Next;
+    	while(tempp1 != NULL)
+    	{
+        	pWay tempp2 = tempp1->Next;
+        	free(tempp1);
+        	tempp1 = tempp2;
+    	}
+    Allhead = NULL;
+	}
 
     header = 1; tailer = 1;
 
@@ -152,11 +144,12 @@ int find_way_shortest(int curx,int cury)
         Alltail = tempq;
 
 
-
+/*
     //测试用 
     pWay q = head1;
     while(q!=NULL)
     {
+    	system("cls");
     	printf("%d %d\n",q->x,q->y);
        	int i8,j8; 
     	for(i8 = MZX+1;i8>=0;i8--)
@@ -183,6 +176,7 @@ int find_way_shortest(int curx,int cury)
     	getchar();
 	}
 	//测试结束 
+*/
 	
 	//找到解返回1 
     return 1;
@@ -212,12 +206,17 @@ pWay dpthistail;
 
 void dfs(int x, int y)
 {
-    if(visiter[x+1][y+1]==1)
+    if(visiter[MZX+1][MZY+1]==1)
     {
+    	printf("find\n");
+    	getchar();
         solution ++;
-
-        Pallway dpthishead = (Pallway)malloc(sizeof(struct AllWay));
-
+		printf("%d\n",solution);
+		
+		pWay dpthisheader = NULL;
+		pWay dpthistailer;
+		dpthistailer = dpthisheader;
+		
         for(i1 = 0; i1<=top;i1++)
         {
             pWay tt = (pWay)malloc(sizeof(struct Way));
@@ -225,26 +224,32 @@ void dfs(int x, int y)
             tt->y = s[i1].y;
             tt->next = NULL;
 
-            if(dpthishead->ThisWay == NULL)
-                dpthishead->ThisWay = tt;
-            else dpthistail->next = tt;
-
-                dpthistail = tt;
+            if(dpthisheader == NULL)
+                dpthisheader = tt;
+            else 
+				dpthistailer->next = tt;
+				
+                dpthistailer = tt;
         }
+        
+        Pallway temdp = (Pallway)malloc(sizeof(struct AllWay));
+        temdp->ThisWay = dpthisheader;
+        temdp->Next = NULL;
+        
+        if(Allhead = NULL)
+        	Allhead = temdp;
+        else
+        	Alltail->Next = temdp;
+        	
+        	Alltail = temdp;
 
-        dpthishead->Next = NULL;
-
-        if(Allhead == NULL)
-            Allhead = dpthishead;
-        else dpalltail->Next = dpthishead;
-
-            dpalltail = dpthishead;
-
+		
         return;
     }
 
     for(i1 = 0; i1<=3; i1++)
         {
+        	
         	//该方向上相邻的单元格 
             txdp = x + dir[i1][0];
             tydp = y + dir[i1][1];
@@ -261,8 +266,12 @@ void dfs(int x, int y)
                 s[top].y = tydp;
                 s[top].x = txdp;
                 
+printf("%d %d\n",txdp,tydp);
+getchar();
+				int temi1 = i1;
                 dfs(txdp,tydp);
-
+                i1 = temi1;
+				printf("退");
                 visiter[txdp+1][tydp+1]=0;
                 top--;
             }
@@ -286,31 +295,31 @@ int find_way_all(int curx, int cury)
     solution =0;
 
     //清空路径链表
-    Pallway tempp1 = Allhead;
-    while(tempp1 != NULL)
+    if(Allhead!=NULL)
     {
-        pWay temppp1 = Allhead->ThisWay;
-        while (temppp1 != NULL)
-        {
-            Allhead->ThisWay = temppp1->next;
-            free(temppp1);
-            temppp1 = Allhead->ThisWay;
-        }
-        Allhead = tempp1->Next;
-        free(tempp1);
-        tempp1 = Allhead->Next;
-    }
-    tempp1 = Allhead = NULL;
+    	Pallway tempp1 = Allhead->Next;
+    	while(tempp1 != NULL)
+    	{
+        	pWay tempp2 = tempp1->Next;
+        	free(tempp1);
+        	tempp1 = tempp2;
+    	}
+    Allhead = NULL;
+    Alltail = Allhead;
+	}
     
+
     //起点初始化
     visiter[curx+1][cury+1] = 1;
     s[0].x = curx;
     s[0].y = cury;
 
-    dpalltail = Allhead;
-    dpthistail = Allhead->ThisWay;
+	
+    
     //开始递归
     dfs(curx,cury);
+    
+printf("%d\n",solution);
     
     if(solution==0) return 0 ;
     else return 1;
