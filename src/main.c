@@ -26,7 +26,7 @@ void Main()
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
 	registerCharEvent(mycharEvent);
-	startTimer(MonsterTimer,MONSTERSPEED);
+	startTimer(MonsterTimer,150);
 	startTimer(FlashTimer,10);
 }
 
