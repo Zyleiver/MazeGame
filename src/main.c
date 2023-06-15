@@ -17,8 +17,8 @@ void Main()
 	
 	
 	iscracked=200;
-	xscale=4;
-	yscale=15;
+	xscale=40;
+	yscale=40;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
 	monsternum=3;
@@ -26,7 +26,7 @@ void Main()
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
 	registerCharEvent(mycharEvent);
-	startTimer(MonsterTimer,MONSTERSPEED);
+	startTimer(MonsterTimer,250);
 	startTimer(FlashTimer,10);
 }
 
