@@ -465,6 +465,7 @@ void myTimerEvent(int timerID)
             display();
             break;
     case GameTouchTimer:
+    		
             break;
 
     }
