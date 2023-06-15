@@ -368,20 +368,19 @@ void myTimerEvent(int timerID)
 {
     switch (timerID)
     {
-    case MonsterTimer:
+    	case MonsterTimer:
             if(Monster[0].hp != 100) break;
-            srand(time(0));
             
-            for(i14 = 0;i14<3;i14 ++)
+            for(i14 = 0;i14 < 3;i14 ++)
             {
-            	srand((unsigned)time(NULL));
             	int ifforwardplayer = rand()%10;
             	int monstermoverand = rand()%2;
-                if(ifforwardplayer<7)//朝不朝
+            	
+                if(ifforwardplayer<8)//朝不朝
                 {
                     if(monstermoverand)//走y还是x
                     {
-                        if(MajorRole.x>Monster[i14].x)//走正还是走负
+                        if(MajorRole.x > Monster[i14].x)//走正还是走负
                         {
                             
 							if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
@@ -389,7 +388,7 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x++;
                                 Monster[i14].x++;
                             }else{
-                            	goto next;
+                            	
 							}
                         }
                         else
@@ -400,13 +399,13 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x--;
                                 Monster[i14].x--;
                             }else{
-                            	goto next;
+                            	
 							}
 							
                         }
                     }
                     else
-                    {	next:
+                    {	
                         if(MajorRole.y>Monster[i14].y)
                         {
                             if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
@@ -429,9 +428,9 @@ void myTimerEvent(int timerID)
                 {
                     if(monstermoverand)//走y还是x
                     {
-                        if(MajorRole.x>Monster[i14].x)//走正还是走负
+                        if(MajorRole.x > Monster[i14].x)//走正还是走负
                         {
-                            if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                            if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
                             {
                                 Monster[i14].x--;
                                 Monster[i14].x--;
@@ -439,7 +438,7 @@ void myTimerEvent(int timerID)
                         }
                         else
                         {
-                            if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
+                            if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
                             {
                                 Monster[i14].x++;
                                 Monster[i14].x++;
@@ -448,9 +447,9 @@ void myTimerEvent(int timerID)
                     }
                     else
                     {
-                        if(MajorRole.y>Monster[i14].y)
+                        if(MajorRole.y > Monster[i14].y)
                         {
-                            if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
+                            if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
                                 {   
                                     Monster[i14].y--;
                                     Monster[i14].y--;
@@ -458,7 +457,7 @@ void myTimerEvent(int timerID)
                         }
                         else
                         {
-                            if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
+                            if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
                             {
                                 Monster[i14].y++;
                                 Monster[i14].y++;
@@ -466,16 +465,17 @@ void myTimerEvent(int timerID)
                         }
                     }
                 }
-
-                
-            }  
-        break;
-    case FlashTimer:
+			}
+                  
+        	break;
+    	case FlashTimer:
             display();
             break;
-    case GameTouchTimer:
+    	case GameTouchTimer:
     		
             break;
+        default:
+        	break;
 
     }
 }

@@ -74,6 +74,7 @@ void display(void)
 		SetPenColor("Green");
 		pWay pshortestpen;
 		pshortestpen = AllHead->ThisWay;
+		printf("\n\n»­Í¼Ê±µÄÖ¸Õë%p\n\n",AllHead);
 		MovePen(x0+(pshortestpen->x-1)*length/2+length/2,y0+(pshortestpen->y-1)*length/2+length/2);
 		while(pshortestpen->next!=NULL)
 		{
