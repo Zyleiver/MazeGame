@@ -2,7 +2,7 @@
 #define SETUP_H_
 
 //暂时先令怪兽移动时间间隔（速度）为1000 ms
-#define MONSTERSPEED 1000
+#define MONSTERSPEED 1000 
 
 extern int monsternum;
 //暂时先令地图为18*18，宏定义数值计算公式
