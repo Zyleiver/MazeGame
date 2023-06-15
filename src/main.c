@@ -15,6 +15,8 @@ void Main()
 	InitGraphics();
 	InitGame();
 	
+	
+	
 	xscale=yscale=20;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
