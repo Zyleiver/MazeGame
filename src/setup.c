@@ -211,6 +211,32 @@ void CreateNewMap(void)
         //当vnum等于roadnum时，说明所有初始化的ROAD都已经被访问过了，也即意味着迷宫基础地图生成完成
     }//退出循环
 
+
+	//随机凿墙优化迷宫生成算法 
+	int randwallbreakx, randwallbreaky, randwallbreaknum;
+	srand(time(0));
+	for(randwallbreaknum = 0; randwallbreaknum <= MZX || randwallbreaknum <= MZY;)
+	{
+		randwallbreakx = rand()%(MZX) + 1;
+		randwallbreaky = rand()%(MZY) + 1;
+		
+		if(Map[randwallbreakx][randwallbreaky] == WALL)
+		{
+			Map[randwallbreakx][randwallbreaky] = ROAD;
+			 randwallbreaknum++;
+		}	
+	}
+	for(randwallbreaknum = 0; randwallbreaknum <= 3; )
+	{
+		randwallbreakx = rand()%(MZX) + 1; 
+		randwallbreaky = rand()%(MZY) + 1;
+		
+		if(Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx>MZX-5 && randwallbreaky>MZY-5)
+		{
+			randwallbreaknum ++;
+			Map[randwallbreakx][randwallbreaky] = ROAD;
+		}
+	}
     //至此迷宫基础部分生成完成，存放于二维数组Map中，只有WALL和ROAD
     //但注意Map数组实际要画出的内容仅为[1][1]到[MZX][MZY]
     //终点位于[MZX][MZY],起点位于[1][1]，如有需要可以更改其位置或者地图大小
@@ -263,7 +289,7 @@ void GameInit(void)
     {
         coinx = rand()%(MZX)+1;
         coiny = rand()%(MZY)+1;
-        if((coinx>=MZX/3 || coiny>=MZY/3) && (coinx<=4*MZX/5 || coiny<=4*MZY/5) && (Map[coinx][coiny] == ROAD))
+        if((coinx>=MZX*3/5 && coiny>=MZY*2/5) && (coinx<MZX-1 && coiny<MZY-1) && (Map[coinx][coiny] == ROAD))
         {
             if(coinx%2!=0 && coiny%2!=0)
             {
