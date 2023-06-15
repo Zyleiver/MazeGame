@@ -13,10 +13,6 @@ void display(void)
 	double x0;
 	double y0;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//length = -0.68 * ((double)xscale + (double)yscale) + 32;
 	if(abs(xscale-yscale)<5)
 	{
@@ -27,36 +23,25 @@ void display(void)
 		length=160/yscale;
 	}
 	
-=======
-	length = -0.7 * ((double)xscale + (double)yscale) + 34;
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
-	length = -0.7 * ((double)xscale + (double)yscale) + 34;
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
-	length = -0.7 * ((double)xscale + (double)yscale) + 34;
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
-	length = -0.7 * ((double)xscale + (double)yscale) + 34;
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 	Xlength = (double)xscale * length;
 	Ylength = (double)yscale * length;
 	x0 = 150 - Xlength / 2;
 	y0 = 90 - Ylength / 2;
-	if (page_stage != MAIN_PAGE && page_stage != CHOSEMAP_PAGE)
+	if (page_stage != MAIN_PAGE && page_stage != CHOSEMAP_PAGE)//画地图
 	{
-
+		SetPenColor("Black");
 		for (imap = 0; imap <= 2 * yscale; imap++)
 		{
 			for (jmap = 0; jmap <= 2 * xscale; jmap++)
 			{
 				if (Map[jmap][imap] == WALL && jmap % 2 == 0 && imap % 2 == 1)
 				{
-					drawBox(x0 + jmap / 2 * length, y0 + (imap - 1) / 2 * length, 0.1, length, 1, "", 'M', "Red");
+					drawBox(x0 + jmap / 2 * length, y0 + (imap - 1) / 2 * length, 0.1, length, 1, "", 'M', "Black");
+					//printf("%d %d| %d\n",jmap,imap,Map[jmap][imap]);
 				}
 				if (Map[jmap][imap] == WALL && jmap % 2 == 1 && imap % 2 == 0)
 				{
-					drawBox(x0 + (jmap - 1) / 2 * length, y0 + imap / 2 * length, length, 0.1, 1, "", 'M', "Red");
+					drawBox(x0 + (jmap - 1) / 2 * length, y0 + imap / 2 * length, length, 0.1, 1, "", 'M', "Black");
 				}
 				if (Map[jmap][imap] == WALL && jmap % 2 == 0 && imap % 2 == 0)
 				{
@@ -64,16 +49,15 @@ void display(void)
 				if (Map[jmap][imap] == COIN)
 				{
 					SetPenColor("Yellow");
-					drawBox(x0 + (jmap - 1) / 2 * length + length / 3, y0 + (imap - 1) / 2 * length + length / 3, length / 6, length / 6, 1, "", 'M', "Yellow");
-					SetPenColor("Red");
+					drawBox(x0 + (jmap - 1) / 2 * length + length / 3, y0 + (imap - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
+					SetPenColor("Black");
 				}
 				if (Map[jmap][imap] == END)
 				{
 					SetPenColor("Green");
 					drawBox(x0 + (jmap - 1) / 2 * length + length / 6, y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Green");
-					SetPenColor("Red");
+					SetPenColor("Black");
 				}
-<<<<<<< HEAD
 				//if (Map[jmap][imap] == START)
 				//{
 				//	SetPenColor("Blue");
@@ -90,7 +74,10 @@ void display(void)
 		
 		//血量显示
 		SetPenColor("White");
-		drawBox(240,160,10,10,0,"hp",'M',"Red");
+		drawBox(240,158,10,10,0,"hp",'M',"Red");
+		SetPenColor("Red");
+		drawBox(250,160,10*MajorRole.hp,5,1,"",'M',"Red");
+		drawBox(250,160,30,5,0,"",'M',"Red");
 		
 		//画怪兽
 		if(page_stage==GAME_PAGE){
@@ -102,25 +89,6 @@ void display(void)
 			}
 		}
 		
-=======
-				if (Map[jmap][imap] == START)
-				{
-					SetPenColor("Blue");
-					drawBox(x0 + (jmap - 1) / 2 * length + length / 6, y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Blue");
-					SetPenColor("Red");
-				}
-			}
-		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 	}
 
 	if (ButtonEnum[ShowShortestPath].stage == Button_DOWN)//绘制最短路径
@@ -132,20 +100,11 @@ void display(void)
 		printf("1 %d %d\n",pshortestpen->x,pshortestpen->y);
 		printf("2 %d %d\n",pshortestpen->next->x,pshortestpen->next->y);
 		MovePen(x0+(pshortestpen->x-1)*length/2+length/2,y0+(pshortestpen->y-1)*length/2+length/2);
-		printf("*****************\n");
-		printf("%d %d \n",pshortestpen->x,pshortestpen->y);
-		printf("%.0f %.0f\n",x0+(pshortestpen->x-1)*length/2+length/2,y0+(pshortestpen->y-1)*length/2+length/2);
-		printf("*****************\n");
 		while(pshortestpen->next!=NULL)
 		{
 			DrawLine((pshortestpen->next->x-pshortestpen->x)*length/2,(pshortestpen->next->y-pshortestpen->y)*length/2);
 			pshortestpen=pshortestpen->next;
-			printf("%d %d \n",pshortestpen->x,pshortestpen->y);
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	}
 
 	if (ButtonEnum[PromptNextStep].stage == Button_DOWN)//绘制下一步
@@ -158,18 +117,6 @@ void display(void)
 		DrawArc(length/3,0,360);
 		SetPenColor("Red");
 		
-=======
-	printf("____________________");
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
-	printf("____________________");
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
-	printf("____________________");
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
-=======
-	printf("____________________");
->>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 	}
 	
 	

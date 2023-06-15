@@ -18,10 +18,10 @@ void Main()
 	
 	iscracked=200;
 	xscale=4;
-	yscale=4;
+	yscale=15;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
-	
+	monsternum=3;
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);

@@ -247,17 +247,30 @@ void ToolPageTell(double mouse_x,double mouse_y)
 {
     if(TellPress(mouse_x,mouse_y,ButtonEnum[PromptNextStep]))
     {
+        next_move();
+        ButtonEnum[PromptNextStep].stage=1-ButtonEnum[PromptNextStep].stage;
+        ButtonEnum[ShowAllPath].stage=Button_UP;
+        ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+        ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+        ButtonEnum[ShowShortestPath].stage=Button_UP;
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[ShowShortestPath]))
     {   
         ButtonEnum[ShowShortestPath].stage=1-ButtonEnum[ShowShortestPath].stage;
         find_way_shortest(MajorRole.x,MajorRole.y);
+
+        ButtonEnum[PromptNextStep].stage=Button_UP;
+        ButtonEnum[ShowAllPath].stage=Button_UP;
+        ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+        ButtonEnum[RightShiftPath].visible=UNVISIBLE;
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[ShowAllPath]))
     {   
         ButtonEnum[ShowAllPath].stage=1-ButtonEnum[ShowAllPath].stage;
         ButtonEnum[LeftShiftPath].visible=1-ButtonEnum[LeftShiftPath].visible;
         ButtonEnum[RightShiftPath].visible=1-ButtonEnum[RightShiftPath].visible;
+        ButtonEnum[PromptNextStep].stage=Button_UP;
+        ButtonEnum[ShowShortestPath].stage=Button_UP;
     }else{
         ShiftPageTo(GAME_PAGE);
     }
@@ -309,7 +322,7 @@ void myKeyboardEvent(int key, int event)
 // 角色向上移动
 void Moveup(void)
 {
-    if (Map[MajorRole.x, MajorRole.y + 1] != WALL)
+    if (Map[MajorRole.x][MajorRole.y + 1] != WALL)
     {
         MajorRole.y=MajorRole.y+2;
     }
@@ -318,7 +331,7 @@ void Moveup(void)
 // 角色向下运动
 void Movedown(void)
 {
-    if (Map[MajorRole.x, MajorRole.y - 1] != WALL)
+    if (Map[MajorRole.x][ MajorRole.y - 1] != WALL)
     {
         MajorRole.y=MajorRole.y-2;
     }
@@ -327,18 +340,19 @@ void Movedown(void)
 // 角色向左运动
 void Moveleft(void)
 {
-    if (Map[MajorRole.x - 1, MajorRole.y] != WALL)
+    if (Map[MajorRole.x - 1][MajorRole.y] != WALL)
     {
-        MajorRole.x=MajorRole.x+2;
+		MajorRole.x=MajorRole.x-2;
+        
     }
 }
 
 // 角色向右运动
 void Moveright(void)
 {
-    if (Map[MajorRole.x + 1, MajorRole.y] != WALL)
+    if (Map[MajorRole.x + 1][MajorRole.y] != WALL)
     {
-        MajorRole.x=MajorRole.x-2;
+        MajorRole.x=MajorRole.x+2;
     }
 }
 
