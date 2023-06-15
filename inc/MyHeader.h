@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <stddef.h>
+#include <math.h>
 
 // inc from teacher
 #include "boolean.h"
@@ -67,7 +68,7 @@ typedef struct
 } Button;
 typedef Button *PButton;
 
-extern Button ButtonEnum[25];
+extern Button ButtonEnum[ButtonNum];
 // 按钮状态，Button_UP为松开，Button_DOWN为按下
 enum Button_stage
 {

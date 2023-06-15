@@ -29,7 +29,7 @@ Button About_Game;		 // 关于
 Button Back;			 // 回退
 */
 
-Button ButtonEnum[25] = {
+Button ButtonEnum[ButtonNum] = {
 	{"开始新游戏"				,Button_UP	,120,120,60,20	,UNVISIBLE}, 
 	{"自动生成地图"				,Button_UP	,120,105,60,20	,UNVISIBLE},
 	{"手动生成地图"				,Button_UP	,120,75,60,20	,UNVISIBLE},
@@ -40,9 +40,9 @@ Button ButtonEnum[25] = {
 	{"读取存档"					,Button_UP	,120,90,60,20	,UNVISIBLE},
 	{"退出"						,Button_UP	,120,60,60,20	,UNVISIBLE},
 	{"菜单"						,Button_UP	,0,185,20,15	,UNVISIBLE},
-	{"新建地图"					,Button_UP	,0,172,40,13	,UNVISIBLE},
-	{"打开地图"					,Button_UP	,0,159,40,13	,UNVISIBLE},
-	{"存档"						,Button_UP	,0,146,40,13	,UNVISIBLE},
+	{"新建地图  Ctrl+c"					,Button_UP	,0,172,40,13	,UNVISIBLE},
+	{"打开地图  Ctrl+o"					,Button_UP	,0,159,40,13	,UNVISIBLE},
+	{"存档  Ctrl+s"						,Button_UP	,0,146,40,13	,UNVISIBLE},
 //	{"保存为模板"				,Button_UP	,35,60,15,20	,UNVISIBLE},
 	{"返回主页面  Ctrl+b"		,Button_UP	,0,133,40,13	,UNVISIBLE},
 	{"工具"						,Button_UP	,20,185,20,15	,UNVISIBLE},
@@ -50,15 +50,23 @@ Button ButtonEnum[25] = {
 	{"提示下一步  Shift+p"		,Button_UP	,0,172,40,13	,UNVISIBLE},
 	{"显示最短路径  Shift+r"	,Button_UP	,0,159,40,13	,UNVISIBLE},
 	{"显示全部路径  Shift+a"	,Button_UP	,0,146,40,13	,UNVISIBLE},
-	{"<-"						,Button_UP	,20,20,15,20	,UNVISIBLE},
-	{"->"						,Button_UP	,35,20,15,20	,UNVISIBLE},
+	{"<-"						,Button_UP	,20,20,15,15	,UNVISIBLE},
+	{"->"						,Button_UP	,35,20,15,15	,UNVISIBLE},
 	{"使用说明"					,Button_UP	,260,185,20,15	,VISIBLE},
 	{"关于"						,Button_UP	,280,185,20,15	,VISIBLE},
-	{"回退"						,Button_UP	,20,175,20,15	,UNVISIBLE}
+	{"回退"						,Button_UP	,20,175,20,15	,UNVISIBLE},
+	{"墙"						,Button_UP	,10,150,20,15	,UNVISIBLE},
+	{"起点"						,Button_UP	,10,130,20,15	,UNVISIBLE},
+	{"终点"						,Button_UP	,10,110,20,15	,UNVISIBLE},
+	{"金币"						,Button_UP	,10,90,20,15	,UNVISIBLE},
+	{"橡皮"						,Button_UP	,10,70,20,15	,UNVISIBLE},
+	{"完成"						,Button_UP	,10,50,20,15	,UNVISIBLE},
+	{"退出"						,Button_UP	,10,30,20,15	,UNVISIBLE},
 };
 void InitGame(void)
 {
 	ShiftPageTo(MAIN_PAGE);
+
 	return;
 }
 
@@ -99,6 +107,15 @@ void ShiftPageTo(int PageTo)
 		case EDIT_PAGE:
 			page_stage=EDIT_PAGE;
 			AllUnvisible();
+			ButtonEnum[Menu].visible=VISIBLE;
+			ButtonEnum[Tools].visible=VISIBLE;
+			ButtonEnum[PutWall].visible=VISIBLE;
+			ButtonEnum[PutRole].visible=VISIBLE;
+			ButtonEnum[PutGoal].visible=VISIBLE;
+			ButtonEnum[PutCoin].visible=VISIBLE;
+			ButtonEnum[Erase].visible=VISIBLE;
+			ButtonEnum[Complete].visible=VISIBLE;
+			ButtonEnum[Cancel].visible=VISIBLE;
 
 
 			break;

@@ -337,7 +337,7 @@ void BuildMap(void)
     
 }
 
-
+int iscracked=0;
 void myTimerEvent(int timerID)
 {
     switch (timerID)
@@ -445,6 +445,7 @@ void myTimerEvent(int timerID)
             }  
         break;
     case FlashTimer:
+    		if(iscracked>0)iscracked--;
             display();
             break;
     case GameTouchTimer:

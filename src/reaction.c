@@ -4,7 +4,7 @@
 void AllUnvisible(void)
 {
     int j=0;
-    for(j;j<25;j++){
+    for(j;j<ButtonNum;j++){
         ButtonEnum[j].visible=UNVISIBLE;
     }
     ButtonEnum[Instruction].visible=VISIBLE;
@@ -48,7 +48,6 @@ void myMouseEvent(int x, int y, int button, int event)
 
     if (button == LEFT_BUTTON && event == BUTTON_DOWN)
     {	
-    	printf("%.0f %.0f | ",mouse_x,mouse_y);
         if (TellPress(mouse_x, mouse_y, ButtonEnum[Instruction]))//点击使用说明
         {
             Instruct();
@@ -60,10 +59,11 @@ void myMouseEvent(int x, int y, int button, int event)
         {
             if(ButtonEnum[CrtNewMap].stage==Button_DOWN){
                 ShiftPageTo(MENU_PAGE);
-                ButtonEnum[CrtNewMap].stage=Button_UP;
+                
             }else if(page_stage==CHOSEMAP_PAGE){
                 ShiftPageTo(MAIN_PAGE);
             }
+            ButtonEnum[CrtNewMap].stage=Button_UP;
         }
         else
         {
@@ -145,6 +145,7 @@ void ChoseMapPageTell(double mouse_x,double mouse_y)
     {
         ShiftPageTo(EDIT_PAGE);
     }
+    ButtonEnum[CrtNewMap].stage=Button_UP;
 }
 
 
@@ -186,10 +187,59 @@ void MenuPageTell(double mouse_x, double mouse_y)
     
 }
 
+void AllEditButtonUp (void)
+{
+    ButtonEnum[PutWall].stage=Button_UP;
+    ButtonEnum[PutRole].stage=Button_UP;
+    ButtonEnum[PutGoal].stage=Button_UP;
+    ButtonEnum[PutCoin].stage=Button_UP;
+    ButtonEnum[Erase].stage=Button_UP;
+}
 //编辑界面按钮事件
 void EditPageTell (double mouse_x,double mouse_y)
 {
+    if(TellPress(mouse_x,mouse_y,ButtonEnum[Menu]))
+    {
+        int EditMenu = MessageBox(NULL, "请先完成编辑或退出编辑", "提醒", MB_OK | MB_ICONINFORMATION);
+    }
+    else if(TellPress(mouse_x,mouse_y,ButtonEnum[Tools]))
+    {
+        int EditTools = MessageBox(NULL, "请先完成编辑或退出编辑", "提醒", MB_OK | MB_ICONINFORMATION);
+    }
+    else if(TellPress(mouse_x,mouse_y,ButtonEnum[PutWall]))
+    {
+        AllEditButtonUp();
+        ButtonEnum[PutWall].stage=Button_DOWN;
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[PutRole]))
+    {
+        AllEditButtonUp();
+        ButtonEnum[PutRole].stage=Button_DOWN;
 
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[PutGoal]))
+    {
+        AllEditButtonUp();
+        ButtonEnum[PutGoal].stage=Button_DOWN;
+    }
+    else if(TellPress(mouse_x,mouse_y,ButtonEnum[PutCoin]))
+    {
+        AllEditButtonUp();
+        ButtonEnum[PutCoin].stage=Button_DOWN;
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Erase]))
+    {
+        AllEditButtonUp();
+        ButtonEnum[Erase].stage=Button_DOWN;
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Complete]))
+    {
+        AllEditButtonUp();
+        ShiftPageTo(GAME_PAGE);
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Cancel]))
+    {
+        AllEditButtonUp();
+        ShiftPageTo(CHOSEMAP_PAGE);
+    }else
+    {
+
+    }
 }
 
 //工具界面按钮触发事件

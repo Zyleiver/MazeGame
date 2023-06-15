@@ -1,6 +1,7 @@
 #ifndef INITGAME_H_
 #define INITGAME_H_
 
+#define ButtonNum 30
 // 所有的按钮
 enum BUTTON
 {
@@ -28,7 +29,14 @@ enum BUTTON
 	RightShiftPath,	  // 显示全部路径时右切
 	Instruction,	  // 使用说明
 	About_Game,		  // 关于
-	Back			  // 回退
+	Back,			  // 回退
+	PutWall,		  //放置墙
+	PutRole, 		  //放置起点
+	PutGoal,		  //放置终点
+	PutCoin, 		  //放置金币
+	Erase, 			  //橡皮
+	Complete, 		  //完成编辑
+	Cancel 			  //退出编辑
 };
 
 
