@@ -372,6 +372,7 @@ void myTimerEvent(int timerID)
             if(Monster[0].hp != 100) break;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             
             for(i14 = 0;i14 < 3;i14 ++)
             {
@@ -379,6 +380,14 @@ void myTimerEvent(int timerID)
             	int monstermoverand = rand()%2;
             	
                 if(ifforwardplayer<8)//陳祥陳
+=======
+            srand(time(0));
+            int ifforwardplayer = rand()%2;
+            int monstermoverand = rand()%1;
+            for(i14 = 0;i14<3;i14 ++)
+            {
+                if(!ifforwardplayer)//陳祥陳
+>>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 =======
             srand(time(0));
             int ifforwardplayer = rand()%2;
@@ -406,9 +415,13 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x++;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             }else{
                             	
 							}
+=======
+                            }
+>>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 =======
                             }
 >>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
@@ -424,6 +437,7 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x--;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             }else{
                             	
 							}
@@ -432,6 +446,13 @@ void myTimerEvent(int timerID)
                     }
                     else
                     {	
+=======
+                            }
+                        }
+                    }
+                    else
+                    {
+>>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 =======
                             }
                         }
