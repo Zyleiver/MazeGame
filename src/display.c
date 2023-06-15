@@ -14,6 +14,7 @@ void display(void)
 	double y0;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//length = -0.68 * ((double)xscale + (double)yscale) + 32;
 	if(abs(xscale-yscale)<5)
 	{
@@ -24,6 +25,9 @@ void display(void)
 		length=160/yscale;
 	}
 	
+=======
+	length = -0.7 * ((double)xscale + (double)yscale) + 34;
+>>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 =======
 	length = -0.7 * ((double)xscale + (double)yscale) + 34;
 >>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
@@ -99,6 +103,9 @@ void display(void)
 				}
 			}
 		}
+<<<<<<< HEAD
+>>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
+=======
 >>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 	}
 
@@ -122,6 +129,7 @@ void display(void)
 			printf("%d %d \n",pshortestpen->x,pshortestpen->y);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 	if (ButtonEnum[PromptNextStep].stage == Button_DOWN)//绘制下一步
@@ -134,6 +142,9 @@ void display(void)
 		DrawArc(length/3,0,360);
 		SetPenColor("Red");
 		
+=======
+	printf("____________________");
+>>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
 =======
 	printf("____________________");
 >>>>>>> parent of accd043 (Merge branch 'ZhengLingjie' into Gengchuanhong)
