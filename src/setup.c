@@ -363,7 +363,7 @@ void BuildMap(void)
     
 }
 
-
+int iscracked=0;
 void myTimerEvent(int timerID)
 {
     switch (timerID)
@@ -465,10 +465,19 @@ void myTimerEvent(int timerID)
                         }
                     }
                 }
+<<<<<<< HEAD
 			}
                   
         	break;
     	case FlashTimer:
+=======
+
+                
+            }  
+        break;
+    case FlashTimer:
+    		if(iscracked>0)iscracked--;
+>>>>>>> ZhengLingjie
             display();
             break;
     	case GameTouchTimer:

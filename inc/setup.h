@@ -30,4 +30,6 @@ void UseTemplate(void);
 void InitMap(void);
 
 extern int Map[100][100];
+
+extern int iscracked;
 #endif

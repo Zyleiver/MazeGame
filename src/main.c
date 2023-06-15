@@ -16,8 +16,9 @@ void Main()
 	InitGame();
 	
 	
-	
-	xscale=yscale=20;
+	iscracked=200;
+	xscale=4;
+	yscale=4;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
 	monsternum=3;
