@@ -345,33 +345,42 @@ void myTimerEvent(int timerID)
     case MonsterTimer:
             if(Monster[0].hp != 100) break;
             srand(time(0));
-            int ifforwardplayer = rand()%2;
-            int monstermoverand = rand()%1;
+            
             for(i14 = 0;i14<3;i14 ++)
             {
-                if(!ifforwardplayer)//朝不朝
+            	srand((unsigned)time(NULL));
+            	int ifforwardplayer = rand()%10;
+            	int monstermoverand = rand()%2;
+                if(ifforwardplayer<7)//朝不朝
                 {
                     if(monstermoverand)//走y还是x
                     {
                         if(MajorRole.x>Monster[i14].x)//走正还是走负
                         {
-                            if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                            
+							if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
                             {
                                 Monster[i14].x++;
                                 Monster[i14].x++;
-                            }
+                            }else{
+                            	goto next;
+							}
                         }
                         else
-                        {
+                        {	
+                        	
                             if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
                             {
                                 Monster[i14].x--;
                                 Monster[i14].x--;
-                            }
+                            }else{
+                            	goto next;
+							}
+							
                         }
                     }
                     else
-                    {
+                    {	next:
                         if(MajorRole.y>Monster[i14].y)
                         {
                             if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)

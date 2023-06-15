@@ -13,25 +13,26 @@ void display(void)
 	double x0;
 	double y0;
 
-	length = -0.7 * ((double)xscale + (double)yscale) + 34;
+	length = -0.7 * ((double)xscale + (double)yscale) + 36;
 	Xlength = (double)xscale * length;
 	Ylength = (double)yscale * length;
 	x0 = 150 - Xlength / 2;
 	y0 = 90 - Ylength / 2;
-	if (page_stage != MAIN_PAGE && page_stage != CHOSEMAP_PAGE)
+	if (page_stage != MAIN_PAGE && page_stage != CHOSEMAP_PAGE)//»­µØÍ¼
 	{
-
+		SetPenColor("Black");
 		for (imap = 0; imap <= 2 * yscale; imap++)
 		{
 			for (jmap = 0; jmap <= 2 * xscale; jmap++)
 			{
 				if (Map[jmap][imap] == WALL && jmap % 2 == 0 && imap % 2 == 1)
 				{
-					drawBox(x0 + jmap / 2 * length, y0 + (imap - 1) / 2 * length, 0.1, length, 1, "", 'M', "Red");
+					drawBox(x0 + jmap / 2 * length, y0 + (imap - 1) / 2 * length, 0.1, length, 1, "", 'M', "Black");
+					//printf("%d %d| %d\n",jmap,imap,Map[jmap][imap]);
 				}
 				if (Map[jmap][imap] == WALL && jmap % 2 == 1 && imap % 2 == 0)
 				{
-					drawBox(x0 + (jmap - 1) / 2 * length, y0 + imap / 2 * length, length, 0.1, 1, "", 'M', "Red");
+					drawBox(x0 + (jmap - 1) / 2 * length, y0 + imap / 2 * length, length, 0.1, 1, "", 'M', "Black");
 				}
 				if (Map[jmap][imap] == WALL && jmap % 2 == 0 && imap % 2 == 0)
 				{
@@ -39,22 +40,31 @@ void display(void)
 				if (Map[jmap][imap] == COIN)
 				{
 					SetPenColor("Yellow");
-					drawBox(x0 + (jmap - 1) / 2 * length + length / 3, y0 + (imap - 1) / 2 * length + length / 3, length / 6, length / 6, 1, "", 'M', "Yellow");
-					SetPenColor("Red");
+					drawBox(x0 + (jmap - 1) / 2 * length + length / 3, y0 + (imap - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
+					SetPenColor("Black");
 				}
 				if (Map[jmap][imap] == END)
 				{
 					SetPenColor("Green");
 					drawBox(x0 + (jmap - 1) / 2 * length + length / 6, y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Green");
-					SetPenColor("Red");
+					SetPenColor("Black");
 				}
 				if (Map[jmap][imap] == START)
 				{
 					SetPenColor("Blue");
 					drawBox(x0 + (jmap - 1) / 2 * length + length / 6, y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Blue");
-					SetPenColor("Red");
+					SetPenColor("Black");
 				}
 			}
+		}
+
+		SetPenColor("Red");
+		drawBox(x0 + (MajorRole.x - 1) / 2 * length + length / 3, y0 + (MajorRole.y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
+		SetPenColor("Brown");
+		int monsnum;
+		for(monsnum=0;monsnum<monsternum;monsnum++)
+		{
+			drawBox(x0 + (Monster[monsnum].x - 1) / 2 * length + length / 3, y0 + (Monster[monsnum].y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
 		}
 	}
 
@@ -65,17 +75,23 @@ void display(void)
 		pWay pshortestpen;
 		pshortestpen = AllHead->ThisWay;
 		MovePen(x0+(pshortestpen->x-1)*length/2+length/2,y0+(pshortestpen->y-1)*length/2+length/2);
-		printf("*****************\n");
-		printf("%d %d \n",pshortestpen->x,pshortestpen->y);
-		printf("%.0f %.0f\n",x0+(pshortestpen->x-1)*length/2+length/2,y0+(pshortestpen->y-1)*length/2+length/2);
-		printf("*****************\n");
 		while(pshortestpen->next!=NULL)
 		{
 			DrawLine((pshortestpen->next->x-pshortestpen->x)*length/2,(pshortestpen->next->y-pshortestpen->y)*length/2);
 			pshortestpen=pshortestpen->next;
-			printf("%d %d \n",pshortestpen->x,pshortestpen->y);
 		}
-	printf("____________________");
+	}
+
+	if (ButtonEnum[PromptNextStep].stage == Button_DOWN)
+	{
+		
+		SetPenColor("Green");
+		pWay pshortestpen;
+		pshortestpen = AllHead->ThisWay;
+		MovePen(x0+(pshortestpen->next->x-1)*length/2+length/6*5,y0+(pshortestpen->next->y-1)*length/2+length/2);
+		DrawArc(length/3,0,360);
+		SetPenColor("Red");
+		
 	}
 	
 	
