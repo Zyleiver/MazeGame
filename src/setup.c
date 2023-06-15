@@ -211,32 +211,6 @@ void CreateNewMap(void)
         //当vnum等于roadnum时，说明所有初始化的ROAD都已经被访问过了，也即意味着迷宫基础地图生成完成
     }//退出循环
 
-
-	//随机凿墙优化迷宫生成算法 
-	int randwallbreakx, randwallbreaky, randwallbreaknum;
-	srand(time(0));
-	for(randwallbreaknum = 0; randwallbreaknum <= MZX || randwallbreaknum <= MZY;)
-	{
-		randwallbreakx = rand()%(MZX) + 1;
-		randwallbreaky = rand()%(MZY) + 1;
-		
-		if(Map[randwallbreakx][randwallbreaky] == WALL)
-		{
-			Map[randwallbreakx][randwallbreaky] = ROAD;
-			 randwallbreaknum++;
-		}	
-	}
-	for(randwallbreaknum = 0; randwallbreaknum <= 3; )
-	{
-		randwallbreakx = rand()%(MZX) + 1; 
-		randwallbreaky = rand()%(MZY) + 1;
-		
-		if(Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx>MZX-5 && randwallbreaky>MZY-5)
-		{
-			randwallbreaknum ++;
-			Map[randwallbreakx][randwallbreaky] = ROAD;
-		}
-	}
     //至此迷宫基础部分生成完成，存放于二维数组Map中，只有WALL和ROAD
     //但注意Map数组实际要画出的内容仅为[1][1]到[MZX][MZY]
     //终点位于[MZX][MZY],起点位于[1][1]，如有需要可以更改其位置或者地图大小
@@ -289,7 +263,7 @@ void GameInit(void)
     {
         coinx = rand()%(MZX)+1;
         coiny = rand()%(MZY)+1;
-        if((coinx>=MZX*3/5 && coiny>=MZY*2/5) && (coinx<MZX-1 && coiny<MZY-1) && (Map[coinx][coiny] == ROAD))
+        if((coinx>=MZX/3 || coiny>=MZY/3) && (coinx<=4*MZX/5 || coiny<=4*MZY/5) && (Map[coinx][coiny] == ROAD))
         {
             if(coinx%2!=0 && coiny%2!=0)
             {
@@ -368,19 +342,20 @@ void myTimerEvent(int timerID)
 {
     switch (timerID)
     {
-    	case MonsterTimer:
+    case MonsterTimer:
             if(Monster[0].hp != 100) break;
+            srand(time(0));
             
-            for(i14 = 0;i14 < 3;i14 ++)
+            for(i14 = 0;i14<3;i14 ++)
             {
+            	srand((unsigned)time(NULL));
             	int ifforwardplayer = rand()%10;
             	int monstermoverand = rand()%2;
-            	
-                if(ifforwardplayer<8)//朝不朝
+                if(ifforwardplayer<7)//朝不朝
                 {
                     if(monstermoverand)//走y还是x
                     {
-                        if(MajorRole.x > Monster[i14].x)//走正还是走负
+                        if(MajorRole.x>Monster[i14].x)//走正还是走负
                         {
                             
 							if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
@@ -388,7 +363,7 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x++;
                                 Monster[i14].x++;
                             }else{
-                            	
+                            	goto next;
 							}
                         }
                         else
@@ -399,13 +374,13 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x--;
                                 Monster[i14].x--;
                             }else{
-                            	
+                            	goto next;
 							}
 							
                         }
                     }
                     else
-                    {	
+                    {	next:
                         if(MajorRole.y>Monster[i14].y)
                         {
                             if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
@@ -428,9 +403,9 @@ void myTimerEvent(int timerID)
                 {
                     if(monstermoverand)//走y还是x
                     {
-                        if(MajorRole.x > Monster[i14].x)//走正还是走负
+                        if(MajorRole.x>Monster[i14].x)//走正还是走负
                         {
-                            if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
+                            if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
                             {
                                 Monster[i14].x--;
                                 Monster[i14].x--;
@@ -438,7 +413,7 @@ void myTimerEvent(int timerID)
                         }
                         else
                         {
-                            if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                            if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
                             {
                                 Monster[i14].x++;
                                 Monster[i14].x++;
@@ -447,9 +422,9 @@ void myTimerEvent(int timerID)
                     }
                     else
                     {
-                        if(MajorRole.y > Monster[i14].y)
+                        if(MajorRole.y>Monster[i14].y)
                         {
-                            if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
+                            if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
                                 {   
                                     Monster[i14].y--;
                                     Monster[i14].y--;
@@ -457,7 +432,7 @@ void myTimerEvent(int timerID)
                         }
                         else
                         {
-                            if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
+                            if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
                             {
                                 Monster[i14].y++;
                                 Monster[i14].y++;
@@ -465,17 +440,16 @@ void myTimerEvent(int timerID)
                         }
                     }
                 }
-			}
-                  
-        	break;
-    	case FlashTimer:
+
+                
+            }  
+        break;
+    case FlashTimer:
+    		if(iscracked>0)iscracked--;
             display();
             break;
-    	case GameTouchTimer:
-    		
+    case GameTouchTimer:
             break;
-        default:
-        	break;
 
     }
 }

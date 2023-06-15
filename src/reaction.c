@@ -264,9 +264,8 @@ void ToolPageTell(double mouse_x,double mouse_y)
         ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
         ButtonEnum[RightShiftPath].visible=UNVISIBLE;
         ShiftPageTo(GAME_PAGE);
-    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[ShowAllPath]))//
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[ShowAllPath]))
     {   
-    	find_way_all(MajorRole.x,MajorRole.y);
         ButtonEnum[ShowAllPath].stage=1-ButtonEnum[ShowAllPath].stage;
         ButtonEnum[LeftShiftPath].visible=1-ButtonEnum[LeftShiftPath].visible;
         ButtonEnum[RightShiftPath].visible=1-ButtonEnum[RightShiftPath].visible;
