@@ -1,5 +1,33 @@
 #include "MyHeader.h"
 
+//鼠标变成手指
+void setMouseCursorHand() {
+    // 获取当前进程的窗口句柄
+    HWND hWnd = GetForegroundWindow();
+  
+    // 加载手指光标资源
+    HCURSOR handCursor = LoadCursor(NULL, IDC_HAND);
+  
+    // 设置鼠标指针
+    SetClassLongPtr(hWnd, GCLP_HCURSOR, (LONG_PTR)handCursor);
+    SetCursor(handCursor);
+}
+
+//鼠标变成箭头
+void setMouseCursorArrow() {
+    // 获取当前进程的窗口句柄
+    HWND hWnd = GetForegroundWindow();
+  
+    // 加载箭头光标资源
+    HCURSOR arrowCursor = LoadCursor(NULL, IDC_ARROW);
+  
+    // 设置鼠标指针
+    SetClassLongPtr(hWnd, GCLP_HCURSOR, (LONG_PTR)arrowCursor);
+    SetCursor(arrowCursor);
+}
+
+
+
 // 全部按钮不可见(除使用说明和关于)
 void AllUnvisible(void)
 {
@@ -38,6 +66,20 @@ int TellPress(double mouse_x, double mouse_y, Button Butt)
     }
 }
 
+//判断鼠标是否在按钮上
+int TellOn(double mouse_x,double mouse_y,Button Butt)
+{
+    if(mouse_x>Butt.x && mouse_x<Butt.x+Butt.lx)
+    {
+        if(mouse_y>Butt.y && mouse_y<Butt.y+Butt.ly)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+//鼠标事件
 void myMouseEvent(int x, int y, int button, int event)
 {
     static double mouse_x;
@@ -55,7 +97,7 @@ void myMouseEvent(int x, int y, int button, int event)
         else if (TellPress(mouse_x, mouse_y, ButtonEnum[About_Game]))//点击关于
         {
             AboutGame();
-        }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Back]))
+        }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Back]))//点击回退
         {
             if(ButtonEnum[CrtNewMap].stage==Button_DOWN){
                 ShiftPageTo(MENU_PAGE);
@@ -108,6 +150,22 @@ void myMouseEvent(int x, int y, int button, int event)
             }
         }
     }
+
+    if(event==MOUSEMOVE){
+        int i;
+        int isON;
+        
+        isON=0;
+        for(i=0;i<ButtonNum;i++)
+        {
+            if(ButtonEnum[i].visible==VISIBLE && TellOn(mouse_x,mouse_y,ButtonEnum[i]))
+            {
+                isON=1;
+                setMouseCursorHand();
+            }
+        }
+        if(!isON)setMouseCursorArrow();
+    }
 }
 
 // 主页面按钮触发事件
@@ -120,10 +178,14 @@ void MainPageTell(double mouse_x, double mouse_y)
     }
     else if (TellPress(mouse_x, mouse_y, ButtonEnum[ReadFiles])) // 按下读取存档
     {
-        if(ReadData())
-        {
-            ShiftPageTo(GAME_PAGE);
+        
+        if(ReadData()){
+        	ShiftPageTo(GAME_PAGE);
+        }else{
+        	int ReadFailed = MessageBox(NULL, "读取失败", "提醒", MB_OK | MB_ICONINFORMATION);
         }
+            
+        
         
     }
     else if (TellPress(mouse_x, mouse_y, ButtonEnum[ExitGame])) // 按下退出游戏
@@ -174,10 +236,23 @@ void MenuPageTell(double mouse_x, double mouse_y)
         
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[OpenMap]))
     {
-        ReadData();
+        if(ReadData())
+        {
+            ShiftPageTo(GAME_PAGE);
+        }else{
+            int OpenFailed = MessageBox(NULL, "打开失败", "提醒", MB_OK | MB_ICONINFORMATION);
+        }
+
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[SaveGame]))
     {
-        saveMap();
+        if(saveMap())
+        {
+            int Save = MessageBox(NULL, "保存成功", "提醒", MB_OK | MB_ICONINFORMATION);
+            ShiftPageTo(GAME_PAGE);
+        }else{
+            int SaveFailed = MessageBox(NULL, "保存失败", "提醒", MB_OK | MB_ICONINFORMATION);
+            ShiftPageTo(MENU_PAGE);
+        }
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[BackToMP]))
     {
         ShiftPageTo(MAIN_PAGE);

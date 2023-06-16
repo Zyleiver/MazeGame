@@ -11,7 +11,7 @@ void ReadTemplate(void);
 void OpenTemp(void);
 
 //´æµµ
-void saveMap(void);
+int saveMap(void);
 
 //±£´æÎªÄ£°å
 void SaveAsTemplate(void);
