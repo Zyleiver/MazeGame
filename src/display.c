@@ -139,7 +139,7 @@ void display(void)
 		SetPenColor("Black");
 
 		// 画怪兽
-		if (page_stage == GAME_PAGE)
+		if (page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage==MENU_PAGE)
 		{
 			SetPenColor("Brown");
 			int monsnum;
@@ -151,7 +151,7 @@ void display(void)
 		}
 	}
 
-	if (ButtonEnum[ShowShortestPath].stage == Button_DOWN) // 绘制最短路径
+	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[ShowShortestPath].stage == Button_DOWN) // 绘制最短路径
 	{
 
 		SetPenColor("Green");
@@ -167,7 +167,7 @@ void display(void)
 		}
 	}
 
-	if (ButtonEnum[PromptNextStep].stage == Button_DOWN) // 绘制下一步
+	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[PromptNextStep].stage == Button_DOWN) // 绘制下一步
 	{
 
 		SetPenColor("Green");

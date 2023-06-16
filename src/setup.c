@@ -354,8 +354,8 @@ void BuildMap(void)
 	for(i12 = 0; i12 < 1000; i12++)
 	{
 		Monster[i12].hp = 0;
-		Monster[i12].x = -10;
-		Monster[i12].y = -10;
+		Monster[i12].x = -20;
+		Monster[i12].y = -20;
 	}
 	
 	//地图恢复原始状态为建立作准备
@@ -404,19 +404,40 @@ void BuildMap(void)
 
 void EditMap(int x,int y,int buttonusing)
 {
-	static int imonster = 0;
+	static int i18 = 0;
 	
 	switch (buttonusing)
 	{
 		case PutCoin:
 			if(x%2 != 0 && y%2 != 0)
-				Map[x][y] = COIN;
+			{
+				for (i12 = 0; i12 < 100; i12++)
+    			{
+        			for(i13 = 0; i13 < 100; i13++)
+       				{
+       					if(Map[i12][i13] == COIN)
+            			Map[i12][i13] = ROAD;
+        			}
+    			}
+    			
+    			Map[x][y] = COIN;
+			}
+				
 		break;
 		
 		case PutRole:
 			if(x%2 != 0 && y%2 != 0)
 			{
-				Map[x][y] = START;
+				for (i12 = 0; i12 < 100; i12++)
+    			{
+        			for(i13 = 0; i13 < 100; i13++)
+       				{
+       					if(Map[i12][i13] == START)
+            			Map[i12][i13] = ROAD;
+        			}
+    			}
+    			
+    			Map[x][y] = START;
 				MajorRole.x = x;
 				MajorRole.y = y;
 			}
@@ -424,21 +445,22 @@ void EditMap(int x,int y,int buttonusing)
 		
 		case PutGoal:
 			if(x%2 != 0 && y%2 != 0)
-				Map[x][y] = END;
-		break;
-		/*
-		case PutMonster:
-			if(x%2 != 0 && y%2 != 0)
 			{
-				Monster[imonster].hp = 100;
-				Monster[imonster].x = x;
-				Monster[imonster].y = y;
-				imonster++;
+				for (i12 = 0; i12 < 100; i12++)
+    			{
+        			for(i13 = 0; i13 < 100; i13++)
+       				{
+       					if(Map[i12][i13] == END)
+            			Map[i12][i13] = ROAD;
+        			}
+    			}
+    			
+    			Map[x][y] = END;
 			}
 		break;
-		*/
+
 		case Erase:
-			if(Map[x][y] != ROAD && x%2 != 0 && y%2 != 0)
+			if(Map[x][y] != ROAD )
 			{
 				if(Map[x][y] == START)
 				{
@@ -461,6 +483,12 @@ void EditMap(int x,int y,int buttonusing)
 			}
 		break;
 		
+		case PutWall:
+			if(x%2 == 1 || y%2 == 1)
+			{
+				Map[x][y] = WALL;
+			}
+		
 		case Complete:
 			Monster[0].hp = 100;
 			ShiftPageTo(GAME_PAGE);
@@ -468,6 +496,8 @@ void EditMap(int x,int y,int buttonusing)
 			
 			
 	}
+	
+	
 }
 
 int iscracked=0;
@@ -476,7 +506,7 @@ void myTimerEvent(int timerID)
     switch (timerID)
     {
     case MonsterTimer:
-            if(Monster[0].hp != 100) break;
+            if(Monster[0].hp != 100 || page_stage != GAME_PAGE) break;
             
             for(i14 = 1;i14 <= monsternum;i14 ++)
             {
@@ -585,19 +615,20 @@ void myTimerEvent(int timerID)
     	    //怪兽碰撞事件 
     		for(i15 = 0; i15 < monsternum; i15++ )
     		{
-    			if(MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y)
+    			if(MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y &&page_stage==GAME_PAGE)
     			{
-    				if(MajorRole.hp != 0 && iscracked == 0)
+    				if(MajorRole.hp != 0 && iscracked == 0 )
+    				{
     					MajorRole.hp--;
-    					
     					iscracked = 200;
+					}
 				}
 			}
 			
 			//结束判断事件 
-				if(Map[MajorRole.x][MajorRole.y] == END)
+				if(page_stage==GAME_PAGE && Map[MajorRole.x][MajorRole.y] == END)
 				{
-					
+						ShiftPageTo(END_PAGE);
    	 					int result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
     
     					if (result == IDYES)
@@ -605,12 +636,13 @@ void myTimerEvent(int timerID)
         						if(saveMap())
         						{
         							int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
-        							ShiftPageTo(MAIN_PAGE);
+        				
 								}
 								else
 								{
 									int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
 								}
+								ShiftPageTo(MAIN_PAGE);
 							
 
     					}
@@ -622,8 +654,9 @@ void myTimerEvent(int timerID)
 					
 				}
 				
-				if(MajorRole.hp == 0 )
-				{
+				if(MajorRole.hp == 0 && page_stage==GAME_PAGE)
+				{		
+						ShiftPageTo(END_PAGE);
    	 					int result1 = MessageBox(NULL, "\t再 接 再 厉 ！\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
     
     					if (result1 == IDYES)
@@ -631,12 +664,13 @@ void myTimerEvent(int timerID)
         					if(saveMap())
         					{
         						int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
-        						ShiftPageTo(MAIN_PAGE);
+        						
 							}
 							else
 							{
 								int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
 							}
+							ShiftPageTo(MAIN_PAGE);
         					
     					}
     					else if (result1 == IDNO)
@@ -646,7 +680,7 @@ void myTimerEvent(int timerID)
 					}
 				
 			//金币碰撞事件
-			if(Map[MajorRole.x][MajorRole.y] == COIN)
+			if(Map[MajorRole.x][MajorRole.y] == COIN && page_stage==GAME_PAGE)
 			{
 				Map[MajorRole.x][MajorRole.y] = COINGOT;
 				CoinGet++;

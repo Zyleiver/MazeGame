@@ -46,7 +46,7 @@ int saveMap(void)
             int k;
             for(k=0;k<monsternum;k++)
             {
-                fprintf(file,"%f %f,",Monster[k].x,Monster[k].y);
+                fprintf(file,"%d %d,",Monster[k].x,Monster[k].y);
             }
             fprintf(file,"\n");
             fprintf(file,"%d",CoinGet);
@@ -94,7 +94,7 @@ int ReadData(void)
             int k;
             for(k=0;k<monsternum;k++)
             {
-                fscanf(file,"%f %f,",&Monster[k].x,&Monster[k].y);
+                fscanf(file,"%d %d,",&Monster[k].x,&Monster[k].y);
             }
             fscanf(file,"\n");
             fscanf(file,"%d",&CoinGet);

@@ -39,6 +39,15 @@ void AllUnvisible(void)
     ButtonEnum[About_Game].visible=VISIBLE;
 }
 
+// 全部按钮松开
+void AllButtonUp(void)
+{
+    int j=0;
+    for(j;j<ButtonNum;j++){
+        ButtonEnum[j].stage=Button_UP;
+    }
+}
+
 //判断有无触发按钮
 int TellPress(double mouse_x, double mouse_y, Button Butt)
 {
@@ -206,6 +215,8 @@ void ChoseMapPageTell(double mouse_x,double mouse_y)
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[BuildMapManu]))
     {
         ShiftPageTo(EDIT_PAGE);
+        BuildMap();
+        
     }
     ButtonEnum[CrtNewMap].stage=Button_UP;
 }
@@ -255,7 +266,8 @@ void MenuPageTell(double mouse_x, double mouse_y)
         }
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[BackToMP]))
     {
-        ShiftPageTo(MAIN_PAGE);
+        AllButtonUp();
+		ShiftPageTo(MAIN_PAGE);
     }else{
         ShiftPageTo(GAME_PAGE);
     }
@@ -305,15 +317,34 @@ void EditPageTell (double mouse_x,double mouse_y)
         ButtonEnum[Erase].stage=Button_DOWN;
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Complete]))
     {
-        AllEditButtonUp();
-        ShiftPageTo(GAME_PAGE);
+        int havend=0;
+        int a,b;
+        for (a = 0; a < 100; a++)
+    	{
+        	for(b = 0; b < 100; b++)
+        	{
+            	if(Map[a][b]==END)
+            	{
+            		havend=1;
+				}
+        	}
+    	}
+    	if(MajorRole.x>0 && havend)
+    	{
+    		AllUnvisible();
+			ShiftPageTo(GAME_PAGE);
+		}else
+		{
+			int EditComplete = MessageBox(NULL, "请放置起点与终点", "提醒", MB_OK | MB_ICONINFORMATION);
+		}
+		
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[Cancel]))
     {
         AllEditButtonUp();
         ShiftPageTo(CHOSEMAP_PAGE);
     }else
     {
-
+		
     }
 }
 

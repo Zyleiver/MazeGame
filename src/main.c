@@ -17,8 +17,8 @@ void Main()
     
 	
 	iscracked=200;
-	xscale=30;
-	yscale=30;
+	xscale=5;
+	yscale=5;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
 	monsternum=3;
