@@ -445,7 +445,7 @@ void EditMap(int x,int y,int buttonusing)
 		break;
 
 		case Erase:
-			if(Map[x][y] != ROAD )
+			if(Map[x][y] != ROAD && x>=1 && y>=1 && x<=MZX+1 && y<=MZY+1)
 			{
 				if(Map[x][y] == START)
 				{
