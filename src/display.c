@@ -143,7 +143,7 @@ void display(void)
 		{
 			SetPenColor("Brown");
 			int monsnum;
-			for (monsnum = 0; monsnum < monsternum; monsnum++)
+			for (monsnum = 1; monsnum < monsternum+1; monsnum++)
 			{
 				//drawBox(x0 + (Monster[monsnum].x - 1) / 2 * length + length / 3, y0 + (Monster[monsnum].y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
 				DrawMonster(x0 + (Monster[monsnum].x - 1) / 2 * length+length/2,y0 + (Monster[monsnum].y - 1) / 2 * length+length/2,length);
