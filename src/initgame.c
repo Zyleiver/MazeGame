@@ -132,7 +132,11 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[OpenMap].visible=VISIBLE;
 			ButtonEnum[SaveGame].visible=VISIBLE;
 			ButtonEnum[BackToMP].visible=VISIBLE;
-
+			if(ButtonEnum[ShowAllPath].stage==Button_DOWN)
+			{
+				ButtonEnum[LeftShiftPath].visible=VISIBLE;
+				ButtonEnum[RightShiftPath].visible=VISIBLE;
+			}
 			break;
 
 		case TOOL_PAGE:

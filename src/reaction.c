@@ -232,6 +232,12 @@ void GamePageTell(double mouse_x, double mouse_y)
     else if (TellPress(mouse_x, mouse_y, ButtonEnum[Tools]))
     {
         ShiftPageTo(TOOL_PAGE);
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[LeftShiftPath]))
+    {
+        
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[RightShiftPath]))
+    {
+
     }
  
 }
@@ -377,6 +383,14 @@ void ToolPageTell(double mouse_x,double mouse_y)
         ButtonEnum[RightShiftPath].visible=1-ButtonEnum[RightShiftPath].visible;
         ButtonEnum[PromptNextStep].stage=Button_UP;
         ButtonEnum[ShowShortestPath].stage=Button_UP;
+        find_way_all(MajorRole.x,MajorRole.y);
+        ShiftPageTo(GAME_PAGE);
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[LeftShiftPath]))
+    {
+        ShiftPageTo(GAME_PAGE);
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[RightShiftPath]))
+    {
+        ShiftPageTo(GAME_PAGE);
     }else{
         ShiftPageTo(GAME_PAGE);
     }
