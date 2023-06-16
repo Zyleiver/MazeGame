@@ -15,7 +15,7 @@ void Main()
 	
 	
 	iscracked=200;
-	xscale=4;
+	xscale=10;
 	yscale=10;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
