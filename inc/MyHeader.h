@@ -134,7 +134,7 @@ typedef struct
 
 // 侭嗤叔弼
 Charactor MajorRole; // 麼叔
-Charactor Monster[3];   // 講舗
+Charactor Monster[20];   // 講舗
 
 // 揃�瀟犢悄�！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 
@@ -177,6 +177,8 @@ typedef enum{
     FlashTimer,
     GameTouchTimer,
 }timeID;
+
+void myTimerEvent(int timerID);
 
 
 #endif

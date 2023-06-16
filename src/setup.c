@@ -257,6 +257,7 @@ void GameInit(void)
 
     //三个金币状态初始化
     int coinx, coiny;
+    CoinGet=0;
     
     srand(time(0));
     while(i6<3)

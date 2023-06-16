@@ -3,7 +3,7 @@
 void ReadTemplate(void)
 {
 }
-void saveMap()
+int saveMap(void)
 {
     OPENFILENAME ofn;
     char szFile[MAX_PATH] = "";
@@ -30,7 +30,7 @@ void saveMap()
         FILE *file = fopen(szFile, "w");
         if (file != NULL)
         {
-            fprintf(file, "%d %d\n", map_xlength, map_ylength);
+            fprintf(file, "%d %d\n", xscale, yscale);
             int i = 0;
             int j = 0;
             for (i; i < 100; i++)
@@ -42,8 +42,21 @@ void saveMap()
                 fprintf(file, "\n");
             }
             fprintf(file, "%d %d %d\n", MajorRole.hp, MajorRole.x, MajorRole.y);
+            fprintf(file,"%d\n",monsternum);
+            int k;
+            for(k=0;k<monsternum;k++)
+            {
+                fprintf(file,"%f %f,",Monster[k].x,Monster[k].y);
+            }
+            fprintf(file,"\n");
+            fprintf(file,"%d",CoinGet);
             fclose(file);
+            return 1;
+        }else{
+            return 0;
         }
+    }else{
+        return 0;
     }
 }
 
@@ -65,7 +78,7 @@ int ReadData(void)
         FILE *file = fopen(szFile, "r");
         if (file != NULL)
         {
-            fscanf(file, "%d %d\n", &map_xlength, &map_ylength);
+            fscanf(file, "%d %d\n", &xscale, &yscale);
             int i = 0;
             int j = 0;
             for (i; i < 100; i++)
@@ -77,9 +90,20 @@ int ReadData(void)
                 fscanf(file, "\n");
             }
             fscanf(file, "%d %d %d\n", &MajorRole.hp, &MajorRole.x, &MajorRole.y);
+            fscanf(file,"%d\n",&monsternum);
+            int k;
+            for(k=0;k<monsternum;k++)
+            {
+                fscanf(file,"%f %f,",&Monster[k].x,&Monster[k].y);
+            }
+            fscanf(file,"\n");
+            fscanf(file,"%d",&CoinGet);
             fclose(file);
+            return 1;
+        }else{
+            return 0;
         }
-        return 1;
+        
     }
     else
     {
