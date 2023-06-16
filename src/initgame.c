@@ -31,8 +31,8 @@ Button Back;			 // 回退
 
 Button ButtonEnum[ButtonNum] = {
 	{"开始新游戏"				,Button_UP	,120,120,60,20	,UNVISIBLE}, 
-	{"自动生成地图"				,Button_UP	,120,105,60,20	,UNVISIBLE},
-	{"手动生成地图"				,Button_UP	,120,75,60,20	,UNVISIBLE},
+	{"自动生成地图"				,Button_UP	,45,130,60,20	,UNVISIBLE},
+	{"手动生成地图"				,Button_UP	,45,60,60,20	,UNVISIBLE},
 //	{"空白地图"					,Button_UP	,45,100,15,20	,UNVISIBLE},
 //	{"使用模板"					,Button_UP	,60,100,15,20	,UNVISIBLE},
 //	{"系统模板"					,Button_UP	,75,100,15,20	,UNVISIBLE},
@@ -42,7 +42,7 @@ Button ButtonEnum[ButtonNum] = {
 	{"菜单"						,Button_UP	,0,185,20,15	,UNVISIBLE},
 	{"新建地图  Ctrl+c"					,Button_UP	,0,172,40,13	,UNVISIBLE},
 	{"打开地图  Ctrl+o"					,Button_UP	,0,159,40,13	,UNVISIBLE},
-	{"存档  Ctrl+s"						,Button_UP	,0,146,40,13	,UNVISIBLE},
+	{"保存地图  Ctrl+s"						,Button_UP	,0,146,40,13	,UNVISIBLE},
 //	{"保存为模板"				,Button_UP	,35,60,15,20	,UNVISIBLE},
 	{"返回主页面  Ctrl+b"		,Button_UP	,0,133,40,13	,UNVISIBLE},
 	{"工具"						,Button_UP	,20,185,20,15	,UNVISIBLE},
@@ -68,6 +68,7 @@ void InitGame(void)
 	DefineColor("Light Light Gray", .86, .86, .86);
 	DefineColor("Light Brown",.4,.23,.057);
 	DefineColor("FaceColor",(double)238/(double)255,(double)210/(double)255,(double)189/(double)255);
+	setTextBoxColors("Black","Black","Black","Blue",0);
 	ShiftPageTo(MAIN_PAGE);
 
 	return;
@@ -93,7 +94,6 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[BuildMapAuto].visible=VISIBLE;
 			ButtonEnum[BuildMapManu].visible=VISIBLE;
 			ButtonEnum[Back].visible=VISIBLE;
-
 			break;
 
 		case GAME_PAGE:
@@ -132,7 +132,11 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[OpenMap].visible=VISIBLE;
 			ButtonEnum[SaveGame].visible=VISIBLE;
 			ButtonEnum[BackToMP].visible=VISIBLE;
-
+			if(ButtonEnum[ShowAllPath].stage==Button_DOWN)
+			{
+				ButtonEnum[LeftShiftPath].visible=VISIBLE;
+				ButtonEnum[RightShiftPath].visible=VISIBLE;
+			}
 			break;
 
 		case TOOL_PAGE:

@@ -31,6 +31,9 @@ void MainPageTell(double mouse_x, double mouse_y);
 // 游戏界面按钮触发事件
 void GamePageTell(double mouse_x, double mouse_y);
 
+//选择模式界面按钮触发事件 
+void ChoseMapPageTell(double mouse_x,double mouse_y);
+
 //菜单界面按钮触发事件
 void MenuPageTell(double mouse_x, double mouse_y);
 
