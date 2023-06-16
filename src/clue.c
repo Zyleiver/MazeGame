@@ -225,6 +225,7 @@ void dfs(int x, int y)
 {
     if(visiter[MZX+1][MZY+1]==1)
     {
+    	
         solution ++;
 		
 		pWay dpthisheader = NULL;
@@ -304,6 +305,7 @@ void dfs(int x, int y)
 //找路主体 
 int find_way_all(int curx, int cury)
 {
+    pvisiter=NULL;
 
     //清理初始化
     for(i1 = 0; i1<MZX+4 ; i1++)

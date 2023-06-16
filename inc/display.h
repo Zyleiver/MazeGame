@@ -3,6 +3,10 @@
 
 extern int xscale, yscale;
 extern int CoinGet;
+extern char mapx[4];
+extern char mapy[4];
+extern char monsnum[5];
+extern char coinnum[5];
 
 void display(void);
 

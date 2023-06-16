@@ -276,7 +276,7 @@ void CreateNewMap(void)
     
     //人物、怪兽初始化 
     GameInit();
-    
+    	/*
     	//测试点 
     	int i,j;
     	for(i = MZX+1;i>=0;i--)
@@ -297,7 +297,8 @@ void CreateNewMap(void)
 			printf("\n");
 		}
 		//测试结束 
-}
+		*/
+}		
 
 
 

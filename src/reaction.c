@@ -26,8 +26,6 @@ void setMouseCursorArrow() {
     SetCursor(arrowCursor);
 }
 
-
-
 // 全部按钮不可见(除使用说明和关于)
 void AllUnvisible(void)
 {
@@ -91,7 +89,8 @@ int TellOn(double mouse_x,double mouse_y,Button Butt)
 //鼠标事件
 void myMouseEvent(int x, int y, int button, int event)
 {
-    static double mouse_x;
+    uiGetMouse(x,y,button,event);
+	static double mouse_x;
     static double mouse_y;
 
     mouse_x = ScaleXInches(x);
@@ -209,13 +208,104 @@ void MainPageTell(double mouse_x, double mouse_y)
 void ChoseMapPageTell(double mouse_x,double mouse_y)
 {
     if(TellPress(mouse_x,mouse_y,ButtonEnum[BuildMapAuto]))
-    {
-        CreateNewMap();
+    {	
+    	xscale=atoi(mapx);
+        yscale=atoi(mapy);
+        monsternum=atoi(monsnum);
+        coinNum=atoi(coinnum);
+    	 
+        int CodCrt=1;
+        if(xscale<4){
+            int xlow = MessageBox(NULL, "x值太小", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(xscale>40)
+        {
+            int xmuch = MessageBox(NULL, "x值太大", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(yscale<4)
+        {
+            int ylow = MessageBox(NULL, "y值太小", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(yscale>4)
+        {
+            int ymuch = MessageBox(NULL, "y值太大", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(monsternum<0)
+        {
+            int monslow = MessageBox(NULL, "怪兽数量不得为负数", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(monsternum>999)
+        {
+            int monsmuch = MessageBox(NULL, "怪兽数量过多", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(coinNum<0)
+        {
+            int coinlow = MessageBox(NULL, "金币数量不得为负数", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        else if(coinNum>(xscale*yscale-2))
+        {
+            int coinmuch = MessageBox(NULL, "金币数量过多", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodCrt=0;
+        }
+        
+        if(CodCrt)
+        {
+            CreateNewMap();
+            ShiftPageTo(GAME_PAGE);
+        }
+		CreateNewMap();
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[BuildMapManu]))
     {
-        ShiftPageTo(EDIT_PAGE);
-        BuildMap();
+        xscale=atoi(mapx);
+        yscale=atoi(mapy);
+        monsternum=atoi(monsnum);
+        coinNum=atoi(coinnum);
+    	 
+        int CodBld=1;
+        if(xscale<4){
+            int xlow = MessageBox(NULL, "x值太小", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodBld=0;
+        }
+        else if(xscale>40)
+        {
+            int xmuch = MessageBox(NULL, "x值太大", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodBld=0;
+        }
+        else if(yscale<4)
+        {
+            int ylow = MessageBox(NULL, "y值太小", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodBld=0;
+        }
+        else if(yscale>4)
+        {
+            int ymuch = MessageBox(NULL, "y值太大", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodBld=0;
+        }
+        else if(monsternum<0)
+        {
+            int monslow = MessageBox(NULL, "怪兽数量不得为负数", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodBld=0;
+        }
+        else if(monsternum>999)
+        {
+            int monsmuch = MessageBox(NULL, "怪兽数量过多", "提醒", MB_OK | MB_ICONINFORMATION);
+            CodBld=0;
+        }
+
+        if(CodBld)
+        {
+            ShiftPageTo(EDIT_PAGE);
+            BuildMap();
+        }
+        
         
     }
     ButtonEnum[CrtNewMap].stage=Button_UP;
@@ -234,10 +324,17 @@ void GamePageTell(double mouse_x, double mouse_y)
         ShiftPageTo(TOOL_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[LeftShiftPath]))
     {
-        
+        if(pvisiter->last!=NULL)
+        {
+            pvisiter=pvisiter->last;
+        }
+       
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[RightShiftPath]))
     {
-
+            if(pvisiter->Next!=NULL)
+            {
+                pvisiter=pvisiter->Next;
+            }
     }
  
 }
@@ -274,6 +371,20 @@ void MenuPageTell(double mouse_x, double mouse_y)
     {
         AllButtonUp();
 		ShiftPageTo(MAIN_PAGE);
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[LeftShiftPath]))
+    {
+        if(pvisiter->last!=NULL)
+        {
+            pvisiter=pvisiter->last;
+        }
+        ShiftPageTo(GAME_PAGE);
+    }else if(TellPress(mouse_x,mouse_y,ButtonEnum[RightShiftPath]))
+    {
+            if(pvisiter->Next!=NULL)
+            {
+                pvisiter=pvisiter->Next;
+            }
+            ShiftPageTo(GAME_PAGE);
     }else{
         ShiftPageTo(GAME_PAGE);
     }
@@ -380,17 +491,25 @@ void ToolPageTell(double mouse_x,double mouse_y)
     {   
         ButtonEnum[ShowAllPath].stage=1-ButtonEnum[ShowAllPath].stage;
         ButtonEnum[LeftShiftPath].visible=1-ButtonEnum[LeftShiftPath].visible;
-        ButtonEnum[RightShiftPath].visible=1-ButtonEnum[RightShiftPath].visible;
+        //ButtonEnum[RightShiftPath].visible=1-ButtonEnum[RightShiftPath].visible;
         ButtonEnum[PromptNextStep].stage=Button_UP;
         ButtonEnum[ShowShortestPath].stage=Button_UP;
         find_way_all(MajorRole.x,MajorRole.y);
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[LeftShiftPath]))
     {
+        if(pvisiter->last!=NULL)
+        {
+            pvisiter=pvisiter->last;
+        }
         ShiftPageTo(GAME_PAGE);
     }else if(TellPress(mouse_x,mouse_y,ButtonEnum[RightShiftPath]))
     {
-        ShiftPageTo(GAME_PAGE);
+            if(pvisiter->Next!=NULL)
+            {
+                pvisiter=pvisiter->Next;
+            }
+            ShiftPageTo(GAME_PAGE);
     }else{
         ShiftPageTo(GAME_PAGE);
     }
@@ -478,6 +597,7 @@ void Moveright(void)
 
 void mycharEvent(char ch)
 {
+	uiGetChar(ch);
     if (page_stage == GAME_PAGE)
     {
         if (ifctrl == 1)

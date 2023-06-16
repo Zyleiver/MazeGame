@@ -2,6 +2,10 @@
 
 int xscale, yscale;
 int CoinGet;
+char mapx[4]={'4','\0'};
+char mapy[4]={'4','\0'};
+char monsnum[5]={'3','\0'};
+char coinnum[5]={'3','\0'};
 
 void display(void)
 {
@@ -150,6 +154,24 @@ void display(void)
 			}
 		}
 	}
+	if(page_stage==CHOSEMAP_PAGE)
+	{	
+		SetPenColor("Light Light Gray");
+		drawBox(160,140,40,10,0,"地图规格\(4<=x<=40,4<=y<=40\)",'L',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(160,130,10,10,0,"x:",'L',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(185,130,10,10,0,"y:",'L',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(160,100,40,10,0,"怪兽数量\(小于999\):",'L',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(160,70,40,10,0,"金币数量\(若手动编辑无需输入\)：",'L',"Black");
+		textbox(GenUIID(0),170,130,10,10,mapx,4);
+		textbox(GenUIID(0),195,130,10,10,mapy,4);
+		textbox(GenUIID(0),200,100,10,10,monsnum,5);
+		textbox(GenUIID(0),225,70,10,10,coinnum,5);
+		
+	}
 
 	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[ShowShortestPath].stage == Button_DOWN) // 绘制最短路径
 	{
@@ -157,8 +179,6 @@ void display(void)
 		SetPenColor("Green");
 		pWay pshortestpen;
 		pshortestpen = AllHead->ThisWay;
-		printf("1 %d %d\n", pshortestpen->x, pshortestpen->y);
-		printf("2 %d %d\n", pshortestpen->next->x, pshortestpen->next->y);
 		MovePen(x0 + (pshortestpen->x - 1) * length / 2 + length / 2, y0 + (pshortestpen->y - 1) * length / 2 + length / 2);
 		while (pshortestpen->next != NULL)
 		{
@@ -178,6 +198,20 @@ void display(void)
 		SetPenColor("Red");
 	}
 
+	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[ShowAllPath].stage == Button_DOWN)// 绘制一条全部路径
+	{
+		if(pvisiter->last==NULL)ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+		if(pvisiter->Next==NULL)ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+		SetPenColor("Green");
+		pWay pallwaypen;
+		pallwaypen = pvisiter->ThisWay;
+		MovePen(x0 + (pallwaypen->x - 1) * length / 2 + length / 2, y0 + (pallwaypen->y - 1) * length / 2 + length / 2);
+		while (pallwaypen->next != NULL)
+		{
+			DrawLine((pallwaypen->next->x - pallwaypen->x) * length / 2, (pallwaypen->next->y - pallwaypen->y) * length / 2);
+			pallwaypen = pallwaypen->next;
+		}
+	} 
 	SetPenColor("Red");
 	int j = 0;
 	for (j; j < ButtonNum; j++) // 绘制按钮

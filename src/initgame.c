@@ -31,8 +31,8 @@ Button Back;			 // 回退
 
 Button ButtonEnum[ButtonNum] = {
 	{"开始新游戏"				,Button_UP	,120,120,60,20	,UNVISIBLE}, 
-	{"自动生成地图"				,Button_UP	,120,105,60,20	,UNVISIBLE},
-	{"手动生成地图"				,Button_UP	,120,75,60,20	,UNVISIBLE},
+	{"自动生成地图"				,Button_UP	,45,130,60,20	,UNVISIBLE},
+	{"手动生成地图"				,Button_UP	,45,60,60,20	,UNVISIBLE},
 //	{"空白地图"					,Button_UP	,45,100,15,20	,UNVISIBLE},
 //	{"使用模板"					,Button_UP	,60,100,15,20	,UNVISIBLE},
 //	{"系统模板"					,Button_UP	,75,100,15,20	,UNVISIBLE},
@@ -68,6 +68,7 @@ void InitGame(void)
 	DefineColor("Light Light Gray", .86, .86, .86);
 	DefineColor("Light Brown",.4,.23,.057);
 	DefineColor("FaceColor",(double)238/(double)255,(double)210/(double)255,(double)189/(double)255);
+	setTextBoxColors("Black","Black","Black","Blue",0);
 	ShiftPageTo(MAIN_PAGE);
 
 	return;
@@ -93,7 +94,6 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[BuildMapAuto].visible=VISIBLE;
 			ButtonEnum[BuildMapManu].visible=VISIBLE;
 			ButtonEnum[Back].visible=VISIBLE;
-
 			break;
 
 		case GAME_PAGE:
