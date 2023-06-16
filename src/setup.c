@@ -304,7 +304,8 @@ void CreateNewMap(void)
 void GameInit(void)
 {
     i6=0;
-
+	
+	CoinGet=0; 
     //主角状态初始化
     MajorRole.hp = 3;
     int i,j;
@@ -613,7 +614,7 @@ void myTimerEvent(int timerID)
     case GameTouchTimer:
     	    
     	    //怪兽碰撞事件 
-    		for(i15 = 0; i15 < monsternum; i15++ )
+    		for(i15 = 1; i15 <= monsternum; i15++ )
     		{
     			if(MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y &&page_stage==GAME_PAGE)
     			{
