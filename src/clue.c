@@ -231,7 +231,7 @@ void dfs(int x, int y)
 		pWay dpthistailer;
 		dpthistailer = dpthisheader;
 		
-        for(i1 = 0; i1<top;i1++)
+        for(i1 = 0; i1<=top;i1++)
         {
             pWay tt = (pWay)malloc(sizeof(struct Way));
             tt->x = s[i1].x;
@@ -251,7 +251,7 @@ void dfs(int x, int y)
         temdp->Next = NULL;
         temdp->last = NULL;
         
-        if(AllHead = NULL)
+        if(AllHead == NULL)
         	AllHead = temdp;
         else
         {
@@ -306,6 +306,7 @@ int find_way_all(int curx, int cury)
 {
 
     //清理初始化
+    pvisiter = NULL;
     for(i1 = 0; i1<MZX+4 ; i1++)
     {
         for(i2 = 0; i2<MZY+4 ; i2++)

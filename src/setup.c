@@ -2,7 +2,9 @@
 
 int MZX;
 int MZY;
-	
+
+int coinNum;
+
 //循环变量群 ,
 int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i17;
 
@@ -256,11 +258,11 @@ void CreateNewMap(void)
 
     //以下为人物、怪兽、金币初始化
     
-    //三个金币状态初始化
+    //金币状态初始化
     int coinx, coiny;
     
     srand(time(0));
-    while(i6<3)
+    while(i6<coinNum)
     {
         coinx = rand()%(MZX)+1;
         coiny = rand()%(MZY)+1;
@@ -277,26 +279,6 @@ void CreateNewMap(void)
     //人物、怪兽初始化 
     GameInit();
     
-    	//测试点 
-    	int i,j;
-    	for(i = MZX+1;i>=0;i--)
-    	{
-    		for(j = 0;j<=MZY+1;j++)
-    		{
-    			if(Map[j][i]==ROAD)
-    			printf("   ");
-    			if(Map[j][i]==WALL)
-    			printf(" # ");
-    			if(Map[j][i]==COIN)
-    			printf(" O ");
-    			if(Map[j][i]==END)
-    			printf(" w ");
-    			if(Map[j][i]==START)
-    			printf(" S ");
-			}
-			printf("\n");
-		}
-		//测试结束 
 }
 
 
@@ -632,9 +614,13 @@ void myTimerEvent(int timerID)
 				if(page_stage==GAME_PAGE && Map[MajorRole.x][MajorRole.y] == END)
 				{
 						ShiftPageTo(END_PAGE);
-   	 					int result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
-    
-    					if (result == IDYES)
+                        int result;
+						if(CoinGet < 3)
+   	 						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+    					else
+    						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+    					
+						if (result == IDYES)
     					{
         						if(saveMap())
         						{
@@ -660,8 +646,12 @@ void myTimerEvent(int timerID)
 				if(MajorRole.hp == 0 && page_stage==GAME_PAGE)
 				{		
 						ShiftPageTo(END_PAGE);
-   	 					int result1 = MessageBox(NULL, "\t再 接 再 厉 ！\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
-    
+                        int result1;
+						if(CoinGet < 3)
+   	 						result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+    					else 
+    						result1 = MessageBox(NULL, "\t虽 败 犹 荣 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+    						
     					if (result1 == IDYES)
     					{
         					if(saveMap())
