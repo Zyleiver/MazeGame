@@ -168,9 +168,12 @@ struct AllWay
 {
     pWay ThisWay;
     struct AllWay *Next;
+    struct AllWay *last;
 };
 typedef struct AllWay *Pallway; // 路径链表的指针
 extern Pallway AllHead;
+extern Pallway pvisiter;
+
 
 //时钟ID
 typedef enum{

@@ -1,7 +1,6 @@
 #ifndef CLUE_H_
 #define CLUE_H_
 
-
 extern Map[100][100];
 
 //最短路径寻找，输入curx、cury（当前横纵坐标），将路径存在链表里，返回0为未找到，返回1为找到

@@ -15,11 +15,12 @@ void Main()
 	InitGraphics();
 	InitGame();
     
-	xscale=10;
-	yscale=10;
+	
+	xscale=25;
+	yscale=25;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
-	monsternum=3;
+	monsternum=10;
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
