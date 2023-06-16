@@ -190,7 +190,7 @@ int find_way_shortest(int curx,int cury)
         Alltail->Next = tempq;
 
         Alltail = tempq;
-
+	
 	//ÕÒµ½½â·µ»Ø1 
     return 1;
 
@@ -245,11 +245,16 @@ void dfs(int x, int y)
         Pallway temdp = (Pallway)malloc(sizeof(struct AllWay));
         temdp->ThisWay = dpthisheader;
         temdp->Next = NULL;
+        temdp->last = NULL;
         
         if(AllHead = NULL)
         	AllHead = temdp;
         else
+        {
+        	temdp->last = Alltail;
         	Alltail->Next = temdp;
+		}
+        	
         	
         	Alltail = temdp;
 

@@ -31,6 +31,7 @@ struct nonvisit
 //******自动生成迷宫函数******//
 void CreateNewMap(void)
 {
+	CoinGet = 0;
 	MajorRole.hp = 3;
 	MajorRole.x = -10;
 	MajorRole.y = -10;
@@ -304,7 +305,8 @@ void CreateNewMap(void)
 void GameInit(void)
 {
     i6=0;
-
+	
+	CoinGet = 0;
     //主角状态初始化
     MajorRole.hp = 3;
     int i,j;
@@ -348,6 +350,7 @@ void GameInit(void)
 //******手动生成地图******//
 void BuildMap(void)
 {
+	CoinGet = 0;
 	MajorRole.hp = 3;
 	MajorRole.x = -10;
 	MajorRole.y = -10;
@@ -613,7 +616,7 @@ void myTimerEvent(int timerID)
     case GameTouchTimer:
     	    
     	    //怪兽碰撞事件 
-    		for(i15 = 0; i15 < monsternum; i15++ )
+    		for(i15 = 1; i15 <= monsternum; i15++ )
     		{
     			if(MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y &&page_stage==GAME_PAGE)
     			{

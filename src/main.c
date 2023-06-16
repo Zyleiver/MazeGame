@@ -17,11 +17,11 @@ void Main()
     
 	
 	iscracked=200;
-	xscale=5;
-	yscale=5;
+	xscale=48;
+	yscale=48;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
-	monsternum=3;
+	monsternum=100;
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
