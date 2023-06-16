@@ -1,7 +1,7 @@
 #ifndef SETUP_H_
 #define SETUP_H_
 
-
+extern int coinNum;
 
 extern int monsternum;
 //暂时先令地图为18*18，宏定义数值计算公式
