@@ -16,12 +16,11 @@ void Main()
 	InitGame();
     
 	
-	iscracked=200;
-	xscale=48;
-	yscale=48;
+	xscale=25;
+	yscale=25;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
-	monsternum=100;
+	monsternum=10;
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);

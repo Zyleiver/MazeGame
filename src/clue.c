@@ -5,6 +5,8 @@ Pallway Alltail;
 
 extern Map[100][100]; 
 
+Pallway pvisiter = NULL; 
+
 struct listnote
 {
         int x;
@@ -45,6 +47,8 @@ printf("%d %d\n",queue[t].x,queue[t].y);//该行测试点
 //使用广度优先搜索BFS
 int find_way_shortest(int curx,int cury)
 {
+	
+	pvisiter = NULL;
 	//清理链表 
 	Pallway p1, p2;
 	pWay p3, p4;
