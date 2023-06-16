@@ -647,7 +647,7 @@ void myTimerEvent(int timerID)
 				{		
 						ShiftPageTo(END_PAGE);
                         int result1;
-						if(CoinGet < 3)
+						if(CoinGet < coinNum)
    	 						result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
     					else 
     						result1 = MessageBox(NULL, "\t虽 败 犹 荣 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
