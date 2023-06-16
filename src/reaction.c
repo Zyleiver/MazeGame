@@ -26,6 +26,8 @@ void setMouseCursorArrow() {
     SetCursor(arrowCursor);
 }
 
+
+
 // 全部按钮不可见(除使用说明和关于)
 void AllUnvisible(void)
 {

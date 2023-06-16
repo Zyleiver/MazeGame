@@ -65,6 +65,9 @@ Button ButtonEnum[ButtonNum] = {
 };
 void InitGame(void)
 {
+	DefineColor("Light Light Gray", .86, .86, .86);
+	DefineColor("Light Brown",.4,.23,.057);
+	DefineColor("FaceColor",(double)238/(double)255,(double)210/(double)255,(double)189/(double)255);
 	ShiftPageTo(MAIN_PAGE);
 
 	return;

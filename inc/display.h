@@ -6,8 +6,8 @@ extern int CoinGet;
 
 void display(void);
 
-void DrawAvatar(double mx, double my, double length);       //»­½ÇÉ«
+
 void DrawCoin(double mx, double my, double l, int InMap);    //»­½ð±Ò
-
-
+void DrawMonster(double mx,double my,double l);      //»­¹ÖÊÞ
+void DrawRole(double mx,double my,double l);         //»­½ÇÉ«
 #endif
