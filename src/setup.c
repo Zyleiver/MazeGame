@@ -3,8 +3,8 @@
 int MZX;
 int MZY;
 	
-//循环变量群 
-int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14;
+//循环变量群 ,
+int i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i17;
 
 //用于随机选择未访问方格的过程中，存放随机序号
 int rnum;
@@ -31,6 +31,16 @@ struct nonvisit
 //******自动生成迷宫函数******//
 void CreateNewMap(void)
 {
+	MajorRole.hp = 3;
+	MajorRole.x = -10;
+	MajorRole.y = -10;
+	for(i12 = 0; i12 < 1000; i12++)
+	{
+		Monster[i12].hp = 0;
+		Monster[i12].x = -10;
+		Monster[i12].y = -10;
+	}
+	
     //地图恢复原始状态为建立作准备
     for (i12 = 0; i12 < 100; i12++)
     {
@@ -42,31 +52,31 @@ void CreateNewMap(void)
     
 
     //全图最外层一圈设置为墙，但在前端不显示出来，只是便于算法实现，免去讨论边界情况
-    for(i1 = 0; i1<=MZX+1; i1++)
+    for(i1 = 0; i1<=99; i1++)
     {
         Map[i1][0] = WALL;
-        Map[i1][MZY+1] = WALL;
+        Map[i1][99] = WALL;
     }
     
-    for(i1 = 0; i1<=MZY+1; i1++)
+    for(i1 = 0; i1<=99; i1++)
     {
         Map[0][i1] = WALL;
-        Map[MZX+1][i1] = WALL;
+        Map[99][i1] = WALL;
     }
 
 
     //初始化ROAD和WALL，交错排列，保证每个ROAD上下左右四个方向都是WALL
-    for(i2 = 2; i2<=MZX-1; i2=i2 + 2)
+    for(i2 = 2; i2<=97; i2=i2 + 2)
     {
-        for(i3 = 1; i3<=MZY; i3++)
+        for(i3 = 1; i3<=98; i3++)
         {
             Map[i2][i3] = WALL; //给迷宫隔列设置WALL
         }
     }
 
-    for(i4 = 2; i4<=MZY-1; i4=i4 + 2)
+    for(i4 = 2; i4<=97; i4=i4 + 2)
     {
-        for(i5 = 1; i5<=MZX; i5++)
+        for(i5 = 1; i5<=98; i5++)
         {
             Map[i5][i4] = WALL; //给迷宫隔行设置WALL
         }
@@ -75,9 +85,9 @@ void CreateNewMap(void)
 
     //初始化将所有方格设为未访问
     int visit[100+4][100+4];
-    for(i10 = 0;i10<=MZX+3;i10++)
+    for(i10 = 0;i10<=103;i10++)
     {
-    	for(i11 = 0;i11<=MZY+3;i11++)
+    	for(i11 = 0;i11<=103;i11++)
     	{
     		visit[i10][i11] = NO;
 		}
@@ -244,6 +254,26 @@ void CreateNewMap(void)
 
 
     //以下为人物、怪兽、金币初始化
+    
+    //三个金币状态初始化
+    int coinx, coiny;
+    
+    srand(time(0));
+    while(i6<3)
+    {
+        coinx = rand()%(MZX)+1;
+        coiny = rand()%(MZY)+1;
+        if((coinx>=MZX/3 || coiny>=MZY/3) && (coinx<=4*MZX/5 || coiny<=4*MZY/5) && (Map[coinx][coiny] == ROAD))
+        {
+            if(coinx%2!=0 && coiny%2!=0)
+            {
+                Map[coinx][coiny] = COIN;
+                i6++;
+            }
+        }
+    }//金币生成在距离合适的ROAD上
+    
+    //人物、怪兽初始化 
     GameInit();
     
     	//测试点 
@@ -270,88 +300,45 @@ void CreateNewMap(void)
 
 
 
-//******人物、怪兽、金币自动初始化******//
+//******人物、怪兽自动初始化******//
 void GameInit(void)
 {
     i6=0;
 
     //主角状态初始化
     MajorRole.hp = 3;
-    MajorRole.x = 1;
-    MajorRole.y = 1;
-
-
-
-    //三个金币状态初始化
-    int coinx, coiny;
-    
-    srand(time(0));
-    while(i6<3)
+    int i,j;
+    for(i = MZX+1;i>=0;i--)
     {
-        coinx = rand()%(MZX)+1;
-        coiny = rand()%(MZY)+1;
-        if((coinx>=MZX/3 || coiny>=MZY/3) && (coinx<=4*MZX/5 || coiny<=4*MZY/5) && (Map[coinx][coiny] == ROAD))
-        {
-            if(coinx%2!=0 && coiny%2!=0)
-            {
-                Map[coinx][coiny] = COIN;
-                i6++;
-            }
-        }
-    }//金币生成在距离合适的ROAD上
+    	for(j = 0;j<=MZY+1;j++)
+    	{
+			if(Map[i][j] == START)
+    		{
+    			MajorRole.x = i;
+    			MajorRole.y = j;
+			}	
+		}
+	}
 
-    //三只怪兽状态初始化
-    if(monsternum > 0)
-  	Monster[0].hp = 100;
 
-    while (1)
+    //怪兽状态初始化
+    for(i12 = 1; i12 <= monsternum; i12++)
     {
-        Monster[0].x = rand()%(MZX)+1;
-        Monster[0].y = rand()%(MZY)+1;
-        if((Monster[0].x>=MZX/3 || Monster[0].y>=MZY/3) && (Monster[0].x<=4*MZX/5 || Monster[0].y<=4*MZY/5) && (Map[Monster[0].x][Monster[0].y] == ROAD))
-        {
-            if(Monster[0].x%2!=0 && Monster[0].y%2!=0)
-            break;
-        }
-    }
+    	if(monsternum > i12)
+  		Monster[i12].hp = 100;
 
-    if(monsternum > 1)
-    Monster[1].hp = 100;
-
-    while (1)
-    {
-        Monster[1].x = rand()%(MZX)+1;
-        Monster[1].y = rand()%(MZY)+1;
-        if((Monster[1].x>=MZX/3 || Monster[1].y>=MZY/3) && (Monster[1].x<=4*MZX/5 || Monster[1].y<=4*MZY/5) && (Map[Monster[1].x][Monster[1].y] == ROAD))
-        {
-            if(fabs(Monster[1].x-Monster[0].x)>MZX/4 || fabs(Monster[1].y-Monster[0].y)>MZY/4)
-            {
-                if(Monster[1].x%2!=0 && Monster[1].y%2!=0)
-                break;
-            }
-        }
-    }
-    
-    if(monsternum > 2)
-    Monster[2].hp = 100;
-    
-    while (1)
-    {
-    	
-        Monster[2].x = rand()%(MZX)+1;
-        Monster[2].y = rand()%(MZY)+1;
-        if((Monster[2].x>=MZX/3 || Monster[2].y>=MZY/3) && (Monster[2].x<=4*MZX/5 || Monster[2].y<=4*MZY/5) && (Map[Monster[2].x][Monster[2].y] == ROAD))
-        {
-            if(fabs(Monster[2].x-Monster[0].x)>MZX/4 || fabs(Monster[2].y-Monster[0].y)>MZY/4)
-            {
-                if(fabs(Monster[2].x-Monster[1].x)>MZX/4 || fabs(Monster[2].y-Monster[1].y)>MZY/4)
-                {
-                    if(Monster[2].x%2!=0 && Monster[2].y%2!=0)
-                    break;
-                }
-            }
-        }
-    }
+    	while (1)
+    	{
+        	Monster[i12].x = rand()%(MZX)+1;
+        	Monster[i12].y = rand()%(MZY)+1;
+        	if((Monster[i12].x>=MZX/3 || Monster[i12].y>=MZY/3) && (Monster[i12].x<=4*MZX/5 || Monster[i12].y<=4*MZY/5) && (Map[Monster[i12].x][Monster[i12].y] == ROAD))
+        	{
+     	       if(Monster[i12].x%2!=0 && Monster[i12].y%2!=0)
+     	       break;
+     	    }
+    	}
+	}
+	Monster[0].hp = 100;
     //下来令怪兽在适当范围内移动
     
     
@@ -361,7 +348,126 @@ void GameInit(void)
 //******手动生成地图******//
 void BuildMap(void)
 {
+	MajorRole.hp = 3;
+	MajorRole.x = -10;
+	MajorRole.y = -10;
+	for(i12 = 0; i12 < 1000; i12++)
+	{
+		Monster[i12].hp = 0;
+		Monster[i12].x = -10;
+		Monster[i12].y = -10;
+	}
+	
+	//地图恢复原始状态为建立作准备
+    for (i12 = 0; i12 < 100; i12++)
+    {
+        for(i13 = 0; i13 < 100; i13++)
+        {
+            Map[i12][i13] = ROAD;
+        }
+    }
     
+
+    //全图最外层一圈设置为墙，但在前端不显示出来，只是便于算法实现，免去讨论边界情况
+    for(i1 = 0; i1<=99; i1++)
+    {
+        Map[i1][0] = WALL;
+        Map[i1][99] = WALL;
+    }
+    
+    for(i1 = 0; i1<=99; i1++)
+    {
+        Map[0][i1] = WALL;
+        Map[99][i1] = WALL;
+    }
+
+
+    //初始化ROAD和WALL，交错排列，保证每个ROAD上下左右四个方向都是WALL
+    for(i2 = 2; i2<=97; i2=i2 + 2)
+    {
+        for(i3 = 1; i3<=98; i3++)
+        {
+            Map[i2][i3] = WALL; //给迷宫隔列设置WALL
+        }
+    }
+
+    for(i4 = 2; i4<=97; i4=i4 + 2)
+    {
+        for(i5 = 1; i5<=98; i5++)
+        {
+            Map[i5][i4] = WALL; //给迷宫隔行设置WALL
+        }
+    }
+    //迷宫最开始时设置了都为ROAD，所以只需要设置初始WALL即可
+    
+}
+
+void EditMap(int x,int y,int buttonusing)
+{
+	static int imonster = 0;
+	
+	switch (buttonusing)
+	{
+		case PutCoin:
+			if(x%2 != 0 && y%2 != 0)
+				Map[x][y] = COIN;
+		break;
+		
+		case PutRole:
+			if(x%2 != 0 && y%2 != 0)
+			{
+				Map[x][y] = START;
+				MajorRole.x = x;
+				MajorRole.y = y;
+			}
+		break;
+		
+		case PutGoal:
+			if(x%2 != 0 && y%2 != 0)
+				Map[x][y] = END;
+		break;
+		/*
+		case PutMonster:
+			if(x%2 != 0 && y%2 != 0)
+			{
+				Monster[imonster].hp = 100;
+				Monster[imonster].x = x;
+				Monster[imonster].y = y;
+				imonster++;
+			}
+		break;
+		*/
+		case Erase:
+			if(Map[x][y] != ROAD && x%2 != 0 && y%2 != 0)
+			{
+				if(Map[x][y] == START)
+				{
+					MajorRole.hp = 3;
+					MajorRole.x = -10;
+					MajorRole.y = -10;
+				}
+				
+				Map[x][y] = ROAD;
+			}
+			
+			for(i17 = 1; i17 < 1000; i17++)
+			{
+				if(Monster[i17].x == x && Monster[i17].y == y)
+				{
+					Monster[i17].hp = 0;
+					Monster[i17].x = -10;
+					Monster[i17].y = -10;
+				}
+			}
+		break;
+		
+		case Complete:
+			Monster[0].hp = 100;
+			ShiftPageTo(GAME_PAGE);
+			
+			
+			
+	}
 }
 
 int iscracked=0;
@@ -372,7 +478,7 @@ void myTimerEvent(int timerID)
     case MonsterTimer:
             if(Monster[0].hp != 100) break;
             
-            for(i14 = 0;i14<3;i14 ++)
+            for(i14 = 1;i14 <= monsternum;i14 ++)
             {
             	int ifforwardplayer = rand()%10;
             	int monstermoverand = rand()%2;
@@ -470,11 +576,83 @@ void myTimerEvent(int timerID)
             }  
         break;
     case FlashTimer:
-    		if(iscracked>0)iscracked--;
+    		if(iscracked>0)
+				iscracked--;
             display();
             break;
     case GameTouchTimer:
-            break;
+    	    
+    	    //怪兽碰撞事件 
+    		for(i15 = 0; i15 < monsternum; i15++ )
+    		{
+    			if(MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y)
+    			{
+    				if(MajorRole.hp != 0 && iscracked == 0)
+    					MajorRole.hp--;
+    					
+    					iscracked = 200;
+				}
+			}
+			
+			//结束判断事件 
+				if(Map[MajorRole.x][MajorRole.y] == END)
+				{
+					
+   	 					int result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+    
+    					if (result == IDYES)
+    					{
+        						if(saveMap())
+        						{
+        							int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
+        							ShiftPageTo(MAIN_PAGE);
+								}
+								else
+								{
+									int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
+								}
+							
 
-    }
+    					}
+    					else if (result == IDNO)
+    					{
+        					ShiftPageTo(MAIN_PAGE);
+    					}
+					
+					
+				}
+				
+				if(MajorRole.hp == 0 )
+				{
+   	 					int result1 = MessageBox(NULL, "\t再 接 再 厉 ！\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+    
+    					if (result1 == IDYES)
+    					{
+        					if(saveMap())
+        					{
+        						int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
+        						ShiftPageTo(MAIN_PAGE);
+							}
+							else
+							{
+								int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
+							}
+        					
+    					}
+    					else if (result1 == IDNO)
+    					{
+        					ShiftPageTo(MAIN_PAGE);
+    					}
+					}
+				
+			//金币碰撞事件
+			if(Map[MajorRole.x][MajorRole.y] == COIN)
+			{
+				Map[MajorRole.x][MajorRole.y] = COINGOT;
+				CoinGet++;
+			}
+				
+        break;
+}
+
 }

@@ -14,11 +14,11 @@ void Main()
 	InitConsole(); 
 	InitGraphics();
 	InitGame();
-	
+    
 	
 	iscracked=200;
-	xscale=40;
-	yscale=40;
+	xscale=30;
+	yscale=30;
 	MZX=xscale*2-1;
 	MZY=yscale*2-1;
 	monsternum=3;
@@ -26,8 +26,9 @@ void Main()
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
 	registerCharEvent(mycharEvent);
-	startTimer(MonsterTimer,250);
+	startTimer(MonsterTimer,500);
 	startTimer(FlashTimer,10);
+	startTimer(GameTouchTimer,20);
 }
 
 

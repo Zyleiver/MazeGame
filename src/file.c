@@ -1,8 +1,6 @@
 #include "MyHeader.h"
 
-void ReadTemplate(void)
-{
-}
+
 void saveMap()
 {
     OPENFILENAME ofn;

@@ -121,6 +121,7 @@ typedef enum
     START,
     WALL,
     COIN,
+    COINGOT,
     END,
 } element;
 
@@ -134,7 +135,7 @@ typedef struct
 
 // 侭嗤叔弼
 Charactor MajorRole; // 麼叔
-Charactor Monster[3];   // 講舗
+Charactor Monster[1000];   // 講舗
 
 // 揃�瀟犢悄�！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 

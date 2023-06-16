@@ -21,9 +21,8 @@ void CreateNewMap(void);
 //手动创建地图/地图编辑
 void BuildMap(void);
 
-//使用模板
-void UseTemplate(void);
-//OpenTemp
+//人物、怪兽初始化 
+void GameInit(void);
 
 //游戏初始化（人物、怪兽、金币初始化）
 void InitMap(void);

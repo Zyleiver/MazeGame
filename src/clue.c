@@ -3,10 +3,7 @@
 Pallway AllHead = NULL;
 Pallway Alltail;
 
-extern Map[100][100];
-
-int MZX = 11;
-int MZY = 11; 
+extern Map[100][100]; 
 
 struct listnote
 {
