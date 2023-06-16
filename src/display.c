@@ -94,52 +94,11 @@ void display(void)
 		// 金币显示
 		DrawCoin(245, 145, 5, 0);
 		SetPenColor("Light Light Gray");
-		switch (CoinGet)
-		{
-		case 0:
-			drawBox(250, 140, 30, 10, 0, ": 0", 'L', "Black");
-			break;
-
-		case 1:
-			drawBox(250, 140, 30, 10, 0, ": 1", 'L', "Black");
-			break;
-
-		case 2:
-			drawBox(250, 140, 30, 10, 0, ": 2", 'L', "Black");
-			break;
-
-		case 3:
-			drawBox(250, 140, 30, 10, 0, ": 3", 'L', "Black");
-			break;
-
-		case 4:
-			drawBox(250, 140, 30, 10, 0, ": 4", 'L', "Black");
-			break;
-
-		case 5:
-			drawBox(250, 140, 30, 10, 0, ": 5", 'L', "Black");
-			break;
-
-		case 6:
-			drawBox(250, 140, 30, 10, 0, ": 6", 'L', "Black");
-			break;
-
-		case 7:
-			drawBox(250, 140, 30, 10, 0, ": 7", 'L', "Black");
-			break;
-
-		case 8:
-			drawBox(250, 140, 30, 10, 0, ": 8", 'L', "Black");
-			break;
-
-		case 9:
-			drawBox(250, 140, 30, 10, 0, ": 9", 'L', "Black");
-			break;
-			
-		case 10:
-			drawBox(250, 140, 30, 10, 0, ": 10", 'L', "Black");
-			break;
-		}
+		char m[10];
+		sprintf(m, "%d", CoinGet);
+		drawBox(250, 140, 5, 10, 0, ": ", 'L', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(255,140,10,10,0,m,'L',"Black");
 		SetPenColor("Black");
 
 		// 画怪兽
@@ -165,12 +124,12 @@ void display(void)
 		SetPenColor("Light Light Gray");
 		drawBox(160,100,40,10,0,"怪兽数量\(小于999\):",'L',"Black");
 		SetPenColor("Light Light Gray");
-		drawBox(160,70,40,10,0,"金币数量\(若手动编辑无需输入\)：",'L',"Black");
-		textbox(GenUIID(0),170,130,10,10,mapx,4);
-		textbox(GenUIID(0),195,130,10,10,mapy,4);
-		textbox(GenUIID(0),200,100,10,10,monsnum,5);
-		textbox(GenUIID(0),225,70,10,10,coinnum,5);
-		
+		drawBox(160,70,40,10,0,"金币数量\(若手动编辑无需输入\):",'L',"Black");
+		textbox(GenUIID(0),170,130,10,10,mapx,3);
+		textbox(GenUIID(0),195,130,10,10,mapy,3);
+		textbox(GenUIID(0),200,100,10,10,monsnum,4);
+		textbox(GenUIID(0),225,70,10,10,coinnum,4);
+		drawRectangle(140,50,110,110,0);
 	}
 
 	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[ShowShortestPath].stage == Button_DOWN) // 绘制最短路径

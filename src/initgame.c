@@ -42,7 +42,7 @@ Button ButtonEnum[ButtonNum] = {
 	{"菜单"						,Button_UP	,0,185,20,15	,UNVISIBLE},
 	{"新建地图  Ctrl+c"					,Button_UP	,0,172,40,13	,UNVISIBLE},
 	{"打开地图  Ctrl+o"					,Button_UP	,0,159,40,13	,UNVISIBLE},
-	{"存档  Ctrl+s"						,Button_UP	,0,146,40,13	,UNVISIBLE},
+	{"保存地图  Ctrl+s"						,Button_UP	,0,146,40,13	,UNVISIBLE},
 //	{"保存为模板"				,Button_UP	,35,60,15,20	,UNVISIBLE},
 	{"返回主页面  Ctrl+b"		,Button_UP	,0,133,40,13	,UNVISIBLE},
 	{"工具"						,Button_UP	,20,185,20,15	,UNVISIBLE},
