@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = build/main.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o build/clue.o build/display.o build/file.o build/reaction.o build/initgame.o
-LINKOBJ  = build/main.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o build/clue.o build/display.o build/file.o build/reaction.o build/initgame.o
+OBJ      = build/clue.o build/display.o build/file.o build/initgame.o build/main.o build/reaction.o build/setup.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o
+LINKOBJ  = build/clue.o build/display.o build/file.o build/initgame.o build/main.o build/reaction.o build/setup.o build/exceptio.o build/genlib.o build/graphics.o build/imgui.o build/linkedlist.o build/random.o build/simpio.o build/strlib.o
 LIBS     = -L"D:/Dev-Cpp/MinGW64/lib" -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -mwindows -g3
 INCS     = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"include" -I"inc"
 CXXINCS  = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"include" -I"inc"
@@ -24,8 +24,26 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
+build/clue.o: src/clue.c
+	$(CC) -c src/clue.c -o build/clue.o $(CFLAGS)
+
+build/display.o: src/display.c
+	$(CC) -c src/display.c -o build/display.o $(CFLAGS)
+
+build/file.o: src/file.c
+	$(CC) -c src/file.c -o build/file.o $(CFLAGS)
+
+build/initgame.o: src/initgame.c
+	$(CC) -c src/initgame.c -o build/initgame.o $(CFLAGS)
+
 build/main.o: src/main.c
 	$(CC) -c src/main.c -o build/main.o $(CFLAGS)
+
+build/reaction.o: src/reaction.c
+	$(CC) -c src/reaction.c -o build/reaction.o $(CFLAGS)
+
+build/setup.o: src/setup.c
+	$(CC) -c src/setup.c -o build/setup.o $(CFLAGS)
 
 build/exceptio.o: libgraphics/exceptio.c
 	$(CC) -c libgraphics/exceptio.c -o build/exceptio.o $(CFLAGS)
@@ -50,18 +68,3 @@ build/simpio.o: libgraphics/simpio.c
 
 build/strlib.o: libgraphics/strlib.c
 	$(CC) -c libgraphics/strlib.c -o build/strlib.o $(CFLAGS)
-
-build/clue.o: src/clue.c
-	$(CC) -c src/clue.c -o build/clue.o $(CFLAGS)
-
-build/display.o: src/display.c
-	$(CC) -c src/display.c -o build/display.o $(CFLAGS)
-
-build/file.o: src/file.c
-	$(CC) -c src/file.c -o build/file.o $(CFLAGS)
-
-build/reaction.o: src/reaction.c
-	$(CC) -c src/reaction.c -o build/reaction.o $(CFLAGS)
-
-build/initgame.o: src/initgame.c
-	$(CC) -c src/initgame.c -o build/initgame.o $(CFLAGS)

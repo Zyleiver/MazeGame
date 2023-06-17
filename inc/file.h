@@ -2,13 +2,16 @@
 #define FILE_H_
 
 //读取存档
-void ReadData(void);
+int ReadData(void);
 
 //读取模板
 void ReadTemplate(void);
 
+//读取系统模板
+void OpenTemp(void);
+
 //存档
-void SaveGame_ingame(void);
+int saveMap(void);
 
 //保存为模板
 void SaveAsTemplate(void);
