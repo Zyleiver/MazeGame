@@ -313,9 +313,9 @@ void GameInit(void)
 
     	while (1)
     	{
-        	Monster[i12].x = rand()%(MZX)+1;
-        	Monster[i12].y = rand()%(MZY)+1;
-        	if((Monster[i12].x>=MZX/3 || Monster[i12].y>=MZY/3) && (Monster[i12].x<=4*MZX/5 || Monster[i12].y<=4*MZY/5) && (Map[Monster[i12].x][Monster[i12].y] == ROAD))
+        	Monster[i12].x = rand()%(MZX-1)+1;
+        	Monster[i12].y = rand()%(MZY-1)+1;
+        	if((Monster[i12].x>=MZX/3 && Monster[i12].y>=MZY/3) && (Monster[i12].x<=4*MZX/5 || Monster[i12].y<=4*MZY/5) && (Map[Monster[i12].x][Monster[i12].y] == ROAD))
         	{
      	       if(Monster[i12].x%2!=0 && Monster[i12].y%2!=0)
      	       break;
@@ -509,7 +509,24 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x++;
                                 Monster[i14].x++;
                             }else{
-                            	
+                            	//
+								if(MajorRole.y>Monster[i14].y)
+                        		{
+                            		if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
+                                	{   
+                                    	Monster[i14].y++;
+                                    	Monster[i14].y++;
+                                	}
+                        		}
+                        		else
+                        		{
+                            		if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
+                            		{
+                                		Monster[i14].y--;
+                                		Monster[i14].y--;
+                            		}
+                        		}
+								// 
 							}
                         }
                         else
@@ -520,20 +537,57 @@ void myTimerEvent(int timerID)
                                 Monster[i14].x--;
                                 Monster[i14].x--;
                             }else{
-                            	
+                            	//
+                            		if(MajorRole.y>Monster[i14].y)
+                       		 		{
+                            			if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
+                                		{   
+                                  	  		Monster[i14].y++;
+                                    		Monster[i14].y++;
+                                		}
+                        			}
+                        			else
+                        			{
+                            			if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
+                            			{
+                               	 			Monster[i14].y--;
+                                			Monster[i14].y--;
+                            			}
+                        			}
+                            	//
 							}
 							
-                        }
+                    	}
                     }
                     else
                     {	
                         if(MajorRole.y>Monster[i14].y)
                         {
                             if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
-                                {   
-                                    Monster[i14].y++;
-                                    Monster[i14].y++;
-                                }
+                            {   
+                                Monster[i14].y++;
+                                Monster[i14].y++;
+                            }
+                        	else{
+                        		//
+                        			if(MajorRole.x>Monster[i14].x)
+                        		{
+                            		if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                                	{   
+                                    	Monster[i14].x++;
+                                    	Monster[i14].x++;
+                                	}
+                        		}
+                        		else
+                        		{
+                            		if(Map[Monster[i14].x-1][Monster[i14].y-1]!=WALL)
+                            		{
+                                		Monster[i14].x--;
+                                		Monster[i14].x--;
+                            		}
+                        		}
+                        		//
+							}
                         }
                         else
                         {
@@ -542,6 +596,26 @@ void myTimerEvent(int timerID)
                                 Monster[i14].y--;
                                 Monster[i14].y--;
                             }
+                            else{
+                            	//
+                        			if(MajorRole.x>Monster[i14].x)
+                        		{
+                            		if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                                	{   
+                                    	Monster[i14].x++;
+                                    	Monster[i14].x++;
+                                	}
+                        		}
+                        		else
+                        		{
+                            		if(Map[Monster[i14].x-1][Monster[i14].y-1]!=WALL)
+                            		{
+                                		Monster[i14].x--;
+                                		Monster[i14].x--;
+                            		}
+                        		}
+                        		//
+							}
                         }
                     }
                 }
@@ -615,9 +689,9 @@ void myTimerEvent(int timerID)
 				{
 						ShiftPageTo(END_PAGE);
                         int result;
-						if(CoinGet < 3)
+						if(CoinGet < coinNum)
    	 						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
-    					else
+    					else 
     						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
     					
 						if (result == IDYES)
@@ -677,6 +751,8 @@ void myTimerEvent(int timerID)
 			{
 				Map[MajorRole.x][MajorRole.y] = COINGOT;
 				CoinGet++;
+				if(MajorRole.hp < 3)
+					MajorRole.hp++;
 			}
 				
         break;
