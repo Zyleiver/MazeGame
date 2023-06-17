@@ -25,8 +25,7 @@ enum BUTTON
 	PromptNextStep,	  // 提示下一步（Alt+p）
 	ShowShortestPath, // 显示最短路径（Alt+r）
 	ShowAllPath,	  // 显示全部路径（Alt+a）
-	LeftShiftPath,	  // 显示全部路径时左切
-	RightShiftPath,	  // 显示全部路径时右切
+
 	Instruction,	  // 使用说明
 	About_Game,		  // 关于
 	Back,			  // 回退
@@ -36,7 +35,9 @@ enum BUTTON
 	PutCoin, 		  //放置金币
 	Erase, 			  //橡皮
 	Complete, 		  //完成编辑
-	Cancel 			  //退出编辑
+	Cancel,			  //退出编辑
+	LeftShiftPath,	  // 显示全部路径时左切
+	RightShiftPath	  // 显示全部路径时右切
 };
 
 

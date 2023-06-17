@@ -106,6 +106,7 @@ void display(void)
 		textbox(GenUIID(0),195,130,10,10,mapy,3);
 		textbox(GenUIID(0),200,100,10,10,monsnum,4);
 		textbox(GenUIID(0),225,70,10,10,coinnum,4);
+		SetPenColor("Black");
 		drawRectangle(140,50,110,110,0);
 	}
 
@@ -136,8 +137,8 @@ void display(void)
 
 	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[ShowAllPath].stage == Button_DOWN)// »æÖÆÒ»ÌõÈ«²¿Â·¾¶
 	{
-		if(pvisiter->last==NULL)ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
-		if(pvisiter->Next==NULL)ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+		//if(pvisiter->last==NULL)ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+		//if(pvisiter->Next==NULL)ButtonEnum[RightShiftPath].visible=UNVISIBLE;
 		SetPenColor("Green");
 		pWay pallwaypen;
 		pallwaypen = pvisiter->ThisWay;
@@ -148,7 +149,7 @@ void display(void)
 			pallwaypen = pallwaypen->next;
 		}
 	} 
-	SetPenColor("Red");
+	SetPenColor("Blue");
 	int j = 0;
 	for (j; j < ButtonNum; j++) // »æÖÆ°´Å¥
 	{
@@ -162,7 +163,7 @@ void display(void)
 						ButtonEnum[j].ly,
 						0,
 						ButtonEnum[j].name,
-						'M', "Red");
+						'M', "Blue");
 			}
 			else
 			{
@@ -172,8 +173,8 @@ void display(void)
 						ButtonEnum[j].ly,
 						0,
 						ButtonEnum[j].name,
-						'M', "Black");
-				SetPenColor("Red");
+						'M', "Red");
+				SetPenColor("Blue");
 			}
 		}
 	}
@@ -184,7 +185,7 @@ void display(void)
 		{
 			switch (putting)
 			{
-			case WALL:
+			case PutWall:
 				//»­¿ò¿ò
 				SetPenColor("Blue");
 				if(editx%2==1)
@@ -197,22 +198,22 @@ void display(void)
 				SetPenColor("Black");
 				break;
 			
-			case COIN:
+			case PutCoin:
 				//»­Ô¤ÀÀ½ð±Ò
 				DrawPreCoin(X0 + (editx - 1) / 2 * length+length/2, Y0 + (edity - 1) / 2 * length+length/2, length);
 				break;
 
-			case START:
+			case PutRole:
 				//»­Ô¤ÀÀ½ÇÉ«
 				DrawPreRole(X0 + (editx - 1) / 2 * length+length/2,Y0 + (edity - 1) / 2 * length+length/2,length);
 				break;
 
-			case END:
+			case PutGoal:
 				//»­Ô¤ÀÀÖÕµã
 				DrawPreGoal(X0 + (editx - 1) / 2 * length+length/2,Y0 + (edity - 1) / 2 * length+length/2,length);
 				break;
 
-			case -1:
+			case Erase:
 				//»­¿ò¿ò
 				SetPenColor("Blue");
 				if(editx%2==1)
@@ -229,65 +230,7 @@ void display(void)
 	}
 }
 
-/*
-void DrawAvatar(double mx, double my, double length) // »­½ÇÉ«
-{
-	;
-	if (iscracked)
-	{ // ½ÇÉ«±»Åö×²ºó±ä³ÉºìÉ«
-		SetPenColor("Red");
-	}
-	else
-	{
-		SetPenColor("Blue");
-	}
-	MovePen(mx + length / 4, my + 0.6 * length);
-	DrawLine(0, -0.44 * length);
-	DrawLine(0.5 * length, 0);
-	DrawLine(0, length * 0.44);
 
-	StartFilledRegion(1);
-	DrawLine(-0.11 * length, 0.1 * length);
-	DrawLine(-0.08 * length, -0.22 * length);
-	DrawLine(-0.11 * length, 0.14 * length);
-	DrawLine(-0.2 * length, -0.02 * length);
-	DrawLine(-0.04 * length, -0.004 * length);
-	DrawLine(-0.05 * length, 0.2 * length);
-	DrawLine(-0.1 * length, -0.01 * length);
-	DrawLine(0.2 * length, 0.1 * length);
-	DrawLine(-0.1 * length, 0.02 * length);
-	DrawLine(0.24 * length, 0.03 * length);
-	DrawLine(0.05 * length, -0.02 * length);
-	DrawLine(0.05 * length, 0.02 * length);
-	DrawLine(0.24 * length, -0.03 * length);
-	DrawLine(-0.1 * length, -0.02 * length);
-	DrawLine(0.2 * length, -0.05 * length);
-	DrawLine(-0.05 * length, -0.01 * length);
-	DrawLine(0.15 * length, -0.2 * length);
-	DrawLine(-0.18 * length, 0.02 * length);
-	DrawLine(-0.01 * length, -0.046 * length);
-	EndFilledRegion();
-
-	MovePen(mx + length / 4 + length / 32, my + 0.56 * length);
-	DrawLine(length * 3 / 16, -length * 1 / 32);
-	MovePen(mx + length / 4 + length / 32 + length * 3 / 64, my + 0.56 * length - length * 1 / 64);
-	DrawLine(length * 3 / 16 / 32, -length * 3 / 16 / 3);
-	DrawLine(length * 3 / 16 / 2 - length * 3 / 16 / 32, 0);
-	DrawLine(length * 3 / 16 / 32, length * 3 / 16 / 3 * 7 / 8);
-	MovePen(mx + length - (length / 4 + length / 32), my + 0.56 * length);
-	DrawLine(-length * 3 / 16, -length * 1 / 32);
-	MovePen(mx + length - (length / 4 + length / 32 + length * 3 / 64), my + 0.56 * length - length * 1 / 64);
-	DrawLine(-length * 3 / 16 / 32, -length * 3 / 16 / 3);
-	DrawLine(-length * 3 / 16 / 2 - length * 3 / 16 / 32, 0);
-	DrawLine(-length * 3 / 16 / 32, length * 3 / 16 / 3 * 7 / 8);
-	drawRectangle(mx + length / 4 + length / 9, my + 0.48 * length, length / 32, length / 32 + 0.04 * length, 1);
-	drawRectangle(mx + length - (length / 4 + length / 9) - length / 32, my + 0.48 * length, length / 32, length / 32 + 0.04 * length, 1);
-	MovePen(mx + length / 4 + length / 16, my + 0.38 * length);
-	DrawLine(length / 32, -length / 10);
-	DrawLine(length * 5 / 16, 0);
-	DrawLine(length / 32, length / 10);
-}
-*/
 
 void DrawCoin(double mx, double my, double l, int InMap)
 {
@@ -445,8 +388,8 @@ void DrawRole(double mx,double my,double l)
 	if(iscracked>0)
 	{
 		SetPenColor("Yellow");
-		MovePen(mx+l/2,my);
-		DrawArc(l/2,0,360);
+		MovePen(mx+l/2-l/64,my);
+		DrawArc(l/2-l/64,0,360);
 		SetPenColor("Black");
 	}
 	return;

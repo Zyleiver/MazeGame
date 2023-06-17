@@ -307,7 +307,26 @@ void CreateNewMap(void)
 //******人物、怪兽自动初始化******//
 void GameInit(void)
 {
-    i6 = 0;
+	if (abs(xscale - yscale) < 5)
+    {
+        length = 160 / sqrt(xscale * yscale);
+    }
+    else if (xscale > yscale)
+    {
+        length = 180 / xscale;
+    }
+    else
+    {
+        length = 160 / yscale;
+    }
+
+    Xlength = (double)xscale * length;
+    Ylength = (double)yscale * length;
+    X0 = 150 - Xlength / 2;
+    Y0 = 90 - Ylength / 2;
+    MZX = xscale * 2 - 1;
+    MZY = yscale * 2 - 1;
+	i6 = 0;
 
     CoinGet = 0;
     // 主角状态初始化
@@ -432,25 +451,22 @@ void EditMap(int x, int y, int buttonusing)
     case PutCoin:
         if (x % 2 != 0 && y % 2 != 0)
         {
-            for (i12 = 0; i12 < 100; i12++)
+            if(Map[x][y]==ROAD)
             {
-                for (i13 = 0; i13 < 100; i13++)
-                {
-                    if (Map[i12][i13] == COIN)
-                        Map[i12][i13] = ROAD;
-                }
+                Map[x][y] = COIN;
             }
-
-            Map[x][y] = COIN;
+            
         }
 
         break;
 
     case PutRole:
-        if (x % 2 != 0 && y % 2 != 0)
-        {
-            for (i12 = 0; i12 < 100; i12++)
-            {
+    	if(Map[x][y]==ROAD)
+    	{
+    		if (x % 2 != 0 && y % 2 != 0)
+        	{
+            	for (i12 = 0; i12 < 100; i12++)
+            	{
                 for (i13 = 0; i13 < 100; i13++)
                 {
                     if (Map[i12][i13] == START)
@@ -461,11 +477,15 @@ void EditMap(int x, int y, int buttonusing)
             Map[x][y] = START;
             MajorRole.x = x;
             MajorRole.y = y;
-        }
+        }	
+		}
+        
         break;
 
     case PutGoal:
-        if (x % 2 != 0 && y % 2 != 0)
+    	if(Map[x][y]==ROAD)
+    	{
+    		if (x % 2 != 0 && y % 2 != 0)
         {
             for (i12 = 0; i12 < 100; i12++)
             {
@@ -478,6 +498,8 @@ void EditMap(int x, int y, int buttonusing)
 
             Map[x][y] = END;
         }
+		}
+        
         break;
 
     case Erase:
@@ -509,10 +531,12 @@ void EditMap(int x, int y, int buttonusing)
         {
             Map[x][y] = WALL;
         }
+        break;
 
     case Complete:
         Monster[0].hp = 100;
         ShiftPageTo(GAME_PAGE);
+        break;
     }
 }
 
@@ -525,18 +549,15 @@ void myTimerEvent(int timerID)
         if (Monster[0].hp != 100 || page_stage != GAME_PAGE)
             break;
 
-        for (i14 = 1; i14 <= monsternum; i14++)
-        {
-            int ifforwardplayer = rand() % 10;
-            int monstermoverand = rand() % 2;
-            if (ifforwardplayer < 8) // 朝不朝
+       for(i14 = 1;i14 <= monsternum;i14 ++)
             {
-                if (monstermoverand) // 走y还是x
+            	int ifforwardplayer = rand()%10;
+            	int monstermoverand = rand()%2;
+                if(ifforwardplayer<8)//朝不朝
                 {
-                    if (MajorRole.x > Monster[i14].x) // 走正还是走负
+                    if(monstermoverand)//走y还是x
                     {
-
-                        if (Map[Monster[i14].x + 1][Monster[i14].y] != WALL)
+                        if(MajorRole.x>Monster[i14].x)//走正还是走负
                         {
                             
 							if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
@@ -595,9 +616,8 @@ void myTimerEvent(int timerID)
                     	}
                     }
                     else
-                    {
-
-                        if (Map[Monster[i14].x - 1][Monster[i14].y] != WALL)
+                    {	
+                        if(MajorRole.y>Monster[i14].y)
                         {
                             if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
                             {   
@@ -657,66 +677,48 @@ void myTimerEvent(int timerID)
                 }
                 else
                 {
-                    if (MajorRole.y > Monster[i14].y)
+                    if(monstermoverand)//走y还是x
                     {
-                        if (Map[Monster[i14].x][Monster[i14].y + 1] != WALL)
+                        if(MajorRole.x>Monster[i14].x)//走正还是走负
                         {
-                            Monster[i14].y++;
-                            Monster[i14].y++;
+                            if(Map[Monster[i14].x-1][Monster[i14].y]!=WALL)
+                            {
+                                Monster[i14].x--;
+                                Monster[i14].x--;
+                            }
+                        }
+                        else
+                        {
+                            if(Map[Monster[i14].x+1][Monster[i14].y]!=WALL)
+                            {
+                                Monster[i14].x++;
+                                Monster[i14].x++;
+                            }
                         }
                     }
                     else
                     {
-                        if (Map[Monster[i14].x][Monster[i14].y - 1] != WALL)
+                        if(MajorRole.y>Monster[i14].y)
                         {
-                            Monster[i14].y--;
-                            Monster[i14].y--;
+                            if(Map[Monster[i14].x][Monster[i14].y-1]!=WALL)
+                                {   
+                                    Monster[i14].y--;
+                                    Monster[i14].y--;
+                                }
+                        }
+                        else
+                        {
+                            if(Map[Monster[i14].x][Monster[i14].y+1]!=WALL)
+                            {
+                                Monster[i14].y++;
+                                Monster[i14].y++;
+                            }
                         }
                     }
                 }
+
+                
             }
-            else
-            {
-                if (monstermoverand) // 走y还是x
-                {
-                    if (MajorRole.x > Monster[i14].x) // 走正还是走负
-                    {
-                        if (Map[Monster[i14].x - 1][Monster[i14].y] != WALL)
-                        {
-                            Monster[i14].x--;
-                            Monster[i14].x--;
-                        }
-                    }
-                    else
-                    {
-                        if (Map[Monster[i14].x + 1][Monster[i14].y] != WALL)
-                        {
-                            Monster[i14].x++;
-                            Monster[i14].x++;
-                        }
-                    }
-                }
-                else
-                {
-                    if (MajorRole.y > Monster[i14].y)
-                    {
-                        if (Map[Monster[i14].x][Monster[i14].y - 1] != WALL)
-                        {
-                            Monster[i14].y--;
-                            Monster[i14].y--;
-                        }
-                    }
-                    else
-                    {
-                        if (Map[Monster[i14].x][Monster[i14].y + 1] != WALL)
-                        {
-                            Monster[i14].y++;
-                            Monster[i14].y++;
-                        }
-                    }
-                }
-            }
-        }
         break;
     case FlashTimer:
     		if(iscracked>0)
@@ -810,6 +812,8 @@ void myTimerEvent(int timerID)
 			}
 				
         break;
+        
+    /* 
     case GameTouchTimer:
 
         // 怪兽碰撞事件
@@ -888,5 +892,6 @@ void myTimerEvent(int timerID)
         }
 
         break;
+        */ 
     }
 }

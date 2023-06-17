@@ -34,6 +34,9 @@ void GameInit(void);
 //游戏初始化（人物、怪兽、金币初始化）
 void InitMap(void);
 
+//
+void EditMap(int x, int y, int buttonusing);
+
 extern int Map[100][100];
 
 extern int iscracked;
