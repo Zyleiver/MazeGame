@@ -7,6 +7,9 @@ extern Map[100][100];
 
 Pallway pvisiter = NULL; 
 
+int finalx; 
+int finaly;
+
 struct listnote
 {
         int x;
@@ -114,7 +117,17 @@ int find_way_shortest(int curx,int cury)
     header = 1; tailer = 1;
 
     //初始化终点、访问数组、临时节点
-    int finalx = MZX, finaly = MZY;
+    for(i1 = 0; i1<100 ; i1++)
+    {
+        for(i2 = 0; i2<100 ; i2++)
+        {
+        	if(Map[i1][i2] == END)
+            {
+            	finalx = i1;
+            	finaly = i2;
+			}
+        }
+    }
     int visit[100+4][100+4] = {0};
     int tx,ty, txwall, tywall;
     
@@ -159,7 +172,7 @@ int find_way_shortest(int curx,int cury)
             }
             
             //判断是否需要终止
-            if(visit[MZX+1][MZY+1] == 1)
+            if(visit[finalx+1][finaly+1] == 1)
             {
                 flag = 1;//找到最短路径
                 break;
@@ -203,16 +216,16 @@ int find_way_shortest(int curx,int cury)
 //使用深度优先搜索DFS
 int dir[4][4] = {{2,0,1,0},{-2,0,-1,0},{0,2,0,1},{0,-2,0,-1}};
 
-int visiter[100+4][100+4] = {0};
+int visiter[100+4][100+4];
 
 int txdp,tydp,txdpwall,tydpwall;
 
-typedef struct depthlist{
+struct depthlist{
     int x;
     int y;
-} dplist;
+};
 
-dplist s[10000];
+struct depthlist s[10000];
 
 int top = 0;
 int solution = 0;
@@ -227,16 +240,17 @@ void dfs(int x, int y)
     {
     	
         solution ++;
-		
+        		
 		pWay dpthisheader = NULL;
 		pWay dpthistailer;
 		dpthistailer = dpthisheader;
 		
-        for(i1 = 0; i1<=top;i1++)
+		int ij;
+        for(ij = 0; ij<=top;ij++)
         {
             pWay tt = (pWay)malloc(sizeof(struct Way));
-            tt->x = s[i1].x;
-            tt->y = s[i1].y;
+            tt->x = s[ij].x;
+            tt->y = s[ij].y;
             tt->next = NULL;
 
             if(dpthisheader == NULL)
@@ -292,7 +306,6 @@ void dfs(int x, int y)
                 dfs(txdp,tydp);
                 txdp = temtxdp;
                 tydp = temtydp;
-                
                 i1 = temi1;
 
                 visiter[txdp+1][tydp+1]=0;
@@ -305,13 +318,12 @@ void dfs(int x, int y)
 //找路主体 
 int find_way_all(int curx, int cury)
 {
-    pvisiter=NULL;
-
+	
     //清理初始化
     pvisiter = NULL;
-    for(i1 = 0; i1<MZX+4 ; i1++)
+    for(i1 = 0; i1<104 ; i1++)
     {
-        for(i2 = 0; i2<MZY+4 ; i2++)
+        for(i2 = 0; i2<104 ; i2++)
         {
             visiter[i1][i2] = 0;
         }
@@ -319,6 +331,17 @@ int find_way_all(int curx, int cury)
     top = 0;
     solution =0;
 
+	for(i1 = 0; i1<100 ; i1++)
+    {
+        for(i2 = 0; i2<100 ; i2++)
+        {
+        	if(Map[i1][i2] == END)
+            {
+            	finalx = i1;
+            	finaly = i2;
+			}
+        }
+    }
     //清理链表 
 	Pallway p1, p2;
 	pWay p3, p4;
@@ -380,19 +403,21 @@ int find_way_all(int curx, int cury)
 	}
 	//清理结束
 	
-	printf("1\n");
     //起点初始化
     visiter[curx+1][cury+1] = 1;
     s[0].x = curx;
     s[0].y = cury;
     
     //开始递归
-    printf("2\n");
     dfs(curx,cury);
-    printf("3\n");
     
-    if(solution==0) return 0 ;
-    else return 1;
+    
+	pvisiter = AllHead;
+		
+    if(solution == 0) 
+		return 0;
+    else 
+		return 1;
     
 }
 
