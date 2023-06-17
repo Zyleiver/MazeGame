@@ -49,6 +49,7 @@ enum Page_Stage
     MENU_PAGE,     // 菜单界面
     TOOL_PAGE,     // 工具界面
     END_PAGE,      // 结束界面
+    INSTRUCT_PAGE, //指示关于界面
 };
 
 extern int page_stage;

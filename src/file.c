@@ -184,5 +184,7 @@ void Instruct(void)
 
 void AboutGame(void)
 {
-    int INSTRUCTION = MessageBox(NULL, "", "关于", MB_OK | MB_ICONINFORMATION);
+	if(page_stage != INSTRUCT_PAGE)
+		ShiftPageTo(INSTRUCT_PAGE);
+    //int INSTRUCTION = MessageBox(NULL, "", "关于", MB_OK | MB_ICONINFORMATION);
 }

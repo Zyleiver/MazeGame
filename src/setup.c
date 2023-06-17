@@ -253,26 +253,30 @@ void CreateNewMap(void)
     // 随机凿墙优化迷宫生成算法
     int randwallbreakx, randwallbreaky, randwallbreaknum;
     srand(time(0));
-    for (randwallbreaknum = 0; (randwallbreaknum <= MZX && randwallbreaknum <= MZY) && xscale + yscale > 12;)
+    for (randwallbreaknum = 0; (randwallbreaknum <= MZX/2 && randwallbreaknum <= MZY/2) && xscale + yscale > 9;)
     {
         randwallbreakx = rand() % (MZX) + 1;
         randwallbreaky = rand() % (MZY) + 1;
 
-        if (Map[randwallbreakx][randwallbreaky] == WALL)
+        if (Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx <= 2*MZX/3 && randwallbreaky <= 2*MZY/3)
         {
+        	if(randwallbreakx > MZX/4 && randwallbreaky > MZY/4)
             Map[randwallbreakx][randwallbreaky] = ROAD;
             randwallbreaknum++;
         }
     }
-    for (randwallbreaknum = 0; randwallbreaknum <= 3 && xscale + yscale > 12;)
+    for (randwallbreaknum = 0; randwallbreaknum <= 8 && xscale + yscale > 12;)
     {
         randwallbreakx = rand() % (MZX) + 1;
         randwallbreaky = rand() % (MZY) + 1;
 
-        if (Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx > MZX - 5 && randwallbreaky > MZY - 5)
+        if (Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx > MZX-15 && randwallbreaky > MZY-15)
         {
-            randwallbreaknum++;
-            Map[randwallbreakx][randwallbreaky] = ROAD;
+        	if(randwallbreakx < MZX-5 && randwallbreaky < MZY-5)
+            {
+            	randwallbreaknum++;
+            	Map[randwallbreakx][randwallbreaky] = ROAD;
+			}
         }
     }
 
@@ -354,7 +358,7 @@ void GameInit(void)
     	{
         	Monster[i12].x = rand()%(MZX-1)+1;
         	Monster[i12].y = rand()%(MZY-1)+1;
-        	if((Monster[i12].x>=MZX/3 && Monster[i12].y>=MZY/3) && (Monster[i12].x<=4*MZX/5 || Monster[i12].y<=4*MZY/5) && (Map[Monster[i12].x][Monster[i12].y] == ROAD))
+        	if((Monster[i12].x>=MZX/3 && Monster[i12].y>=MZY/3) && (Monster[i12].x<=4*MZX/5 || Monster[i12].y<=4*MZY/5) && (Map[Monster[i12].x][Monster[i12].y] == ROAD || Map[Monster[i12].x][Monster[i12].y] == COIN))
         	{
      	       if(Monster[i12].x%2!=0 && Monster[i12].y%2!=0)
      	       break;
@@ -745,7 +749,7 @@ void myTimerEvent(int timerID)
 				{
 						ShiftPageTo(END_PAGE);
                         int result;
-						if(CoinGet < coinNum)
+						if(CoinGet < coinNum || coinNum == 0)
    	 						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
     					else 
     						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
@@ -777,7 +781,7 @@ void myTimerEvent(int timerID)
 				{		
 						ShiftPageTo(END_PAGE);
                         int result1;
-						if(CoinGet < coinNum)
+						if(CoinGet < coinNum || coinNum == 0)
    	 						result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
     					else 
     						result1 = MessageBox(NULL, "\t虽 败 犹 荣 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
@@ -813,85 +817,5 @@ void myTimerEvent(int timerID)
 				
         break;
         
-    /* 
-    case GameTouchTimer:
-
-        // 怪兽碰撞事件
-        for (i15 = 1; i15 <= monsternum; i15++)
-        {
-            if (MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y && page_stage == GAME_PAGE)
-            {
-                if (MajorRole.hp != 0 && iscracked == 0)
-                {
-                    MajorRole.hp--;
-                    iscracked = 200;
-                }
-            }
-        }
-
-        // 结束判断事件
-        if (page_stage == GAME_PAGE && Map[MajorRole.x][MajorRole.y] == END)
-        {
-            ShiftPageTo(END_PAGE);
-            int result;
-            if (CoinGet < 3)
-                result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
-            else
-                result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
-
-            if (result == IDYES)
-            {
-                if (saveMap())
-                {
-                    int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
-                }
-                else
-                {
-                    int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
-                }
-                ShiftPageTo(MAIN_PAGE);
-            }
-            else if (result == IDNO)
-            {
-                ShiftPageTo(MAIN_PAGE);
-            }
-        }
-
-        if (MajorRole.hp == 0 && page_stage == GAME_PAGE)
-        {
-            ShiftPageTo(END_PAGE);
-            int result1;
-            if (CoinGet < 3)
-                result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
-            else
-                result1 = MessageBox(NULL, "\t虽 败 犹 荣 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
-
-            if (result1 == IDYES)
-            {
-                if (saveMap())
-                {
-                    int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
-                }
-                else
-                {
-                    int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
-                }
-                ShiftPageTo(MAIN_PAGE);
-            }
-            else if (result1 == IDNO)
-            {
-                ShiftPageTo(MAIN_PAGE);
-            }
-        }
-
-        // 金币碰撞事件
-        if (Map[MajorRole.x][MajorRole.y] == COIN && page_stage == GAME_PAGE)
-        {
-            Map[MajorRole.x][MajorRole.y] = COINGOT;
-            CoinGet++;
-        }
-
-        break;
-        */ 
     }
 }

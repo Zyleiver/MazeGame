@@ -9,6 +9,8 @@ extern int editx;   // 编辑地图的x坐标
 extern int edity;   // 编辑地图的y坐标
 extern int ifpre;   //是否显示预览
 
+extern int aboutstage; //存储打开关于前的页面状态 
+
 // 鼠标事件，判断触发了什么事件
 void myMouseEvent(int x, int y, int button, int event);
 

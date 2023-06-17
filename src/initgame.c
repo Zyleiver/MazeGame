@@ -154,6 +154,12 @@ void ShiftPageTo(int PageTo)
 		case END_PAGE:
 			page_stage=END_PAGE;
 			break;
+			
+		case INSTRUCT_PAGE:
+			AllUnvisible();
+			ButtonEnum[Back].visible=VISIBLE;
+			page_stage=INSTRUCT_PAGE;
+			break;
 	}
 	
 	return;

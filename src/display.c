@@ -123,8 +123,37 @@ void display(void)
 			pshortestpen = pshortestpen->next;
 		}
 	}
-
-	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[PromptNextStep].stage == Button_DOWN) // 绘制下一步
+	
+	if(page_stage==INSTRUCT_PAGE)
+	{
+		int sizepen = GetPenSize();
+		SetPenSize(2);
+		SetPenColor("Light Light Gray");
+		drawRectangle(0,0,300,200,1);
+		drawBox(120,150,60,20,0,"关 于",'M',"Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(130,130,30,10,0,"作者：",'M',"Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(140,130,30,10,0,"郑灵杰",'M',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(140,120,30,10,0,"耿传洪",'M',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(140,110,30,10,0,"王志龙",'M',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(105,100,40,10,0,"作品名称：",'M',"Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(140,100,40,10,0,"你逃它追插翅难飞",'M',"Black");
+		SetPenColor("Light Light Gray");
+		drawBox(105,50,90,5,0,"谨此纪念我们的童年",'M',"Blue");
+		SetPenColor("Violet");
+		drawRectangle(95,40,110,132,0);
+		SetPenColor("Blue");
+		drawRectangle(100,45,100,120,0);
+		SetPenSize(sizepen);
+		
+	}
+	
+	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[PromptNextStep].stage == Button_DOWN) // 绘制下一步
 	{
 
 		// SetPenColor("SafeWayGreen");
