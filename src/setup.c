@@ -473,11 +473,7 @@ void EditMap(int x,int y,int buttonusing)
 			{
 				Map[x][y] = WALL;
 			}
-		
-		case Complete:
-			Monster[0].hp = 100;
-			ShiftPageTo(GAME_PAGE);
-			
+		break;
 			
 			
 	}
