@@ -25,6 +25,30 @@ struct listnote
     struct listnote queue[10000];
     int header = 1, tailer = 1, i1,i2;
 
+//清理链表函数 （二级） 
+pWay clear_Way(pWay way) {
+    if (way == NULL) {
+        return NULL;
+    }
+    way->next = clear_Way(way->next);
+    way->next = NULL;
+    free(way);
+    return NULL;
+}
+
+//清理链表函数（一级） 
+Pallway clear_AllWay(Pallway allway) {
+    if (allway == NULL) {
+        return NULL;
+    }
+    allway->ThisWay = clear_Way(allway->ThisWay);
+    allway->Next = NULL;
+    free(allway);
+    return NULL;
+}
+
+
+//存解递归 
 void f(int t)
 {
     if(t==0) return;
@@ -52,65 +76,9 @@ int find_way_shortest(int curx,int cury)
 {
 	
 	pvisiter = NULL;
-	//清理链表 
-	Pallway p1, p2;
-	pWay p3, p4;
-	p1 = AllHead;
-	if(AllHead == NULL)
-		p2 = NULL;
-	else
-		p2 = AllHead->Next;
-		
-	while(p2 != NULL)
-	{
-		p1->Next = p2->Next;
-		//
-		p3 = p2->ThisWay;
-		if(p2->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p2->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p2->ThisWay != NULL)
-		{
-			p2->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p2);
-		p2 = p1->Next;
-	}
 	
-	if(AllHead != NULL)
-	{
-		AllHead = NULL;
-		//
-		p3 = p1->ThisWay;
-		if(p1->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p1->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p1->ThisWay != NULL)
-		{
-			p1->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p1);	
-	}
+	//清理链表 
+	AllHead = clear_AllWay(AllHead);
 	//清理结束
 	
 	 
@@ -342,65 +310,9 @@ int find_way_all(int curx, int cury)
 			}
         }
     }
+    
     //清理链表 
-	Pallway p1, p2;
-	pWay p3, p4;
-	p1 = AllHead;
-	if(AllHead == NULL)
-		p2 = NULL;
-	else
-		p2 = AllHead->Next;
-		
-	while(p2 != NULL)
-	{
-		p1->Next = p2->Next;
-		//
-		p3 = p2->ThisWay;
-		if(p2->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p2->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p2->ThisWay != NULL)
-		{
-			p2->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p2);
-		p2 = p1->Next;
-	}
-	
-	if(AllHead != NULL)
-	{
-		AllHead = NULL;
-		//
-		p3 = p1->ThisWay;
-		if(p1->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p1->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p1->ThisWay != NULL)
-		{
-			p1->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p1);	
-	}
+	AllHead = clear_AllWay(AllHead);
 	//清理结束
 	
     //起点初始化

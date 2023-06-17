@@ -253,26 +253,30 @@ void CreateNewMap(void)
     // 随机凿墙优化迷宫生成算法
     int randwallbreakx, randwallbreaky, randwallbreaknum;
     srand(time(0));
-    for (randwallbreaknum = 0; (randwallbreaknum <= MZX && randwallbreaknum <= MZY) && xscale + yscale > 12;)
+    for (randwallbreaknum = 0; (randwallbreaknum <= MZX/2 && randwallbreaknum <= MZY/2) && xscale + yscale > 9;)
     {
         randwallbreakx = rand() % (MZX) + 1;
         randwallbreaky = rand() % (MZY) + 1;
 
-        if (Map[randwallbreakx][randwallbreaky] == WALL)
+        if (Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx <= 2*MZX/3 && randwallbreaky <= 2*MZY/3)
         {
+        	if(randwallbreakx > MZX/4 && randwallbreaky > MZY/4)
             Map[randwallbreakx][randwallbreaky] = ROAD;
             randwallbreaknum++;
         }
     }
-    for (randwallbreaknum = 0; randwallbreaknum <= 3 && xscale + yscale > 12;)
+    for (randwallbreaknum = 0; randwallbreaknum <= 8 && xscale + yscale > 12;)
     {
         randwallbreakx = rand() % (MZX) + 1;
         randwallbreaky = rand() % (MZY) + 1;
 
-        if (Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx > MZX - 5 && randwallbreaky > MZY - 5)
+        if (Map[randwallbreakx][randwallbreaky] == WALL && randwallbreakx > MZX-15 && randwallbreaky > MZY-15)
         {
-            randwallbreaknum++;
-            Map[randwallbreakx][randwallbreaky] = ROAD;
+        	if(randwallbreakx < MZX-5 && randwallbreaky < MZY-5)
+            {
+            	randwallbreaknum++;
+            	Map[randwallbreakx][randwallbreaky] = ROAD;
+			}
         }
     }
 
