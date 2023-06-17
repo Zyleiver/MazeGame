@@ -60,4 +60,6 @@ void Moveright(void);
 // 角色向下运动
 void Movedown(void);
 
+
+
 #endif

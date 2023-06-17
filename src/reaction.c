@@ -4,7 +4,7 @@ int putting; // 正在编辑的模块
 int editx;   // 编辑地图的x坐标
 int edity;   // 编辑地图的y坐标
 
-int ifpre;  //是否显示预览
+int ifpre; // 是否显示预览
 
 // 鼠标变成手指
 void setMouseCursorHand()
@@ -40,8 +40,8 @@ void AllUnvisible(void)
     int j = 0;
     for (j; j < ButtonNum; j++)
     {
-        if(j!=LeftShiftPath && j!= RightShiftPath)
-        ButtonEnum[j].visible = UNVISIBLE;
+        if (j != LeftShiftPath && j != RightShiftPath)
+            ButtonEnum[j].visible = UNVISIBLE;
     }
     ButtonEnum[Instruction].visible = VISIBLE;
     ButtonEnum[About_Game].visible = VISIBLE;
@@ -179,7 +179,7 @@ void myMouseEvent(int x, int y, int button, int event)
         int isON;
 
         isON = 0;
-        
+
         for (i = 0; i < ButtonNum; i++)
         {
             if (ButtonEnum[i].visible == VISIBLE && TellOn(mouse_x, mouse_y, ButtonEnum[i]))
@@ -193,7 +193,7 @@ void myMouseEvent(int x, int y, int button, int event)
             setMouseCursorArrow();
         }
 
-        ifpre=0;
+        ifpre = 0;
         if (page_stage == EDIT_PAGE)
         {
             switch (putting)
@@ -202,7 +202,7 @@ void myMouseEvent(int x, int y, int button, int event)
                 if (TellWall(mouse_x, mouse_y))
                 {
                     setMouseCursorHand();
-                    ifpre=1;
+                    ifpre = 1;
                 }
                 break;
 
@@ -212,11 +212,13 @@ void myMouseEvent(int x, int y, int button, int event)
                 if (TellRoad(mouse_x, mouse_y))
                 {
                     setMouseCursorHand();
-                    if(Map[editx][edity]==COIN || Map[editx][edity]==START || Map[editx][edity]==END)
+                    if (Map[editx][edity] == COIN || Map[editx][edity] == START || Map[editx][edity] == END)
                     {
-                        ifpre=0;
-                    }else{
-                        ifpre=1;
+                        ifpre = 0;
+                    }
+                    else
+                    {
+                        ifpre = 1;
                     }
                 }
                 break;
@@ -224,12 +226,12 @@ void myMouseEvent(int x, int y, int button, int event)
             case Erase:
                 if (TellWall(mouse_x, mouse_y))
                 {
-                     setMouseCursorHand();
-                     ifpre=1;
+                    setMouseCursorHand();
+                    ifpre = 1;
                 }
                 else if (TellRoad(mouse_x, mouse_y))
                 {
-                     setMouseCursorHand();
+                    setMouseCursorHand();
                 }
                 break;
             }
@@ -393,11 +395,11 @@ void GamePageTell(double mouse_x, double mouse_y)
         if (pvisiter->last != NULL)
         {
             pvisiter = pvisiter->last;
-            if(pvisiter->last==NULL)
+            if (pvisiter->last == NULL)
             {
-                ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+                ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
             }
-            ButtonEnum[RightShiftPath].visible=VISIBLE;
+            ButtonEnum[RightShiftPath].visible = VISIBLE;
         }
         ShiftPageTo(GAME_PAGE);
     }
@@ -406,11 +408,11 @@ void GamePageTell(double mouse_x, double mouse_y)
         if (pvisiter->Next != NULL)
         {
             pvisiter = pvisiter->Next;
-            if(pvisiter->Next==NULL)
+            if (pvisiter->Next == NULL)
             {
-                ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+                ButtonEnum[RightShiftPath].visible = UNVISIBLE;
             }
-            ButtonEnum[LeftShiftPath].visible=VISIBLE;
+            ButtonEnum[LeftShiftPath].visible = VISIBLE;
         }
         ShiftPageTo(GAME_PAGE);
     }
@@ -428,10 +430,10 @@ void MenuPageTell(double mouse_x, double mouse_y)
     {
         if (ReadData())
         {
-        	GameInit();
-        	AllButtonUp();
-        	ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
-			ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+            GameInit();
+            AllButtonUp();
+            ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+            ButtonEnum[RightShiftPath].visible = UNVISIBLE;
             ShiftPageTo(GAME_PAGE);
         }
         else
@@ -462,11 +464,11 @@ void MenuPageTell(double mouse_x, double mouse_y)
         if (pvisiter->last != NULL)
         {
             pvisiter = pvisiter->last;
-            if(pvisiter->last==NULL)
+            if (pvisiter->last == NULL)
             {
-                ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+                ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
             }
-            ButtonEnum[RightShiftPath].visible=VISIBLE;
+            ButtonEnum[RightShiftPath].visible = VISIBLE;
         }
         ShiftPageTo(GAME_PAGE);
     }
@@ -475,11 +477,11 @@ void MenuPageTell(double mouse_x, double mouse_y)
         if (pvisiter->Next != NULL)
         {
             pvisiter = pvisiter->Next;
-            if(pvisiter->Next==NULL)
+            if (pvisiter->Next == NULL)
             {
-                ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+                ButtonEnum[RightShiftPath].visible = UNVISIBLE;
             }
-            ButtonEnum[LeftShiftPath].visible=VISIBLE;
+            ButtonEnum[LeftShiftPath].visible = VISIBLE;
         }
         ShiftPageTo(GAME_PAGE);
     }
@@ -558,7 +560,6 @@ void EditPageTell(double mouse_x, double mouse_y)
             Monster[0].hp = 100;
             GameInit();
             ShiftPageTo(GAME_PAGE);
-
         }
         else
         {
@@ -578,7 +579,7 @@ void EditPageTell(double mouse_x, double mouse_y)
             if (TellWall(mouse_x, mouse_y))
             {
                 // 将editx,edity,PutWall传递给编辑函数
-                EditMap(editx,edity,putting);
+                EditMap(editx, edity, putting);
             }
             break;
 
@@ -588,7 +589,7 @@ void EditPageTell(double mouse_x, double mouse_y)
             if (TellRoad(mouse_x, mouse_y))
             {
                 // 将editx,edity,(PutCoin/PutRole/PutGoal)传递给编辑函数
-                EditMap(editx,edity,putting);
+                EditMap(editx, edity, putting);
             }
             break;
 
@@ -596,12 +597,12 @@ void EditPageTell(double mouse_x, double mouse_y)
             if (TellWall(mouse_x, mouse_y))
             {
                 // 将editx,edity,Erase传递给编辑函数
-                EditMap(editx,edity,putting);
+                EditMap(editx, edity, putting);
             }
             else if (TellRoad(mouse_x, mouse_y))
             {
                 // 将editx,edity,Erase传递给编辑函数
-                EditMap(editx,edity,putting);
+                EditMap(editx, edity, putting);
             }
         }
     }
@@ -673,73 +674,75 @@ void ToolPageTell(double mouse_x, double mouse_y)
 {
     if (TellPress(mouse_x, mouse_y, ButtonEnum[PromptNextStep]))
     {
-        if(next_move())
+        if (next_move())
         {
-        	ButtonEnum[PromptNextStep].stage = 1 - ButtonEnum[PromptNextStep].stage;
-        	ButtonEnum[ShowAllPath].stage = Button_UP;
-        	ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
-        	ButtonEnum[RightShiftPath].visible = UNVISIBLE;
-        	ButtonEnum[ShowShortestPath].stage = Button_UP;
-        	ShiftPageTo(GAME_PAGE);	
-		}else
-		{
-			int noprom = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
-		}
-		
-        
+            ButtonEnum[PromptNextStep].stage = 1 - ButtonEnum[PromptNextStep].stage;
+            ButtonEnum[ShowAllPath].stage = Button_UP;
+            ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+            ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+            ButtonEnum[ShowShortestPath].stage = Button_UP;
+            ShiftPageTo(GAME_PAGE);
+        }
+        else
+        {
+            int noprom = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
+        }
     }
     else if (TellPress(mouse_x, mouse_y, ButtonEnum[ShowShortestPath]))
-    {	
-    	if(find_way_shortest(MajorRole.x, MajorRole.y))
-    	{
-    		ButtonEnum[ShowShortestPath].stage = 1 - ButtonEnum[ShowShortestPath].stage;
-        	ButtonEnum[PromptNextStep].stage = Button_UP;
-        	ButtonEnum[ShowAllPath].stage = Button_UP;
-        	ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
-        	ButtonEnum[RightShiftPath].visible = UNVISIBLE;
-        	ShiftPageTo(GAME_PAGE);
-		}else{
-			int nosh = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
-		}
-        
+    {
+        if (find_way_shortest(MajorRole.x, MajorRole.y))
+        {
+            ButtonEnum[ShowShortestPath].stage = 1 - ButtonEnum[ShowShortestPath].stage;
+            ButtonEnum[PromptNextStep].stage = Button_UP;
+            ButtonEnum[ShowAllPath].stage = Button_UP;
+            ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+            ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+            ShiftPageTo(GAME_PAGE);
+        }
+        else
+        {
+            int nosh = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
+        }
     }
     else if (TellPress(mouse_x, mouse_y, ButtonEnum[ShowAllPath]))
     {
-        if(find_way_all(MajorRole.x, MajorRole.y))
+        if (find_way_all(MajorRole.x, MajorRole.y))
         {
-        	ButtonEnum[ShowAllPath].stage = 1 - ButtonEnum[ShowAllPath].stage;
-        	if(pvisiter->Next!=NULL)
+            ButtonEnum[ShowAllPath].stage = 1 - ButtonEnum[ShowAllPath].stage;
+            if (pvisiter->Next != NULL)
             {
-                ButtonEnum[RightShiftPath].visible=VISIBLE;
-            }else{
-                ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+                ButtonEnum[RightShiftPath].visible = VISIBLE;
             }
-            ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
-        	if(ButtonEnum[ShowAllPath].stage==Button_UP)
-        	{
-        		ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
-        		ButtonEnum[RightShiftPath].visible=UNVISIBLE;
-			}
-			ButtonEnum[PromptNextStep].stage = Button_UP;
-        	ButtonEnum[ShowShortestPath].stage = Button_UP;
-        
-        	ShiftPageTo(GAME_PAGE);
-		}else
-		{
-			int noway = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
-		}
-		
+            else
+            {
+                ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+            }
+            ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+            if (ButtonEnum[ShowAllPath].stage == Button_UP)
+            {
+                ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+                ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+            }
+            ButtonEnum[PromptNextStep].stage = Button_UP;
+            ButtonEnum[ShowShortestPath].stage = Button_UP;
+
+            ShiftPageTo(GAME_PAGE);
+        }
+        else
+        {
+            int noway = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
+        }
     }
     else if (TellPress(mouse_x, mouse_y, ButtonEnum[LeftShiftPath]))
     {
         if (pvisiter->last != NULL)
         {
             pvisiter = pvisiter->last;
-            if(pvisiter->last==NULL)
+            if (pvisiter->last == NULL)
             {
-                ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+                ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
             }
-            ButtonEnum[RightShiftPath].visible=VISIBLE;
+            ButtonEnum[RightShiftPath].visible = VISIBLE;
         }
         ShiftPageTo(GAME_PAGE);
     }
@@ -748,11 +751,11 @@ void ToolPageTell(double mouse_x, double mouse_y)
         if (pvisiter->Next != NULL)
         {
             pvisiter = pvisiter->Next;
-            if(pvisiter->Next==NULL)
+            if (pvisiter->Next == NULL)
             {
-                ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+                ButtonEnum[RightShiftPath].visible = UNVISIBLE;
             }
-            ButtonEnum[LeftShiftPath].visible=VISIBLE;
+            ButtonEnum[LeftShiftPath].visible = VISIBLE;
         }
         ShiftPageTo(GAME_PAGE);
     }
@@ -768,6 +771,7 @@ int ifshift = 0;
 void myKeyboardEvent(int key, int event)
 {
     uiGetKeyboard(key, event);
+    // 判断是否按下Ctrl或Shift
     if (event == KEY_DOWN && key == VK_CONTROL)
     {
         ifctrl = 1;
@@ -784,6 +788,8 @@ void myKeyboardEvent(int key, int event)
     {
         ifshift = 0;
     }
+
+    // 按上下左右键角色移动
     if (page_stage == GAME_PAGE)
     {
         if (event == KEY_DOWN && key == VK_UP)
@@ -843,26 +849,59 @@ void Moveright(void)
 
 void mycharEvent(char ch)
 {
-    uiGetChar(ch);
-    if (page_stage == GAME_PAGE)
+	uiGetChar(ch);
+	printf("ifctrl=%d,ifshift=%d,input=%c\n",ifctrl,ifshift,ch);
+    if (page_stage == GAME_PAGE || page_stage == MENU_PAGE || page_stage == TOOL_PAGE)
     {
+    	printf("%d\n",ifctrl);
+    	printf("%c\n",ch);
         if (ifctrl == 1)
         {
             switch (ch)
             {
-            case 'c': // 新建地图
-                ShiftPageTo(MAIN_PAGE);
+            case '':
+			case 'C': 
+			case 'c': // 新建地图
+                ButtonEnum[CrtNewMap].stage = Button_DOWN;
+                ShiftPageTo(CHOSEMAP_PAGE);
                 break;
 
-            case 'o': // 打开地图
-                //OpenMap_ingame();
+            case '':
+			case 'X':
+			case 'x': // 打开地图
+                if (ReadData())
+                {
+                    GameInit();
+                    AllButtonUp();
+                    ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+                    ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+                    ShiftPageTo(GAME_PAGE);
+                }
+                else
+                {
+                    int OpenFailed = MessageBox(NULL, "打开失败", "提醒", MB_OK | MB_ICONINFORMATION);
+                }
                 break;
-
-            case 's': // 保存地图
-                SaveGame_ingame();
+			
+			case '':
+            case 'V':
+			case 'v': // 保存地图
+                if (saveMap())
+                {
+                    int Save = MessageBox(NULL, "保存成功", "提醒", MB_OK | MB_ICONINFORMATION);
+                    ShiftPageTo(GAME_PAGE);
+                }
+                else
+                {
+                    int SaveFailed = MessageBox(NULL, "保存失败", "提醒", MB_OK | MB_ICONINFORMATION);
+                    ShiftPageTo(MENU_PAGE);
+                }
                 break;
-
-            case 'b': // 回到主页面
+                
+			case '':
+            case 'Q':
+			case 'q': // 回到主页面
+                AllButtonUp();
                 ShiftPageTo(MAIN_PAGE);
             }
         }
@@ -870,16 +909,68 @@ void mycharEvent(char ch)
         {
             switch (ch)
             {
-            case 'p': // 提示下一步
-                next_move();
+            case 'P':
+			case 'p': // 提示下一步
+                if (next_move())
+                {
+                    ButtonEnum[PromptNextStep].stage = 1 - ButtonEnum[PromptNextStep].stage;
+                    ButtonEnum[ShowAllPath].stage = Button_UP;
+                    ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+                    ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+                    ButtonEnum[ShowShortestPath].stage = Button_UP;
+                    ShiftPageTo(GAME_PAGE);
+                }
+                else
+                {
+                    int noprom = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
+                }
                 break;
 
-            case 'r': // 显示最短路径
-                find_way_shortest(MajorRole.x, MajorRole.y);
+            case 'R':
+			case 'r': // 显示最短路径
+                if (find_way_shortest(MajorRole.x, MajorRole.y))
+                {
+                    ButtonEnum[ShowShortestPath].stage = 1 - ButtonEnum[ShowShortestPath].stage;
+                    ButtonEnum[PromptNextStep].stage = Button_UP;
+                    ButtonEnum[ShowAllPath].stage = Button_UP;
+                    ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+                    ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+                    ShiftPageTo(GAME_PAGE);
+                }
+                else
+                {
+                    int nosh = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
+                }
                 break;
 
-            case 'a': // 显示全部路径
-                find_way_all(MajorRole.x, MajorRole.y);
+            case 'M':
+			case 'm': // 显示全部路径
+                if (find_way_all(MajorRole.x, MajorRole.y))
+                {
+                    ButtonEnum[ShowAllPath].stage = 1 - ButtonEnum[ShowAllPath].stage;
+                    if (pvisiter->Next != NULL)
+                    {
+                        ButtonEnum[RightShiftPath].visible = VISIBLE;
+                    }
+                    else
+                    {
+                        ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+                    }
+                    ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+                    if (ButtonEnum[ShowAllPath].stage == Button_UP)
+                    {
+                        ButtonEnum[LeftShiftPath].visible = UNVISIBLE;
+                        ButtonEnum[RightShiftPath].visible = UNVISIBLE;
+                    }
+                    ButtonEnum[PromptNextStep].stage = Button_UP;
+                    ButtonEnum[ShowShortestPath].stage = Button_UP;
+
+                    ShiftPageTo(GAME_PAGE);
+                }
+                else
+                {
+                    int noway = MessageBox(NULL, "该地图无解", "提醒", MB_OK | MB_ICONINFORMATION);
+                }
                 break;
             }
         }
@@ -887,19 +978,23 @@ void mycharEvent(char ch)
         {
             switch (ch) // 判断wasd控制的上下左右移动
             {
-            case 'a': // 人物左移
+            case 'A':
+			case 'a': // 人物左移
                 Moveleft();
                 break;
 
-            case 'd': // 人物右移
+            case 'D':
+			case 'd': // 人物右移
                 Moveright();
                 break;
 
-            case 'w': // 人物上移
+            case 'W':
+			case 'w': // 人物上移
                 Moveup();
                 break;
 
-            case 's': // 人物下移
+            case 'S':
+			case 's': // 人物下移
                 Movedown();
                 break;
             }
@@ -931,3 +1026,6 @@ void BackToMainPage(void)
     InitGame();
 }
 */
+
+
+

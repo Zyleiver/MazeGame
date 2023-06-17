@@ -22,9 +22,9 @@ enum BUTTON
 	BackToMP,		  // 返回主界面（Ctrl+b）
 	Tools,			  // 工具
 //	EditMap,		  // 编辑地图（Ctrl+e）
-	PromptNextStep,	  // 提示下一步（Alt+p）
-	ShowShortestPath, // 显示最短路径（Alt+r）
-	ShowAllPath,	  // 显示全部路径（Alt+a）
+	PromptNextStep,	  // 提示下一步（Shift+p）
+	ShowShortestPath, // 显示最短路径（Shift+r）
+	ShowAllPath,	  // 显示全部路径（Shift+q）
 
 	Instruction,	  // 使用说明
 	About_Game,		  // 关于

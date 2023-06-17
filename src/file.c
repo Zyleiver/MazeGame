@@ -1,5 +1,33 @@
 #include "MyHeader.h"
 
+void openPDFInSubdirectory(const char* subdirectory, const char* filename) {
+    char filepath[256];
+
+#ifdef _WIN32
+    // Windows系统
+    snprintf(filepath, sizeof(filepath), "%s\\%s\\%s", ".", subdirectory, filename);
+#else
+    // Linux或Mac系统
+    snprintf(filepath, sizeof(filepath), "./%s/%s", subdirectory, filename);
+#endif
+
+    char command[256];
+
+#ifdef _WIN32
+    // Windows系统
+    snprintf(command, sizeof(command), "start %s", filepath);
+#else
+    // Linux或Mac系统
+    snprintf(command, sizeof(command), "xdg-open '%s'", filepath);
+#endif
+
+    // 调用系统命令来打开PDF文件
+    int result = system(command);
+    if (result == -1) {
+        fprintf(stderr, "无法打开PDF文件\n");
+    }
+}
+
 int saveMap(void)
 {
     OPENFILENAME ofn;
@@ -149,7 +177,9 @@ void SaveGame_ingame(void)
 
 void Instruct(void)
 {
-    int INSTRUCTION = MessageBox(NULL, "", "使用说明", MB_OK | MB_ICONINFORMATION);
+    const char* subdirectory = "..\\游戏说明";
+    const char* filename = "游戏说明.pdf";
+    openPDFInSubdirectory(subdirectory, filename);
 }
 
 void AboutGame(void)
