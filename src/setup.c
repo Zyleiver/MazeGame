@@ -750,7 +750,10 @@ void myTimerEvent(int timerID)
 						ShiftPageTo(END_PAGE);
                         int result;
 						if(CoinGet < coinNum || coinNum == 0)
-   	 						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+						{
+							result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+						}
+   	 						 
     					else 
     						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
     					
