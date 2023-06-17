@@ -15,6 +15,13 @@ extern int monsternum;
 extern int MZX;
 extern int MZY;
 
+
+extern double Xlength;  //Xlength=地图横向总长
+extern double Ylength;  //Ylength=地图纵向总长
+extern double length;   //格子大小
+extern double X0;       //地图左下角横坐标
+extern double Y0;       //地图右下角纵坐标
+
 //创建一个随机的新地图
 void CreateNewMap(void);
 

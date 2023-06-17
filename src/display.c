@@ -14,30 +14,7 @@ void display(void)
 	SetPenColor("Light Light Gray");
 	drawRectangle(0,0,300,200,1);
 	int imap, jmap;
-	double Xlength;
-	double Ylength;
-	double length;
-	double x0;
-	double y0;
 
-	// length = -0.68 * ((double)xscale + (double)yscale) + 32;
-	if (abs(xscale - yscale) < 5)
-	{
-		length = 160 / sqrt(xscale * yscale);
-	}
-	else if (xscale > yscale)
-	{
-		length = 180 / xscale;
-	}
-	else
-	{
-		length = 160 / yscale;
-	}
-
-	Xlength = (double)xscale * length;
-	Ylength = (double)yscale * length;
-	x0 = 150 - Xlength / 2;
-	y0 = 90 - Ylength / 2;
 	if (page_stage != MAIN_PAGE && page_stage != CHOSEMAP_PAGE) // »­µØÍ¼
 	{
 		SetPenColor("Black");
@@ -47,31 +24,31 @@ void display(void)
 			{
 				if (Map[jmap][imap] == WALL && jmap % 2 == 0 && imap % 2 == 1)
 				{
-					drawBox(x0 + jmap / 2 * length, y0 + (imap - 1) / 2 * length, 0.1, length, 1, "", 'M', "Black");
+					drawBox(X0 + jmap / 2 * length, Y0 + (imap - 1) / 2 * length, 0.1, length, 1, "", 'M', "Black");
 					// printf("%d %d| %d\n",jmap,imap,Map[jmap][imap]);
 				}
 				if (Map[jmap][imap] == WALL && jmap % 2 == 1 && imap % 2 == 0)
 				{
-					drawBox(x0 + (jmap - 1) / 2 * length, y0 + imap / 2 * length, length, 0.1, 1, "", 'M', "Black");
+					drawBox(X0 + (jmap - 1) / 2 * length, Y0 + imap / 2 * length, length, 0.1, 1, "", 'M', "Black");
 				}
 				if (Map[jmap][imap] == WALL && jmap % 2 == 0 && imap % 2 == 0)
 				{
 				}
 				if (Map[jmap][imap] == COIN) // »­µØÍ¼ÄÚ½ð±Ò
 				{
-					DrawCoin(x0 + (jmap - 1) / 2 * length+length/2, y0 + (imap - 1) / 2 * length+length/2, length, 1);
+					DrawCoin(X0 + (jmap - 1) / 2 * length+length/2, Y0 + (imap - 1) / 2 * length+length/2, length, 1);
 				}
 				if (Map[jmap][imap] == END)//»­ÖÕµã
 				{
 					//SetPenColor("Green");
-					//drawBox(x0 + (jmap - 1) / 2 * length + length / 6, y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Green");
+					//drawBox(X0 + (jmap - 1) / 2 * length + length / 6, Y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Green");
 					//SetPenColor("Black");
-					DrawGoal(x0 + (jmap - 1) / 2 * length+length/2,y0 + (imap - 1) / 2 * length+length/2,length);
+					DrawGoal(X0 + (jmap - 1) / 2 * length+length/2,Y0 + (imap - 1) / 2 * length+length/2,length);
 				}
 				// if (Map[jmap][imap] == START)
 				//{
 				//	SetPenColor("Blue");
-				//	drawBox(x0 + (jmap - 1) / 2 * length + length / 6, y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Blue");
+				//	drawBox(X0 + (jmap - 1) / 2 * length + length / 6, Y0 + (imap - 1) / 2 * length + length / 6, length * 2 / 3, length * 2 / 3, 1, "", 'M', "Blue");
 				//	SetPenColor("Black");
 				// }
 			}
@@ -79,9 +56,9 @@ void display(void)
 
 		// »­½ÇÉ«
 		SetPenColor("Red");
-		// drawBox(x0 + (MajorRole.x - 1) / 2 * length + length / 3, y0 + (MajorRole.y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
-		//DrawAvatar(x0 + (MajorRole.x - 1) / 2 * length, y0 + (MajorRole.y - 1) / 2 * length, length);
-		DrawRole(x0 + (MajorRole.x - 1) / 2 * length+length/2,y0 + (MajorRole.y - 1) / 2 * length+length/2,length);
+		// drawBox(X0 + (MajorRole.x - 1) / 2 * length + length / 3, Y0 + (MajorRole.y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
+		//DrawAvatar(X0 + (MajorRole.x - 1) / 2 * length, Y0 + (MajorRole.y - 1) / 2 * length, length);
+		DrawRole(X0 + (MajorRole.x - 1) / 2 * length+length/2,Y0 + (MajorRole.y - 1) / 2 * length+length/2,length);
 
 		// ÑªÁ¿ÏÔÊ¾
 		SetPenColor("Light Light Gray");
@@ -108,8 +85,8 @@ void display(void)
 			int monsnum;
 			for (monsnum = 1; monsnum < monsternum+1; monsnum++)
 			{
-				//drawBox(x0 + (Monster[monsnum].x - 1) / 2 * length + length / 3, y0 + (Monster[monsnum].y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
-				DrawMonster(x0 + (Monster[monsnum].x - 1) / 2 * length+length/2,y0 + (Monster[monsnum].y - 1) / 2 * length+length/2,length);
+				//drawBox(X0 + (Monster[monsnum].x - 1) / 2 * length + length / 3, Y0 + (Monster[monsnum].y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
+				DrawMonster(X0 + (Monster[monsnum].x - 1) / 2 * length+length/2,Y0 + (Monster[monsnum].y - 1) / 2 * length+length/2,length);
 			}
 		}
 	}
@@ -138,7 +115,7 @@ void display(void)
 		SetPenColor("Green");
 		pWay pshortestpen;
 		pshortestpen = AllHead->ThisWay;
-		MovePen(x0 + (pshortestpen->x - 1) * length / 2 + length / 2, y0 + (pshortestpen->y - 1) * length / 2 + length / 2);
+		MovePen(X0 + (pshortestpen->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->y - 1) * length / 2 + length / 2);
 		while (pshortestpen->next != NULL)
 		{
 			DrawLine((pshortestpen->next->x - pshortestpen->x) * length / 2, (pshortestpen->next->y - pshortestpen->y) * length / 2);
@@ -152,7 +129,7 @@ void display(void)
 		SetPenColor("Green");
 		pWay pshortestpen;
 		pshortestpen = AllHead->ThisWay;
-		MovePen(x0 + (pshortestpen->next->x - 1) * length / 2 + length / 6 * 5, y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2);
+		MovePen(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 6 * 5, Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2);
 		DrawArc(length / 3, 0, 360);
 		SetPenColor("Red");
 	}
@@ -164,7 +141,7 @@ void display(void)
 		SetPenColor("Green");
 		pWay pallwaypen;
 		pallwaypen = pvisiter->ThisWay;
-		MovePen(x0 + (pallwaypen->x - 1) * length / 2 + length / 2, y0 + (pallwaypen->y - 1) * length / 2 + length / 2);
+		MovePen(X0 + (pallwaypen->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->y - 1) * length / 2 + length / 2);
 		while (pallwaypen->next != NULL)
 		{
 			DrawLine((pallwaypen->next->x - pallwaypen->x) * length / 2, (pallwaypen->next->y - pallwaypen->y) * length / 2);
@@ -201,11 +178,58 @@ void display(void)
 		}
 	}
 
-	// char *List[5]={"1","2","3","4","5"};
-	// int x= menuList(1, 30, 30, 10, 10, 50, List,5);
-	// int x = MessageBox(NULL, "aaa", "djcg", MB_OK| MB_ICONINFORMATION );
+	if(page_stage==EDIT_PAGE)
+	{
+		if(ifpre)//³ÊÏÖÔ¤ÀÀ×´Ì¬
+		{
+			switch (putting)
+			{
+			case WALL:
+				//»­¿ò¿ò
+				SetPenColor("Blue");
+				if(editx%2==1)
+				{
+					drawRectangle(X0+(editx-1)/2*length,Y0+(edity)/2*length-0.8,length,1.6,0);
+				}else
+				{
+					drawRectangle(X0+editx/2*length-0.8,Y0+(edity-1)/2*length,1.6,length,0);
+				}
+				SetPenColor("Black");
+				break;
+			
+			case COIN:
+				//»­Ô¤ÀÀ½ð±Ò
+				DrawPreCoin(X0 + (editx - 1) / 2 * length+length/2, Y0 + (edity - 1) / 2 * length+length/2, length);
+				break;
+
+			case START:
+				//»­Ô¤ÀÀ½ÇÉ«
+				DrawPreRole(X0 + (editx - 1) / 2 * length+length/2,Y0 + (edity - 1) / 2 * length+length/2,length);
+				break;
+
+			case END:
+				//»­Ô¤ÀÀÖÕµã
+				DrawPreGoal(X0 + (editx - 1) / 2 * length+length/2,Y0 + (edity - 1) / 2 * length+length/2,length);
+				break;
+
+			case -1:
+				//»­¿ò¿ò
+				SetPenColor("Blue");
+				if(editx%2==1)
+				{
+					drawRectangle(X0+(editx-1)/2*length,Y0+(edity)/2*length-0.8,length,1.6,0);
+				}else
+				{
+					drawRectangle(X0+editx/2*length-0.8,Y0+(edity-1)/2*length,1.6,length,0);
+				}
+				SetPenColor("Black");
+				break;
+			}
+		}
+	}
 }
 
+/*
 void DrawAvatar(double mx, double my, double length) // »­½ÇÉ«
 {
 	;
@@ -263,6 +287,7 @@ void DrawAvatar(double mx, double my, double length) // »­½ÇÉ«
 	DrawLine(length * 5 / 16, 0);
 	DrawLine(length / 32, length / 10);
 }
+*/
 
 void DrawCoin(double mx, double my, double l, int InMap)
 {
@@ -419,10 +444,123 @@ void DrawRole(double mx,double my,double l)
 
 	if(iscracked>0)
 	{
-		SetPenColor("Red");
-		MovePen(mx+l*(1-(double)iscracked/200)/2,my);
-		DrawArc(l*(1-(double)iscracked/200)/2,0,360);
+		SetPenColor("Yellow");
+		MovePen(mx+l/2,my);
+		DrawArc(l/2,0,360);
 		SetPenColor("Black");
 	}
 	return;
+}
+
+void DrawPreCoin(double mx, double my, double l)
+{	
+	SetPenColor("Yellow");
+	MovePen(mx+l/4, my);
+	StartFilledRegion(0.2);
+	DrawArc(l/4, 0, 360);
+	EndFilledRegion();
+	SetPenColor("Black");
+	DrawArc(l /4, 0, 360);
+	MovePen(mx -l/8, my +l/8+l/32);
+	DrawLine(l/8, -l / 8);
+	DrawLine(l/8, l/8);
+	MovePen(mx - l / 8, my +l/32);
+	DrawLine(l/4, 0);
+	MovePen(mx -l/8, my-l/16);
+	DrawLine(l / 4, 0);
+	MovePen(mx, my+l/32 );
+	DrawLine(0, -l*3/16);
+}
+
+void DrawPreGoal(double mx,double my,double l)
+{
+	MovePen(mx,my);
+	SetPenColor("Red");
+	StartFilledRegion(0.2);
+	DrawLine(-l/3,l/6);
+	DrawLine(l/3,l/6);
+	DrawLine(0,-l/4-l/3);
+	EndFilledRegion();
+	SetPenColor("Black");
+	MovePen(mx,my);
+	DrawLine(-l/3,l/6);
+	DrawLine(l/3,l/6);
+	DrawLine(0,-l/4-l/3);
+	StartFilledRegion(0.2);
+	DrawLine(-l/4,0);
+	DrawLine(0,-l/8);
+	DrawLine(l/2,0);
+	DrawLine(0,l/8);
+	DrawLine(-l/4,0);
+	EndFilledRegion();
+	
+}
+
+void DrawPreRole(double mx,double my,double l)
+{
+	SetPenColor("White");
+	MovePen(mx,my);
+	StartFilledRegion(0.3);
+	DrawLine(l/3,0);
+	DrawLine(0,l/12);
+	DrawLine(-l*2/3,0);
+	DrawLine(0,-l/12);
+	DrawLine(l/3,0);
+	EndFilledRegion();
+	SetPenColor("Black");
+	MovePen(mx,my);
+	DrawLine(l/3,0);
+	DrawLine(0,l/12);
+	DrawLine(-l*2/3,0);
+	DrawLine(0,-l/12);
+	DrawLine(l/3,0);
+	SetPenColor("White");
+	MovePen(mx+l/4,my+l/12);
+	StartFilledRegion(0.3);
+	DrawLine(0,l/4);
+	DrawLine(-l/2,0);
+	DrawLine(0,-l/4);
+	DrawLine(l/2,0);
+	EndFilledRegion();
+	SetPenColor("Black");
+	MovePen(mx+l/4,my+l/12);
+	DrawLine(0,l/4);
+	DrawLine(-l/2,0);
+	DrawLine(0,-l/4);
+	DrawLine(l/2,0);
+	drawRectangle(mx-l/4,my-l/3,l/6,l/3,1);
+	MovePen(mx-l/12,my);
+	SetPenColor("FaceColor");
+	StartFilledRegion(0.3);
+	DrawLine(0,-l/3);
+	DrawLine(l/3,0);
+	DrawLine(0,l/9);
+	DrawLine(l/9,0);
+	DrawLine(0,l/9);
+	DrawLine(-l/9,0);
+	DrawLine(0,l/9);
+	DrawLine(-l/3,0);
+	EndFilledRegion();
+	SetPenColor("Black");
+	MovePen(mx-l/12,my);
+	DrawLine(0,-l/3);
+	DrawLine(l/3,0);
+	DrawLine(0,l/9);
+	DrawLine(l/9,0);
+	DrawLine(0,l/9);
+	DrawLine(-l/9,0);
+	DrawLine(0,l/9);
+	DrawLine(-l/3,0);
+	SetPenColor("White");
+	MovePen(mx+l/12,my);
+	StartFilledRegion(0.3);
+	DrawLine(0,-l/6);
+	DrawLine(l/24,0);
+	DrawLine(0,l/6);
+	DrawLine(-l/24,0);
+	EndFilledRegion();
+	SetPenColor("Black");
+	drawRectangle(mx+l/12,my-l/6,l/12,l/6,0);
+	drawRectangle(mx+l/8,my-l/6,l/24,l/6,1);
+
 }
