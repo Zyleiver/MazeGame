@@ -21,7 +21,7 @@ Button Tools;			 // 工具
 Button EditMap;			 // 编辑地图（Ctrl+e）
 Button PromptNextStep;	 // 提示下一步（Alt+p）
 Button ShowShortestPath; // 显示最短路径（Alt+r）
-Button ShowAllPath;		 // 显示全部路径（Alt+a）
+Button ShowAllPath;		 // 显示全部路径（Alt+q）
 Button LeftShiftPath;	 // 显示全部路径时左切
 Button RightShiftPath;	 // 显示全部路径时右切
 Button Instruction;		 // 使用说明
@@ -41,15 +41,15 @@ Button ButtonEnum[ButtonNum] = {
 	{"退出"						,Button_UP	,120,60,60,20	,UNVISIBLE},
 	{"菜单"						,Button_UP	,0,185,20,15	,UNVISIBLE},
 	{"新建地图  Ctrl+c"					,Button_UP	,0,172,40,13	,UNVISIBLE},
-	{"打开地图  Ctrl+o"					,Button_UP	,0,159,40,13	,UNVISIBLE},
-	{"保存地图  Ctrl+s"						,Button_UP	,0,146,40,13	,UNVISIBLE},
+	{"打开地图  Ctrl+x"					,Button_UP	,0,159,40,13	,UNVISIBLE},
+	{"保存地图  Ctrl+v"						,Button_UP	,0,146,40,13	,UNVISIBLE},
 //	{"保存为模板"				,Button_UP	,35,60,15,20	,UNVISIBLE},
-	{"返回主页面  Ctrl+b"		,Button_UP	,0,133,40,13	,UNVISIBLE},
+	{"返回主页面  Ctrl+q"		,Button_UP	,0,133,40,13	,UNVISIBLE},
 	{"工具"						,Button_UP	,20,185,20,15	,UNVISIBLE},
 //	{"编辑地图  Shift+e"		,Button_UP	,20,172,30,13	,UNVISIBLE},
 	{"提示下一步  Shift+p"		,Button_UP	,0,172,40,13	,UNVISIBLE},
 	{"显示最短路径  Shift+r"	,Button_UP	,0,159,40,13	,UNVISIBLE},
-	{"显示全部路径  Shift+a"	,Button_UP	,0,146,40,13	,UNVISIBLE},
+	{"显示全部路径  Shift+m"	,Button_UP	,0,146,40,13	,UNVISIBLE},
 	{"使用说明"					,Button_UP	,260,185,20,15	,VISIBLE},
 	{"关于"						,Button_UP	,280,185,20,15	,VISIBLE},
 	{"回退"						,Button_UP	,20,175,20,15	,UNVISIBLE},
@@ -68,6 +68,8 @@ void InitGame(void)
 	DefineColor("Light Light Gray", .86, .86, .86);
 	DefineColor("Light Brown",.4,.23,.057);
 	DefineColor("FaceColor",(double)238/(double)255,(double)210/(double)255,(double)189/(double)255);
+	DefineColor("Pakistan Green",0,(double)102/(double)255,0);
+	DefineColor("SafeWayGreen",0,(double)180/(double)255,(double)80/(double)255);
 	setTextBoxColors("Black","Black","Black","Blue",0);
 	ShiftPageTo(MAIN_PAGE);
 

@@ -18,4 +18,5 @@ void DrawRole(double mx,double my,double l);         //画角色
 void DrawPreCoin(double mx, double my, double l); 	 //画预览金币 
 void DrawPreGoal(double mx,double my,double l);		 //画预览终点 
 void DrawPreRole(double mx,double my,double l);		 //画预览角色 
+void drawhat(double mx,double my,double l);          //画下一步的帽子
 #endif

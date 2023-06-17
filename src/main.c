@@ -11,7 +11,7 @@ void Main()
 	SetWindowTitle("MazeGame");
 	SetWindowSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	page_stage=MAIN_PAGE;
-	InitConsole(); 
+	//InitConsole(); 
 	InitGraphics();
 	InitGame();
     
