@@ -3,6 +3,11 @@
 
 extern int ifctrl;
 extern int ifshift;
+extern int putting;
+
+extern int editx;   // 编辑地图的x坐标
+extern int edity;   // 编辑地图的y坐标
+extern int ifpre;   //是否显示预览
 
 // 鼠标事件，判断触发了什么事件
 void myMouseEvent(int x, int y, int button, int event);
@@ -54,4 +59,5 @@ void Moveleft(void);
 void Moveright(void);
 // 角色向下运动
 void Movedown(void);
+
 #endif

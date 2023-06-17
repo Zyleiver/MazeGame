@@ -50,8 +50,6 @@ Button ButtonEnum[ButtonNum] = {
 	{"提示下一步  Shift+p"		,Button_UP	,0,172,40,13	,UNVISIBLE},
 	{"显示最短路径  Shift+r"	,Button_UP	,0,159,40,13	,UNVISIBLE},
 	{"显示全部路径  Shift+a"	,Button_UP	,0,146,40,13	,UNVISIBLE},
-	{"<-"						,Button_UP	,20,20,15,15	,UNVISIBLE},
-	{"->"						,Button_UP	,35,20,15,15	,UNVISIBLE},
 	{"使用说明"					,Button_UP	,260,185,20,15	,VISIBLE},
 	{"关于"						,Button_UP	,280,185,20,15	,VISIBLE},
 	{"回退"						,Button_UP	,20,175,20,15	,UNVISIBLE},
@@ -62,6 +60,8 @@ Button ButtonEnum[ButtonNum] = {
 	{"橡皮"						,Button_UP	,10,70,20,15	,UNVISIBLE},
 	{"完成"						,Button_UP	,10,50,20,15	,UNVISIBLE},
 	{"退出"						,Button_UP	,10,30,20,15	,UNVISIBLE},
+	{"<-"						,Button_UP	,20,20,15,15	,UNVISIBLE},
+	{"->"						,Button_UP	,35,20,15,15	,UNVISIBLE},
 };
 void InitGame(void)
 {
@@ -85,6 +85,8 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[StartNewGame].visible=VISIBLE;
 			ButtonEnum[ReadFiles].visible=VISIBLE;
 			ButtonEnum[ExitGame].visible=VISIBLE;
+			ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+			ButtonEnum[RightShiftPath].visible=UNVISIBLE;
 
 			break;
 
@@ -94,6 +96,9 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[BuildMapAuto].visible=VISIBLE;
 			ButtonEnum[BuildMapManu].visible=VISIBLE;
 			ButtonEnum[Back].visible=VISIBLE;
+			ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+			ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+			
 			break;
 
 		case GAME_PAGE:
@@ -101,10 +106,7 @@ void ShiftPageTo(int PageTo)
 			AllUnvisible();
 			ButtonEnum[Menu].visible=VISIBLE;
 			ButtonEnum[Tools].visible=VISIBLE;
-			if(ButtonEnum[ShowAllPath].stage==Button_DOWN){
-				ButtonEnum[LeftShiftPath].visible=VISIBLE;
-				ButtonEnum[RightShiftPath].visible=VISIBLE;
-			}
+
 			break;
 
 		case EDIT_PAGE:
@@ -119,7 +121,8 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[Erase].visible=VISIBLE;
 			ButtonEnum[Complete].visible=VISIBLE;
 			ButtonEnum[Cancel].visible=VISIBLE;
-
+			ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+			ButtonEnum[RightShiftPath].visible=UNVISIBLE;
 
 			break;
 
@@ -132,11 +135,7 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[OpenMap].visible=VISIBLE;
 			ButtonEnum[SaveGame].visible=VISIBLE;
 			ButtonEnum[BackToMP].visible=VISIBLE;
-			if(ButtonEnum[ShowAllPath].stage==Button_DOWN)
-			{
-				ButtonEnum[LeftShiftPath].visible=VISIBLE;
-				ButtonEnum[RightShiftPath].visible=VISIBLE;
-			}
+		
 			break;
 
 		case TOOL_PAGE:
@@ -147,10 +146,7 @@ void ShiftPageTo(int PageTo)
 			ButtonEnum[PromptNextStep].visible=VISIBLE;
 			ButtonEnum[ShowShortestPath].visible=VISIBLE;
 			ButtonEnum[ShowAllPath].visible=VISIBLE;
-			if(ButtonEnum[ShowAllPath].stage==Button_DOWN){
-				ButtonEnum[LeftShiftPath].visible=VISIBLE;
-				ButtonEnum[RightShiftPath].visible=VISIBLE;
-			}
+			
 			break;
 
 		case END_PAGE:
