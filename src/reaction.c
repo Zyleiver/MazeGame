@@ -6,6 +6,8 @@ int edity;   // 编辑地图的y坐标
 
 int ifpre;  //是否显示预览
 
+int aboutstage; //存储打开关于前的页面状态 
+
 // 鼠标变成手指
 void setMouseCursorHand()
 {
@@ -115,6 +117,7 @@ void myMouseEvent(int x, int y, int button, int event)
         }
         else if (TellPress(mouse_x, mouse_y, ButtonEnum[About_Game])) // 点击关于
         {
+        	aboutstage = page_stage;
             AboutGame();
         }
         else if (TellPress(mouse_x, mouse_y, ButtonEnum[Back])) // 点击回退
@@ -127,6 +130,10 @@ void myMouseEvent(int x, int y, int button, int event)
             {
                 ShiftPageTo(MAIN_PAGE);
             }
+            else if (page_stage == INSTRUCT_PAGE)
+            {
+            	ShiftPageTo(aboutstage);
+			}
             ButtonEnum[CrtNewMap].stage = Button_UP;
             AllButtonUp();
         }
