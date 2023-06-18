@@ -117,6 +117,7 @@ void myMouseEvent(int x, int y, int button, int event)
         }
         else if (TellPress(mouse_x, mouse_y, ButtonEnum[About_Game])) // µã»÷¹ØÓÚ
         {
+        	if(page_stage != INSTRUCT_PAGE)
         	aboutstage = page_stage;
             AboutGame();
         }
