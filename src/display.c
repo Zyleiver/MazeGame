@@ -320,7 +320,7 @@ void DrawRole(double mx, double my, double l)
 	drawRectangle(mx + l / 12, my - l / 6, l / 12, l / 6, 0);
 	drawRectangle(mx + l / 8, my - l / 6, l / 24, l / 6, 1);
 
-	if (iscracked > 0)
+	if (iscracked > 0 && page_stage != MAIN_PAGE)
 	{
 		SetPenColor("Yellow");
 		MovePen(mx + l / 2 - l / 64, my);

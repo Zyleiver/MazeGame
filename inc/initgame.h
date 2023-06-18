@@ -33,6 +33,8 @@ enum BUTTON
 	RightShiftPath	  // 显示全部路径时右切
 };
 
+extern Button ButtonEnum[ButtonNum];
+
 void InitGame(void);//初始化游戏数据（界面状态、按键状态）
 void ShiftPageTo(int PageTo);//切换到目标页面
 #endif

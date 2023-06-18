@@ -24,13 +24,7 @@
 #include "simpio.h"
 #include "strlib.h"
 
-// my own inc
-#include "clue.h"
-#include "display.h"
-#include "file.h"
-#include "reaction.h"
-#include "setup.h"
-#include "initgame.h"
+
 
 //*************************setup**************************
 
@@ -69,7 +63,7 @@ typedef struct
 } Button;
 typedef Button *PButton;
 
-extern Button ButtonEnum[ButtonNum];
+
 // 按钮状态，Button_UP为松开，Button_DOWN为按下
 enum Button_stage
 {
@@ -183,6 +177,14 @@ typedef enum{
     FlashTimer,
     GameTouchTimer,
 }timeID;
+
+// my own inc
+#include "clue.h"
+#include "display.h"
+#include "file.h"
+#include "reaction.h"
+#include "setup.h"
+#include "initgame.h"
 
 
 #endif
