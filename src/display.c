@@ -64,7 +64,7 @@ void display(void)
 		SetPenColor("Light Light Gray");
 		drawBox(240, 158, 10, 10, 0, "hp", 'M', "Red");
 		SetPenColor("Red");
-		drawBox(250, 160, 10 * MajorRole.hp, 5, 1, "", 'M', "Red");
+		drawBox(250, 160, 10 * MajorRole.hp / 4, 5, 1, "", 'M', "Red");
 		SetPenColor("Black");
 		drawBox(250, 160, 30, 5, 0, "", 'M', "Black");
 
@@ -134,6 +134,12 @@ void display(void)
 	{
 		draw_lose_image();
 	}
+	
+	//主页面
+	if(page_stage == MAIN_PAGE)
+	{
+		draw_init_image();
+	} 
 }
 
 //画金币
@@ -933,6 +939,8 @@ void drawpreimage(void)
 void draw_win_image(void)
 {
 	int sizepenn;
+	char *pen_pencolor;
+		pen_pencolor = GetPenColor();
 		sizepenn = GetPointSize();
 		MovePen(100, 120);
 		SetPointSize(100);
@@ -970,13 +978,15 @@ void draw_win_image(void)
 		}
 		DrawTextString("!!! W I N !!!");
 		SetPointSize(sizepenn);
-		SetPenColor("Black");
+		SetPenColor(pen_pencolor);
 }
 
 //画失败界面
 void draw_lose_image(void)
 {
 	int sizepene;
+	char *penpencolor;
+		penpencolor = GetPenColor();
 		sizepene = GetPointSize();
 		MovePen(100, 120);
 		SetPointSize(100);
@@ -999,7 +1009,55 @@ void draw_lose_image(void)
 		}
 		DrawTextString("TRY AGAIN!!!");
 		SetPointSize(sizepene);
-		SetPenColor("Black");
+		SetPenColor(penpencolor);
+}
+
+//画主页面元素
+void draw_init_image(void)
+{
+	int sizepeninit;
+		sizepeninit = GetPointSize();
+		MovePen(102,160);
+		SetPointSize(120);
+	char *ssetpenprecolor;
+		ssetpenprecolor = GetPenColor();
+		SetPenColor("Dark Gray");
+		DrawTextString("M  A  Z  E");
+		SetPenColor("Gray");
+		MovePen(103,160);
+		DrawTextString("M  A  Z  E");
+		SetPenColor("Light Gray");
+		MovePen(104,160);
+		DrawTextString("M  A  Z  E");
+		SetPenColor(ssetpenprecolor);
+		SetPointSize(sizepeninit);
+		
+	DrawCoin(217, 115, 30, 1);
+	DrawRole(180,77.5,30);
+	DrawMonster(250,77.5,30);
+	DrawGoal(217.5, 45, 30);
+	
+	int ssset_pensize;
+	char *ssset_pencolor;
+	ssset_pensize = GetPenSize();
+	ssset_pencolor = GetPenColor();
+	SetPenColor("Light Gray");
+	SetPenSize(5);
+	MovePen(268.5,77.5);
+	DrawArc(52,0,360);
+	SetPenColor("Gray");
+	MovePen(267.25,77.4);
+	DrawArc(51,0,360);
+	SetPenColor("Light Gray");
+	MovePen(266.25,77.2);
+	DrawArc(50,0,360);
+	
+	MovePen(190,115);
+	DrawLine(57,-70);
+	MovePen(245,115);
+	DrawLine(-57,-70);
+	SetPenSize(ssset_pensize);
+	SetPenColor(ssset_pencolor);	
 }
 
 //绘制地图参数输入框
@@ -1017,8 +1075,8 @@ void draw_getdata_box(void)
 		drawBox(160, 70, 40, 10, 0, "金币数量\(若手动编辑无需输入\):", 'L', "Black");
 		textbox(GenUIID(0), 170, 130, 10, 10, mapx, 3);
 		textbox(GenUIID(0), 195, 130, 10, 10, mapy, 3);
-		textbox(GenUIID(0), 200, 100, 10, 10, monsnum, 4);
-		textbox(GenUIID(0), 225, 70, 10, 10, coinnum, 4);
+		textbox(GenUIID(0), 235, 100, 10, 10, monsnum, 4);
+		textbox(GenUIID(0), 235, 70, 10, 10, coinnum, 4);
 		SetPenColor("Black");
 		drawRectangle(140, 50, 110, 110, 0);
 }

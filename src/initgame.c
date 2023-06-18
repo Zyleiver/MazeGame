@@ -2,7 +2,7 @@
 
 //按钮定义
 Button ButtonEnum[ButtonNum] = {
-	{"开始新游戏"				,Button_UP	,120,120,60,20	,UNVISIBLE}, 
+	{"开始新游戏"				,Button_UP	,20,100,100,20	,UNVISIBLE}, 
 	{"自动生成地图"				,Button_UP	,45,130,60,20	,UNVISIBLE},
 	{"手动生成地图"				,Button_UP	,45,60,60,20	,UNVISIBLE},
 	{"读取存档"					,Button_UP	,120,90,60,20	,UNVISIBLE},
