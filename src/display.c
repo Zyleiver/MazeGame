@@ -15,6 +15,195 @@ void display(void)
 	drawRectangle(0, 0, 300, 200, 1);
 	int imap, jmap;
 
+	// 绘制最短路径
+	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[ShowShortestPath].stage == Button_DOWN)
+	{
+
+		pWay pshortestpen;
+		pshortestpen = AllHead->ThisWay;
+
+		if (pshortestpen->next != NULL)
+		{
+			while (pshortestpen->next->next != NULL)
+			{
+
+				if (pshortestpen->x == pshortestpen->next->x)
+				{
+
+					if (pshortestpen->y > pshortestpen->next->y)
+					{
+						if (pshortestpen->next->x == pshortestpen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 3);
+						}
+						else if (pshortestpen->next->x > pshortestpen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 7);
+						}
+						else if (pshortestpen->next->x < pshortestpen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 6);
+						}
+					}
+					else if (pshortestpen->y < pshortestpen->next->y)
+					{
+						if (pshortestpen->next->x == pshortestpen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 1);
+						}
+						else if (pshortestpen->next->x < pshortestpen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 5);
+						}
+						else if (pshortestpen->next->x > pshortestpen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 8);
+						}
+					}
+				}
+				else if (pshortestpen->x < pshortestpen->next->x)
+				{
+
+					if (pshortestpen->next->y > pshortestpen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 8);
+					}
+					else if (pshortestpen->next->y == pshortestpen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 2);
+					}
+					else if (pshortestpen->next->y < pshortestpen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 7);
+					}
+				}
+				else if (pshortestpen->x > pshortestpen->next->x)
+				{
+
+					if (pshortestpen->next->y > pshortestpen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 5);
+					}
+					else if (pshortestpen->next->y == pshortestpen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 4);
+					}
+					else if (pshortestpen->next->y < pshortestpen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y) * length / 2, length, 6);
+					}
+				}
+
+				pshortestpen = pshortestpen->next;
+			}
+		}
+		/*
+		MovePen(X0 + (pshortestpen->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->y - 1) * length / 2 + length / 2);
+		while (pshortestpen->next != NULL)
+		{
+			DrawLine((pshortestpen->next->x - pshortestpen->x) * length / 2, (pshortestpen->next->y - pshortestpen->y) * length / 2);
+			pshortestpen = pshortestpen->next;
+		}
+		*/
+	}
+
+	// 绘制一条全部路径
+	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[ShowAllPath].stage == Button_DOWN)
+	{
+		// if(pvisiter->last==NULL)ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
+		// if(pvisiter->Next==NULL)ButtonEnum[RightShiftPath].visible=UNVISIBLE;
+		/*
+		SetPenColor("SafeWayGreen");
+		pWay pallwaypen;
+		pallwaypen = pvisiter->ThisWay;
+		MovePen(X0 + (pallwaypen->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->y - 1) * length / 2 + length / 2);
+		while (pallwaypen->next != NULL)
+		{
+			DrawLine((pallwaypen->next->x - pallwaypen->x) * length / 2, (pallwaypen->next->y - pallwaypen->y) * length / 2);
+			pallwaypen = pallwaypen->next;
+		}
+		*/
+
+		pWay pallwaypen;
+		pallwaypen = pvisiter->ThisWay;
+
+		if (pallwaypen->next != NULL)
+		{
+			while (pallwaypen->next->next != NULL)
+			{
+
+				if (pallwaypen->x == pallwaypen->next->x)
+				{
+
+					if (pallwaypen->y > pallwaypen->next->y)
+					{
+						if (pallwaypen->next->x == pallwaypen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 3);
+						}
+						else if (pallwaypen->next->x > pallwaypen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 7);
+						}
+						else if (pallwaypen->next->x < pallwaypen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 6);
+						}
+					}
+					else if (pallwaypen->y < pallwaypen->next->y)
+					{
+						if (pallwaypen->next->x == pallwaypen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 1);
+						}
+						else if (pallwaypen->next->x < pallwaypen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 5);
+						}
+						else if (pallwaypen->next->x > pallwaypen->next->next->x)
+						{
+							DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 8);
+						}
+					}
+				}
+				else if (pallwaypen->x < pallwaypen->next->x)
+				{
+
+					if (pallwaypen->next->y > pallwaypen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 8);
+					}
+					else if (pallwaypen->next->y == pallwaypen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 2);
+					}
+					else if (pallwaypen->next->y < pallwaypen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 7);
+					}
+				}
+				else if (pallwaypen->x > pallwaypen->next->x)
+				{
+
+					if (pallwaypen->next->y > pallwaypen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 5);
+					}
+					else if (pallwaypen->next->y == pallwaypen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 4);
+					}
+					else if (pallwaypen->next->y < pallwaypen->next->next->y)
+					{
+						DrawWayArrow(X0 + (pallwaypen->next->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->next->y) * length / 2, length, 6);
+					}
+				}
+
+				pallwaypen = pallwaypen->next;
+			}
+		}
+	}
+
 	if (page_stage != MAIN_PAGE && page_stage != CHOSEMAP_PAGE) // 画地图
 	{
 		SetPenColor("Black");
@@ -59,7 +248,7 @@ void display(void)
 		// drawBox(X0 + (MajorRole.x - 1) / 2 * length + length / 3, Y0 + (MajorRole.y - 1) / 2 * length + length / 3, length / 3, length / 3, 1, "", 'M', "Yellow");
 		// DrawAvatar(X0 + (MajorRole.x - 1) / 2 * length, Y0 + (MajorRole.y - 1) / 2 * length, length);
 		DrawRole(X0 + (MajorRole.x - 1) / 2 * length + length / 2, Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
-		
+
 		// 血量显示
 		SetPenColor("Light Light Gray");
 		drawBox(240, 158, 10, 10, 0, "hp", 'M', "Red");
@@ -90,6 +279,37 @@ void display(void)
 			}
 		}
 	}
+
+	// 绘制关于界面
+	if (page_stage == INSTRUCT_PAGE)
+	{
+		int sizepen = GetPenSize();
+		SetPenSize(2);
+		SetPenColor("Light Light Gray");
+		drawRectangle(0, 0, 300, 200, 1);
+		drawBox(120, 150, 60, 20, 0, "关 于", 'M', "Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(110, 130, 30, 10, 0, "作者：", 'M', "Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 130, 30, 10, 0, "郑灵杰", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 120, 30, 10, 0, "耿传洪", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 110, 30, 10, 0, "王志龙", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(105, 100, 40, 10, 0, "作品名称：", 'M', "Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 100, 40, 10, 0, "你逃它追插翅难飞", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(105, 50, 90, 5, 0, "谨此纪念我们的童年", 'M', "Blue");
+		SetPenColor("Violet");
+		drawRectangle(95, 40, 110, 132, 0);
+		SetPenColor("Blue");
+		drawRectangle(100, 45, 100, 120, 0);
+		SetPenSize(sizepen);
+	}
+
+	// 绘制地图参数输入窗
 	if (page_stage == CHOSEMAP_PAGE)
 	{
 		SetPenColor("Light Light Gray");
@@ -110,76 +330,21 @@ void display(void)
 		drawRectangle(140, 50, 110, 110, 0);
 	}
 
-	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[ShowShortestPath].stage == Button_DOWN) // 绘制最短路径
-	{
-
-		SetPenColor("SafeWayGreen");
-		pWay pshortestpen;
-		pshortestpen = AllHead->ThisWay;
-		MovePen(X0 + (pshortestpen->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->y - 1) * length / 2 + length / 2);
-		while (pshortestpen->next != NULL)
-		{
-			DrawLine((pshortestpen->next->x - pshortestpen->x) * length / 2, (pshortestpen->next->y - pshortestpen->y) * length / 2);
-			pshortestpen = pshortestpen->next;
-		}
-	}
-	
-	if(page_stage==INSTRUCT_PAGE)
-	{
-		int sizepen = GetPenSize();
-		SetPenSize(2);
-		SetPenColor("Light Light Gray");
-		drawRectangle(0,0,300,200,1);
-		drawBox(120,150,60,20,0,"关 于",'M',"Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(130,130,30,10,0,"作者：",'M',"Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(140,130,30,10,0,"郑灵杰",'M',"Black");
-		SetPenColor("Light Light Gray");
-		drawBox(140,120,30,10,0,"耿传洪",'M',"Black");
-		SetPenColor("Light Light Gray");
-		drawBox(140,110,30,10,0,"王志龙",'M',"Black");
-		SetPenColor("Light Light Gray");
-		drawBox(105,100,40,10,0,"作品名称：",'M',"Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(140,100,40,10,0,"你逃它追插翅难飞",'M',"Black");
-		SetPenColor("Light Light Gray");
-		drawBox(105,50,90,5,0,"谨此纪念我们的童年",'M',"Blue");
-		SetPenColor("Violet");
-		drawRectangle(95,40,110,132,0);
-		SetPenColor("Blue");
-		drawRectangle(100,45,100,120,0);
-		SetPenSize(sizepen);
-		
-	}
-	
-	if ((page_stage==GAME_PAGE || page_stage==TOOL_PAGE || page_stage== MENU_PAGE) && ButtonEnum[PromptNextStep].stage == Button_DOWN) // 绘制下一步
+	// 绘制下一步
+	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[PromptNextStep].stage == Button_DOWN)
 	{
 
 		// SetPenColor("SafeWayGreen");
 		pWay pshortestpen;
 		pshortestpen = AllHead->ThisWay;
 		drawhat(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2, Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2, length);
-		if(MajorRole.x==pshortestpen->next->x && MajorRole.y==pshortestpen->next->y)ButtonEnum[PromptNextStep].stage=Button_UP;
+		if (MajorRole.x == pshortestpen->next->x && MajorRole.y == pshortestpen->next->y)
+			ButtonEnum[PromptNextStep].stage = Button_UP;
 		// MovePen(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 6 * 5, Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2);
 		// DrawArc(length / 3, 0, 360);
 		// SetPenColor("Red");
 	}
 
-	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[ShowAllPath].stage == Button_DOWN) // 绘制一条全部路径
-	{
-		// if(pvisiter->last==NULL)ButtonEnum[LeftShiftPath].visible=UNVISIBLE;
-		// if(pvisiter->Next==NULL)ButtonEnum[RightShiftPath].visible=UNVISIBLE;
-		SetPenColor("SafeWayGreen");
-		pWay pallwaypen;
-		pallwaypen = pvisiter->ThisWay;
-		MovePen(X0 + (pallwaypen->x - 1) * length / 2 + length / 2, Y0 + (pallwaypen->y - 1) * length / 2 + length / 2);
-		while (pallwaypen->next != NULL)
-		{
-			DrawLine((pallwaypen->next->x - pallwaypen->x) * length / 2, (pallwaypen->next->y - pallwaypen->y) * length / 2);
-			pallwaypen = pallwaypen->next;
-		}
-	}
 	SetPenColor("Blue");
 	int j = 0;
 	for (j; j < ButtonNum; j++) // 绘制按钮
@@ -188,6 +353,12 @@ void display(void)
 		{
 			if (ButtonEnum[j].stage == Button_UP)
 			{
+				SetPenColor("Light Gray");
+				drawRectangle(ButtonEnum[j].x,
+							  ButtonEnum[j].y,
+							  ButtonEnum[j].lx,
+							  ButtonEnum[j].ly, 1);
+				SetPenColor("Black");
 				drawBox(ButtonEnum[j].x,
 						ButtonEnum[j].y,
 						ButtonEnum[j].lx,
@@ -198,6 +369,12 @@ void display(void)
 			}
 			else
 			{
+				SetPenColor("Light Gray");
+				drawRectangle(ButtonEnum[j].x,
+							  ButtonEnum[j].y,
+							  ButtonEnum[j].lx,
+							  ButtonEnum[j].ly, 1);
+				SetPenColor("Black");
 				drawBox(ButtonEnum[j].x,
 						ButtonEnum[j].y,
 						ButtonEnum[j].lx,
@@ -353,20 +530,19 @@ void DrawRole(double mx, double my, double l)
 	if (ButtonEnum[PromptNextStep].stage == Button_DOWN)
 	{
 		SetPenColor("FaceColor");
-		MovePen(mx,my);
+		MovePen(mx, my);
 		StartFilledRegion(1);
 		DrawLine(l / 4, 0);
 		DrawLine(0, l / 8);
-		DrawLine(-l /2, 0);
+		DrawLine(-l / 2, 0);
 		DrawLine(0, -l / 8);
 		DrawLine(l / 4, 0);
 		EndFilledRegion();
 		SetPenColor("Black");
-		MovePen(mx+l/4,my);
+		MovePen(mx + l / 4, my);
 		DrawLine(0, l / 8);
-		DrawLine(-l /2, 0);
+		DrawLine(-l / 2, 0);
 		DrawLine(0, -l / 8);
-		
 	}
 	else
 	{
@@ -401,7 +577,7 @@ void DrawRole(double mx, double my, double l)
 		DrawLine(0, -l / 4);
 		DrawLine(l / 2, 0);
 	}
-	
+
 	drawRectangle(mx - l / 4, my - l / 3, l / 6, l / 3, 1);
 	MovePen(mx - l / 12, my);
 	SetPenColor("FaceColor");
@@ -424,7 +600,8 @@ void DrawRole(double mx, double my, double l)
 	DrawLine(0, l / 9);
 	DrawLine(-l / 9, 0);
 	DrawLine(0, l / 9);
-	if (ButtonEnum[PromptNextStep].stage != Button_DOWN)DrawLine(-l / 3, 0);
+	if (ButtonEnum[PromptNextStep].stage != Button_DOWN)
+		DrawLine(-l / 3, 0);
 	SetPenColor("White");
 	MovePen(mx + l / 12, my);
 	StartFilledRegion(1);
@@ -590,4 +767,182 @@ void drawhat(double mx, double my, double l)
 	DrawLine(-l / 2, 0);
 	DrawLine(0, -l / 4);
 	DrawLine(l / 2, 0);
+}
+
+void DrawWayArrow(double mx, double my, double length, int stage)
+{
+
+	SetPenColor("SafeWayGreen");
+
+	switch (stage)
+	{
+	case 1:
+
+		MovePen(mx, my + length / 8);
+		StartFilledRegion(0.6);
+		DrawLine(length * 3 / 8, -length / 8);
+		DrawLine(0, length / 4);
+		DrawLine(-length * 3 / 8, length / 8);
+		DrawLine(-length * 3 / 8, -length / 8);
+		DrawLine(0, -length / 4);
+		DrawLine(length * 3 / 8, length / 8);
+		EndFilledRegion();
+
+		MovePen(mx, my - length * 3 / 8);
+		StartFilledRegion(0.6);
+		DrawLine(length * 3 / 8, -length / 8);
+		DrawLine(0, length / 4);
+		DrawLine(-length * 3 / 8, length / 8);
+		DrawLine(-length * 3 / 8, -length / 8);
+		DrawLine(0, -length / 4);
+		DrawLine(length * 3 / 8, length / 8);
+		EndFilledRegion();
+		break;
+
+	case 2:
+
+		MovePen(mx + length / 8, my);
+		StartFilledRegion(0.6);
+		DrawLine(-length / 8, length * 3 / 8);
+		DrawLine(length / 4, 0);
+		DrawLine(length / 8, -length * 3 / 8);
+		DrawLine(-length / 8, -length * 3 / 8);
+		DrawLine(-length / 4, 0);
+		DrawLine(length / 8, length * 3 / 8);
+		EndFilledRegion();
+
+		MovePen(mx - length * 3 / 8, my);
+		StartFilledRegion(0.6);
+		DrawLine(-length / 8, length * 3 / 8);
+		DrawLine(length / 4, 0);
+		DrawLine(length / 8, -length * 3 / 8);
+		DrawLine(-length / 8, -length * 3 / 8);
+		DrawLine(-length / 4, 0);
+		DrawLine(length / 8, length * 3 / 8);
+		EndFilledRegion();
+
+		break;
+
+	case 3:
+
+		MovePen(mx, my - length / 8);
+		StartFilledRegion(0.6);
+		DrawLine(length * 3 / 8, length / 8);
+		DrawLine(0, -length / 4);
+		DrawLine(-length * 3 / 8, -length / 8);
+		DrawLine(-length * 3 / 8, length / 8);
+		DrawLine(0, length / 4);
+		DrawLine(length * 3 / 8, -length / 8);
+		EndFilledRegion();
+
+		MovePen(mx, my + length * 3 / 8);
+		StartFilledRegion(0.6);
+		DrawLine(length * 3 / 8, length / 8);
+		DrawLine(0, -length / 4);
+		DrawLine(-length * 3 / 8, -length / 8);
+		DrawLine(-length * 3 / 8, length / 8);
+		DrawLine(0, length / 4);
+		DrawLine(length * 3 / 8, -length / 8);
+		EndFilledRegion();
+
+		break;
+
+	case 4:
+
+		MovePen(mx - length / 8, my);
+		StartFilledRegion(0.6);
+		DrawLine(length / 8, length * 3 / 8);
+		DrawLine(-length / 4, 0);
+		DrawLine(-length / 8, -length * 3 / 8);
+		DrawLine(length / 8, -length * 3 / 8);
+		DrawLine(length / 4, 0);
+		DrawLine(-length / 8, length * 3 / 8);
+		EndFilledRegion();
+
+		MovePen(mx + length * 3 / 8, my);
+		StartFilledRegion(0.6);
+		DrawLine(length / 8, length * 3 / 8);
+		DrawLine(-length / 4, 0);
+		DrawLine(-length / 8, -length * 3 / 8);
+		DrawLine(length / 8, -length * 3 / 8);
+		DrawLine(length / 4, 0);
+		DrawLine(-length / 8, length * 3 / 8);
+		EndFilledRegion();
+
+		break;
+
+	case 5:
+
+		MovePen(mx + length * 3 / 8, my - length * 3 / 8);
+		StartFilledRegion(0.6);
+		DrawLine(0, length * 9 / 16);
+		DrawArc(length * 9 / 16, 90, 90);
+		DrawLine(length * 9 / 16, 0);
+		EndFilledRegion();
+		SetPenColor("Light Light Gray");
+		StartFilledRegion(1);
+		DrawLine(0,length*3/16);
+		DrawArc(length * 3 / 16, 90, 90);
+		DrawLine(length*3/16,0);
+		EndFilledRegion();
+		SetPenColor("SafeWayGreen");
+
+		break;
+
+	case 6:
+
+		MovePen(mx + length * 3 / 8, my + length * 3 / 8);
+		StartFilledRegion(0.6);
+		DrawLine(-length * 9 / 16, 0);
+		DrawArc(length * 9 / 16, 180, 90);
+		DrawLine(0, length * 9 / 16);
+		EndFilledRegion();
+		SetPenColor("Light Light Gray");
+		StartFilledRegion(1);
+		DrawLine(-length*3/16,0);
+		DrawArc(length * 3 / 16, 180, 90);
+		DrawLine(0,length*3/16);
+		EndFilledRegion();
+		SetPenColor("SafeWayGreen");
+
+		break;
+
+	case 7:
+
+		MovePen(mx - length * 3 / 8, my + length * 3 / 8);
+		StartFilledRegion(0.6);
+		DrawLine(0, -length * 9 / 16);
+		DrawArc(length * 9 / 16, 270, 90);
+		DrawLine(-length * 9 / 16, 0);
+		EndFilledRegion();
+		SetPenColor("Light Light Gray");
+		StartFilledRegion(1);
+		DrawLine(0,-length*3/16);
+		DrawArc(length * 3 / 16, 270, 90);
+		DrawLine(-length*3/16,0);
+		EndFilledRegion();
+		SetPenColor("SafeWayGreen");
+
+		break;
+
+	case 8:
+
+		MovePen(mx - length * 3 / 8, my - length * 3 / 8);
+		StartFilledRegion(0.6);
+		DrawLine(length * 9 / 16, 0);
+		DrawArc(length * 9 / 16, 0, 90);
+		DrawLine(0, -length * 9 / 16);
+		EndFilledRegion();
+		SetPenColor("Light Light Gray");
+		StartFilledRegion(1);
+		DrawLine(length*3/16,0);
+		DrawArc(length * 3 / 16, 0, 90);
+		DrawLine(0,-length*3/16);
+		EndFilledRegion();
+		SetPenColor("SafeWayGreen");
+
+		break;
+	}
+
+	SetPenColor("Black");
 }
