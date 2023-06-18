@@ -1,5 +1,5 @@
 #include "MyHeader.h"
-void myTimerEvent(int timerID);
+
 /*对象声明*/
 int map_xlength;											//地图规格
 int map_ylength;
@@ -10,16 +10,9 @@ void Main()
 {
 	SetWindowTitle("MazeGame");
 	SetWindowSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
-	page_stage=MAIN_PAGE;
-	InitConsole(); 
 	InitGraphics();
 	InitGame();
     
-	
-	//xscale=25;
-	//yscale=25;
-	
-	//monsternum=10;
 	registerKeyboardEvent(myKeyboardEvent);
 	registerMouseEvent(myMouseEvent);
 	registerTimerEvent(myTimerEvent);
