@@ -57,7 +57,8 @@ void display(void)
 
 		// 画角色
 		SetPenColor("Red");
-		DrawRole(X0 + (MajorRole.x - 1) / 2 * length + length / 2, Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
+		DrawRole(X0 + (MajorRole.x - 1) / 2 * length + length / 2, 
+					Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
 
 		// 血量显示
 		SetPenColor("Light Light Gray");
@@ -93,30 +94,7 @@ void display(void)
 	// 绘制关于界面
 	if (page_stage == INSTRUCT_PAGE)
 	{
-		int sizepen = GetPenSize();
-		SetPenSize(2);
-		SetPenColor("Light Light Gray");
-		drawRectangle(0, 0, 300, 200, 1);
-		drawBox(120, 150, 60, 20, 0, "关 于", 'M', "Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(110, 130, 30, 10, 0, "作者：", 'M', "Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 130, 30, 10, 0, "郑灵杰", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 120, 30, 10, 0, "耿传洪", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 110, 30, 10, 0, "王志龙", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(105, 100, 40, 10, 0, "作品名称：", 'M', "Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 100, 40, 10, 0, "你逃它追插翅难飞", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(105, 50, 90, 5, 0, "谨此纪念我们的童年", 'M', "Blue");
-		SetPenColor("Violet");
-		drawRectangle(95, 40, 110, 132, 0);
-		SetPenColor("Blue");
-		drawRectangle(100, 45, 100, 120, 0);
-		SetPenSize(sizepen);
+		draw_aboutgame_page();
 	}
 
 	// 绘制地图参数输入窗
@@ -129,14 +107,7 @@ void display(void)
 	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) 
 		&& ButtonEnum[PromptNextStep].stage == Button_DOWN)
 	{
-		pWay pshortestpen;
-		pshortestpen = AllHead->ThisWay;
-		drawhat(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2,
-				 Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2, length);
-		if (MajorRole.x == pshortestpen->next->x && MajorRole.y == pshortestpen->next->y)
-		{
-			ButtonEnum[PromptNextStep].stage = Button_UP;
-		}	
+		draw_prom_image();
 	}
 
 	// 绘制按钮
@@ -191,6 +162,7 @@ void DrawCoin(double mx, double my, double l, int InMap)
 	DrawLine(0, -l * 3 / 16);
 }
 
+//画怪兽
 void DrawMonster(double mx, double my, double l)
 {
 	SetPenColor("Brown");
@@ -228,6 +200,7 @@ void DrawMonster(double mx, double my, double l)
 	return;
 }
 
+//画终点
 void DrawGoal(double mx, double my, double l)
 {
 	MovePen(mx, my);
@@ -251,6 +224,7 @@ void DrawGoal(double mx, double my, double l)
 	EndFilledRegion();
 }
 
+//画角色
 void DrawRole(double mx, double my, double l)
 {
 	if (ButtonEnum[PromptNextStep].stage == Button_DOWN)
@@ -350,6 +324,7 @@ void DrawRole(double mx, double my, double l)
 	return;
 }
 
+//画预览金币
 void DrawPreCoin(double mx, double my, double l)
 {
 	SetPenColor("Yellow");
@@ -370,6 +345,7 @@ void DrawPreCoin(double mx, double my, double l)
 	DrawLine(0, -l * 3 / 16);
 }
 
+//画预览终点
 void DrawPreGoal(double mx, double my, double l)
 {
 	MovePen(mx, my);
@@ -393,6 +369,7 @@ void DrawPreGoal(double mx, double my, double l)
 	EndFilledRegion();
 }
 
+//画预览角色
 void DrawPreRole(double mx, double my, double l)
 {
 	SetPenColor("White");
@@ -461,6 +438,7 @@ void DrawPreRole(double mx, double my, double l)
 	drawRectangle(mx + l / 8, my - l / 6, l / 24, l / 6, 1);
 }
 
+//画下一步的帽子
 void drawhat(double mx, double my, double l)
 {
 	SetPenColor("White");
@@ -495,6 +473,7 @@ void drawhat(double mx, double my, double l)
 	DrawLine(l / 2, 0);
 }
 
+//画最短路径和全部路径的一格图像
 void DrawWayArrow(double mx, double my, double length, int stage)
 {
 
@@ -1042,4 +1021,46 @@ void draw_getdata_box(void)
 		textbox(GenUIID(0), 225, 70, 10, 10, coinnum, 4);
 		SetPenColor("Black");
 		drawRectangle(140, 50, 110, 110, 0);
+}
+
+//绘制关于界面
+void draw_aboutgame_page(void)
+{
+	int sizepen = GetPenSize();
+		SetPenSize(2);
+		SetPenColor("Light Light Gray");
+		drawRectangle(0, 0, 300, 200, 1);
+		drawBox(120, 150, 60, 20, 0, "关 于", 'M', "Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(110, 130, 30, 10, 0, "作者：", 'M', "Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 130, 30, 10, 0, "郑灵杰", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 120, 30, 10, 0, "耿传洪", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 110, 30, 10, 0, "王志龙", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(105, 100, 40, 10, 0, "作品名称：", 'M', "Blue");
+		SetPenColor("Light Light Gray");
+		drawBox(140, 100, 40, 10, 0, "你逃它追插翅难飞", 'M', "Black");
+		SetPenColor("Light Light Gray");
+		drawBox(105, 50, 90, 5, 0, "谨此纪念我们的童年", 'M', "Blue");
+		SetPenColor("Violet");
+		drawRectangle(95, 40, 110, 132, 0);
+		SetPenColor("Blue");
+		drawRectangle(100, 45, 100, 120, 0);
+		SetPenSize(sizepen);
+}
+
+//画下一步
+void draw_prom_image(void)
+{
+	pWay pshortestpen;
+		pshortestpen = AllHead->ThisWay;
+		drawhat(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2,
+				 Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2, length);
+		if (MajorRole.x == pshortestpen->next->x && MajorRole.y == pshortestpen->next->y)
+		{
+			ButtonEnum[PromptNextStep].stage = Button_UP;
+		}	
 }
