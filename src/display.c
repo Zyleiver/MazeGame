@@ -438,6 +438,77 @@ void display(void)
 			}
 		}
 	}
+	
+	if(page_stage == END_PAGE && endtime != 0 && MajorRole.hp != 0)
+	{
+		int sizepenn;
+		sizepenn = GetPointSize();
+		MovePen(100,120);
+    	SetPointSize(100);
+			if(endtime>175)
+			{
+				SetPenColor("Green");
+			}
+			else if(endtime>150)
+			{
+				SetPenColor("Brown");
+			}
+			else if(endtime>125)
+			{
+				SetPenColor("Red");
+			}
+			else if(endtime>100)
+			{
+				SetPenColor("Blue");
+			}
+			else if(endtime>75)
+			{
+				SetPenColor("Violet");
+			}
+			else if(endtime>50)
+			{
+				SetPenColor("Yellow");
+			}
+			else if(endtime>25)
+			{
+				SetPenColor("Gray");
+			}
+			else
+			{
+				SetPenColor("Green");
+			}
+    	DrawTextString("!!! W I N !!!");
+    	SetPointSize(sizepenn);
+    	SetPenColor("Black");		
+	}
+	
+	if(page_stage == END_PAGE && dietime != 0 && MajorRole.hp == 0)
+	{
+		int sizepene;
+		sizepene = GetPointSize();
+		MovePen(100,120);
+    	SetPointSize(100);
+			
+			if(dietime>75)
+			{
+				SetPenColor("Violet");
+			}
+			else if(dietime>50)
+			{
+				SetPenColor("Gray");
+			}
+			else if(dietime>25)
+			{
+				SetPenColor("Violet");
+			}
+			else
+			{
+				SetPenColor("Gray");
+			}
+    	DrawTextString("TRY AGAIN!!!");
+    	SetPointSize(sizepene);
+    	SetPenColor("Black");
+	}
 }
 
 void DrawCoin(double mx, double my, double l, int InMap)

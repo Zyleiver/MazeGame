@@ -5,6 +5,11 @@ int MZY;
 
 int coinNum;
 
+int endtime;
+int dietime;
+int ender = 0;
+int bubuhat = 0;
+
 // 循环变量群 ,
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i17;
 
@@ -727,6 +732,10 @@ void myTimerEvent(int timerID)
     case FlashTimer:
     		if(iscracked>0)
 				iscracked--;
+			if(endtime > 0)
+				endtime--;
+			if(dietime > 0)
+				dietime--;
             display();
             break;
     case GameTouchTimer:
@@ -736,10 +745,10 @@ void myTimerEvent(int timerID)
     		{
     			if(MajorRole.x == Monster[i15].x && MajorRole.y == Monster[i15].y &&page_stage==GAME_PAGE)
     			{
-    				if(MajorRole.hp != 0 && iscracked == 0 )
+    				if(MajorRole.hp != 0 && iscracked == 0 && page_stage == GAME_PAGE && endtime == 0)
     				{
     					MajorRole.hp--;
-    					iscracked = 200;
+    					iscracked = 100;
 					}
 				}
 			}
@@ -747,27 +756,74 @@ void myTimerEvent(int timerID)
 			//结束判断事件 
 				if(page_stage==GAME_PAGE && Map[MajorRole.x][MajorRole.y] == END)
 				{
-						ShiftPageTo(END_PAGE);
+					if(ButtonEnum[PromptNextStep].stage == Button_DOWN)
+						bubuhat = 1;
+					ShiftPageTo(END_PAGE);
+					endtime = 200;
+					ender = 1;
+					
+					
+				}
+				
+				if(page_stage==GAME_PAGE && MajorRole.hp == 0)
+				{
+					ShiftPageTo(END_PAGE);
+					dietime = 100;
+					ender = 2;
+					
+				}
+			
+				if(page_stage==END_PAGE && endtime == 0 && ender == 1)
+				{
+						
                         int result;
 						if(CoinGet < coinNum || coinNum == 0)
-   	 						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+						{
+							ender = 0;
+							if(MajorRole.hp == 3)
+							{
+								if(CoinGet == 0)
+									result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：金 币 是 什 么？ \n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+								else if(bubuhat == 0)
+									result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：完 好 如 初\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+								else
+								{
+									bubuhat = 0;
+									result = MessageBox(NULL, "\t获 得 成 就 ：好 像 掉 了 什 么？\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+								}
+							
+							}
+							else if(bubuhat == 1)
+							{
+								bubuhat = 0;
+								result = MessageBox(NULL, "\t获 得 成 就 ：好 像 掉 了 什 么？\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+							}
+							else
+								result = MessageBox(NULL, "\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+							
+						}
     					else 
-    						 result = MessageBox(NULL, "\t!!!!!!! W  I  N !!!!!!!!\n\n\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+    					{
+    						ender = 0;
+    						if(MajorRole.hp != 3)
+    							result = MessageBox(NULL, "\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+							else 
+								result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：杰 出 的 收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+						}
+    					
     					
 						if (result == IDYES)
     					{
         						if(saveMap())
         						{
-        							int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
-        				
+        							int re = MessageBox(NULL, "\n\t保存成功 ", "成功", MB_OK);
 								}
 								else
 								{
-									int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
+									int re1 = MessageBox(NULL, "\n\t保存失败", "重试", MB_OK);
 								}
 								ShiftPageTo(MAIN_PAGE);
 							
-
     					}
     					else if (result == IDNO)
     					{
@@ -777,25 +833,34 @@ void myTimerEvent(int timerID)
 					
 				}
 				
-				if(MajorRole.hp == 0 && page_stage==GAME_PAGE)
+				if(page_stage==END_PAGE && dietime == 0 && ender == 2)
 				{		
-						ShiftPageTo(END_PAGE);
+						
                         int result1;
 						if(CoinGet < coinNum || coinNum == 0)
-   	 						result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+						{
+							ender = 0;
+							if(monsternum >= xscale*yscale)
+								result1 = MessageBox(NULL, "\t获 得 成 就 ：怪 兽 爱 好 者\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+							else
+								result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+						}
     					else 
-    						result1 = MessageBox(NULL, "\t虽 败 犹 荣 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+    					{
+    						ender = 0;
+    						result1 = MessageBox(NULL, "\t获 得 成 就 ：金 币 导 致 的\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+						}
     						
     					if (result1 == IDYES)
     					{
         					if(saveMap())
         					{
-        						int re = MessageBox(NULL, "\n\t保 存 成 功 ", "成功", MB_OK);
+        						int re = MessageBox(NULL, "\n\t保存成功 ", "成功", MB_OK);
         						
 							}
 							else
 							{
-								int re1 = MessageBox(NULL, "\n\t保 存 失 败", "重试", MB_OK);
+								int re1 = MessageBox(NULL, "\n\t保存失败", "重试", MB_OK);
 							}
 							ShiftPageTo(MAIN_PAGE);
         					
@@ -804,15 +869,16 @@ void myTimerEvent(int timerID)
     					{
         					ShiftPageTo(MAIN_PAGE);
     					}
-					}
+    				
+				}
 				
 			//金币碰撞事件
 			if(Map[MajorRole.x][MajorRole.y] == COIN && page_stage==GAME_PAGE)
 			{
 				Map[MajorRole.x][MajorRole.y] = COINGOT;
 				CoinGet++;
-				if(MajorRole.hp < 3)
-					MajorRole.hp++;
+				if(MajorRole.hp < 3 && CoinGet == coinNum)
+					MajorRole.hp = 3;
 			}
 				
         break;

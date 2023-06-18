@@ -22,6 +22,11 @@ extern double length;   //格子大小
 extern double X0;       //地图左下角横坐标
 extern double Y0;       //地图右下角纵坐标
 
+extern int iscracked;	//碰撞判断变量 
+extern endtime;			//结算界面变量 
+extern dietime;			//失败界面变量 
+extern bubuhat;			//成就变量
+ 
 //创建一个随机的新地图
 void CreateNewMap(void);
 
@@ -39,5 +44,5 @@ void EditMap(int x, int y, int buttonusing);
 
 extern int Map[100][100];
 
-extern int iscracked;
+
 #endif
