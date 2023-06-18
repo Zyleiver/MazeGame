@@ -63,7 +63,7 @@ void CreateNewMap(void)
     Y0 = 90 - Ylength / 2;
     
     CoinGet = 0;
-    MajorRole.hp = 3;
+    MajorRole.hp = 12;
     MajorRole.x = -10;
     MajorRole.y = -10;
     for (i12 = 0; i12 < 1000; i12++)
@@ -339,7 +339,7 @@ void GameInit(void)
 
     CoinGet = 0;
     // 主角状态初始化
-    MajorRole.hp = 3;
+    MajorRole.hp = 12;
     int i, j;
     for (i = MZX + 1; i >= 0; i--)
     {
@@ -400,7 +400,7 @@ void BuildMap(void)
 
     putting = 0;
     CoinGet = 0;
-    MajorRole.hp = 3;
+    MajorRole.hp = 12;
     MajorRole.x = -10;
     MajorRole.y = -10;
     for (i12 = 0; i12 < 1000; i12++)
@@ -516,7 +516,7 @@ void EditMap(int x, int y, int buttonusing)
         {
             if (Map[x][y] == START)
             {
-                MajorRole.hp = 3;
+                MajorRole.hp = 12;
                 MajorRole.x = -10;
                 MajorRole.y = -10;
             }
@@ -747,8 +747,11 @@ void myTimerEvent(int timerID)
     			{
     				if(MajorRole.hp != 0 && iscracked == 0 && page_stage == GAME_PAGE && endtime == 0)
     				{
-    					MajorRole.hp--;
-    					iscracked = 100;
+    					if(MajorRole.hp <= 3)
+    						MajorRole.hp = 0;
+    					else
+    						MajorRole.hp = MajorRole.hp - 3;
+    					iscracked = 200;
 					}
 				}
 			}
@@ -780,7 +783,7 @@ void myTimerEvent(int timerID)
 						if(CoinGet < coinNum || coinNum == 0)
 						{
 							ender = 0;
-							if(MajorRole.hp == 3)
+							if(MajorRole.hp == 12)
 							{
 								if(CoinGet == 0)
 									result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：金 币 是 什 么？ \n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
@@ -805,7 +808,7 @@ void myTimerEvent(int timerID)
     					else 
     					{
     						ender = 0;
-    						if(MajorRole.hp != 3)
+    						if(MajorRole.hp != 12)
     							result = MessageBox(NULL, "\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
 							else 
 								result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：杰 出 的 收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
@@ -877,8 +880,8 @@ void myTimerEvent(int timerID)
 			{
 				Map[MajorRole.x][MajorRole.y] = COINGOT;
 				CoinGet++;
-				if(MajorRole.hp < 3 && CoinGet == coinNum)
-					MajorRole.hp = 3;
+				if(MajorRole.hp < 12)
+					MajorRole.hp ++;
 			}
 				
         break;

@@ -14,6 +14,7 @@ void display(void);
 void DrawCoin(double mx, double my, double l, int InMap);    //»­½ð±Ò
 void DrawMonster(double mx,double my,double l);      //»­¹ÖÊÞ
 void DrawRole(double mx,double my,double l);         //»­½ÇÉ«
+void DrawGoal(double mx, double my, double l);		 //»­ÖÕµã 
 
 void DrawPreCoin(double mx, double my, double l); 	 //»­Ô¤ÀÀ½ð±Ò 
 void DrawPreGoal(double mx,double my,double l);		 //»­Ô¤ÀÀÖÕµã 
