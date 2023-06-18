@@ -748,7 +748,7 @@ void myTimerEvent(int timerID)
     				if(MajorRole.hp != 0 && iscracked == 0 && page_stage == GAME_PAGE && endtime == 0)
     				{
     					MajorRole.hp--;
-    					iscracked = 200;
+    					iscracked = 100;
 					}
 				}
 			}
@@ -785,7 +785,7 @@ void myTimerEvent(int timerID)
 								if(CoinGet == 0)
 									result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：金 币 是 什 么？ \n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
 								else if(bubuhat == 0)
-									result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 \n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+									result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：完 好 如 初\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
 								else
 								{
 									bubuhat = 0;
@@ -805,7 +805,10 @@ void myTimerEvent(int timerID)
     					else 
     					{
     						ender = 0;
-    						result = MessageBox(NULL, "\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+    						if(MajorRole.hp != 3)
+    							result = MessageBox(NULL, "\t获 得 成 就 ：收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
+							else 
+								result = MessageBox(NULL, "\t获 得 成 就 ：无 瑕 ：杰 出 的 收 藏 家\n\n\t是 否 保 存 地 图 ", "胜利", MB_YESNO);
 						}
     					
     					
@@ -837,7 +840,10 @@ void myTimerEvent(int timerID)
 						if(CoinGet < coinNum || coinNum == 0)
 						{
 							ender = 0;
-							result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+							if(monsternum >= xscale*yscale)
+								result1 = MessageBox(NULL, "\t获 得 成 就 ：怪 兽 爱 好 者\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
+							else
+								result1 = MessageBox(NULL, "\t再 接 再 厉 !\n\n\t是 否 保 存 地 图 ", "失利", MB_YESNO);
 						}
     					else 
     					{
