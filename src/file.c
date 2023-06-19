@@ -64,6 +64,8 @@ int saveMap(void)
 //读取地图
 int ReadData(void)
 {
+    char current_path[1024];
+	getcwd(current_path, sizeof(current_path));
     OPENFILENAME ofn;
     char szFile[MAX_PATH] = "";
 
@@ -98,15 +100,18 @@ int ReadData(void)
             printf("%d",monsternum);
             
             fclose(file);
+            chdir(current_path);
             GameInit();
             return 1;
         }else{
+            chdir(current_path);
             return 0;
         }
         
     }
     else
     {
+        chdir(current_path);
         return 0;
     }
 }
@@ -114,9 +119,12 @@ int ReadData(void)
 //显示游戏说明
 void Instruct(void)
 {
+    char current_path[1024];
+	getcwd(current_path, sizeof(current_path));
     const char* subdirectory = "..\\游戏说明";
     const char* filename = "游戏说明.pdf";
     openPDFInSubdirectory(subdirectory, filename);
+    chdir(current_path);
 }
 
 //显示关于
