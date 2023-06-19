@@ -64,24 +64,24 @@ void display(void)
 		if(page_stage == GAME_PAGE)
 		{
 			SetPenColor("Light Light Gray");
-			drawBox(0, 168, 10, 10, 0, "hp", 'M', "Red");
+			drawBox(80, 182, 10, 10, 0, "hp", 'M', "Red");
 			SetPenColor("Red");
-			drawBox(10.01, 170, 10 * MajorRole.hp / 4, 5, 1, "", 'M', "Red");
+			drawBox(90.01, 184, 10 * MajorRole.hp / 4, 5, 1, "", 'M', "Red");
 			SetPenColor("Black");
-			drawBox(10.01, 170, 30, 5, 0, "", 'M', "Black");
+			drawBox(90.01, 184, 30, 5, 0, "", 'M', "Black");
 		}
 
 
-		// 金币显示
+		// 金币数量显示
 		if(page_stage == GAME_PAGE)
 		{
-			DrawCoin(5.01, 160, 5, 0);
+			DrawCoin(175.01, 186, 5, 0);
 			SetPenColor("Light Light Gray");
 			char m[10];
 			sprintf(m, "%d", CoinGet);
-			drawBox(10.01, 155, 5, 10, 0, ": ", 'L', "Black");
+			drawBox(183.01, 182, 5, 10, 0, ": ", 'L', "Black");
 			SetPenColor("Light Light Gray");
-			drawBox(15.01, 155, 10, 10, 0, m, 'L', "Black");
+			drawBox(185.01, 182, 10, 10, 0, m, 'L', "Black");
 			SetPenColor("Black");
 		}
 
@@ -1022,7 +1022,9 @@ void draw_lose_image(void)
 
 //画主页面元素
 void draw_init_image(void)
-{
+{	
+	SetPenColor("Light Light Gray");
+	drawBox(100,5,100,10,0,"( 请在目录下的data文件夹中保存与读取您的地图^_^ )",'M',"Black");
 	int sizepeninit;
 		sizepeninit = GetPointSize();
 		MovePen(102,160);
@@ -1072,15 +1074,15 @@ void draw_init_image(void)
 void draw_getdata_box(void)
 {
 	SetPenColor("Light Light Gray");
-		drawBox(160, 140, 40, 10, 0, "地图规格\(4<=x<=40,4<=y<=40\)", 'L', "Black");
+		drawBox(160, 140, 40, 10, 0, "地图规格 \( 4<=x<=40,4<=y<=40 \) ", 'L', "Black");
 		SetPenColor("Light Light Gray");
 		drawBox(160, 130, 10, 10, 0, "x:", 'L', "Black");
 		SetPenColor("Light Light Gray");
 		drawBox(185, 130, 10, 10, 0, "y:", 'L', "Black");
 		SetPenColor("Light Light Gray");
-		drawBox(160, 100, 40, 10, 0, "怪兽数量\(小于999\):", 'L', "Black");
+		drawBox(160, 100, 40, 10, 0, "怪兽数量 \( 小于999 \) :", 'L', "Black");
 		SetPenColor("Light Light Gray");
-		drawBox(160, 70, 40, 10, 0, "金币数量\(若手动编辑无需输入\):", 'L', "Black");
+		drawBox(160, 70, 40, 10, 0, "金币数量 \( 若手动编辑无需输入 \) :", 'L', "Black");
 		textbox(GenUIID(0), 170, 130, 10, 10, mapx, 3);
 		textbox(GenUIID(0), 195, 130, 10, 10, mapy, 3);
 		textbox(GenUIID(0), 235, 100, 10, 10, monsnum, 4);

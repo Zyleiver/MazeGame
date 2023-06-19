@@ -114,6 +114,7 @@ int ReadData(void)
 //显示游戏说明
 void Instruct(void)
 {
+	
     const char* subdirectory = "..\\游戏说明";
     const char* filename = "游戏说明.pdf";
     openPDFInSubdirectory(subdirectory, filename);

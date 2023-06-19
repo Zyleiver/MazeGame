@@ -34,6 +34,7 @@ void drawpreimage(void);//画预览图
 void draw_win_image(void);//画胜利界面
 void draw_lose_image(void);//画失败界面
 void draw_aboutgame_page(void);//绘制关于界面
+void draw_init_image(void);//画主页面元素
 
 
 void draw_getdata_box(void);//绘制地图参数输入框

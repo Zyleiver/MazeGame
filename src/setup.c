@@ -44,9 +44,10 @@ struct nonvisit
 void CreateNewMap(void)
 {
      //生成地图规模
-    if (abs(xscale - yscale) < 5)
+     /*
+    if (abs(xscale - yscale) < 3)
     {
-        length = 160 / sqrt(xscale * yscale);
+        length = 145 / sqrt(xscale * yscale);
     }
     else if (xscale > yscale)
     {
@@ -56,6 +57,15 @@ void CreateNewMap(void)
     {
         length = 160 / yscale;
     }
+    
+     if(170/yscale>=230/xscale)
+    {
+    	length=230/xscale;
+	}else
+	{
+		length=170/yscale;
+	}
+	*/
 
     Xlength = (double)xscale * length;
     Ylength = (double)yscale * length;
@@ -305,18 +315,13 @@ void CreateNewMap(void)
 void GameInit(void)
 {
 	//生成地图规模 
-	if (abs(xscale - yscale) < 5)
+	 if(170/yscale>=230/xscale)
     {
-        length = 160 / sqrt(xscale * yscale);
-    }
-    else if (xscale > yscale)
-    {
-        length = 180 / xscale;
-    }
-    else
-    {
-        length = 160 / yscale;
-    }
+    	length=230/xscale;
+	}else
+	{
+		length=170/yscale;
+	}
 
     Xlength = (double)xscale * length;
     Ylength = (double)yscale * length;
@@ -372,9 +377,10 @@ void GameInit(void)
 void BuildMap(void)
 {
     //生成地图规模
-    if (abs(xscale - yscale) < 5)
+    /*
+    if (abs(xscale - yscale) < 3)
     {
-        length = 160 / sqrt(xscale * yscale);
+        length = 145 / sqrt(xscale * yscale);
     }
     else if (xscale > yscale)
     {
@@ -384,6 +390,14 @@ void BuildMap(void)
     {
         length = 160 / yscale;
     }
+    */
+    if(170/yscale>=230/xscale)
+    {
+    	length=230/xscale;
+	}else
+	{
+		length=170/yscale;
+	}
 
     Xlength = (double)xscale * length;
     Ylength = (double)yscale * length;
