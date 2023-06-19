@@ -1,38 +1,87 @@
 #include"MyHeader.h"
 
-Pallway AllHead = NULL;
-Pallway Alltail;
+extern Map[100][100]; 		//地图 
 
-extern Map[100][100]; 
+int finalx; 				//终点坐标x
+int finaly;					//终点坐标y 
+int solution;				//记录解数变量 
 
-Pallway pvisiter = NULL; 
+Pallway pvisiter = NULL; 	//查找指针 
+Pallway AllHead = NULL;		//所有解的头指针 
+Pallway Alltail;			//所有解的尾指针 
 
-int finalx; 
-int finaly;
 
+
+//最短路径解的中介表 
+pWay head1 = NULL;
+pWay tail1;
+//申请队列相关变量 
+int header;
+int tailer;
+int i1,i2;
 struct listnote
 {
         int x;
         int y;
         int father;
 };
+struct listnote queue[10000];
 
-	//最短路径解的表 
-    pWay head1 = NULL;
-    pWay tail1;
-    
-    //申请队列
-    struct listnote queue[10000];
-    int header = 1, tailer = 1, i1,i2;
 
-void f(int t)
+
+//求全部解算法内部判断相关变量 
+int dir[4][4] = {{2,0,1,0},{-2,0,-1,0},{0,2,0,1},{0,-2,0,-1}};
+int visiter[100+4][100+4];
+int txdp,tydp,txdpwall,tydpwall;
+//申请堆栈相关变量 
+int top;
+struct depthlist{
+    int x;
+    int y;
+};
+struct depthlist s[10000];
+
+
+
+//****************************清理链表模块*********************************//
+
+//清理链表函数 （二级） 
+pWay clear_Way(pWay way) 
+{
+    if (way == NULL) 
+	{
+        return NULL;
+    }
+    way->next = clear_Way(way->next);
+    way->next = NULL;
+    free(way);
+    return NULL;
+}
+
+//清理链表函数（一级） 
+Pallway clear_AllWay(Pallway allway) 
+{
+    if (allway == NULL) 
+	{
+        return NULL;
+    }
+    allway->ThisWay = clear_Way(allway->ThisWay);
+    allway->Next = NULL;
+    free(allway);
+    return NULL;
+}
+
+
+
+//****************************求最优解模块*********************************//
+
+//最优解存储函数
+void fbfs(int t)
 {
     if(t==0) return;
-    f(queue[t].father);
+    fbfs(queue[t].father); 
 	
-printf("%d %d\n",queue[t].x,queue[t].y);//该行测试点 
-	
-	//将最短路径解（广搜解出）存储 
+	//将最短路径解（广搜解出）存入中介表 
     pWay p;
     p = (pWay)malloc(sizeof(struct Way));
     p->x = queue[t].x;
@@ -46,71 +95,14 @@ printf("%d %d\n",queue[t].x,queue[t].y);//该行测试点
         tail1 = p;
 }
 
-
-//使用广度优先搜索BFS
+//求最优解 BFS主体函数 
 int find_way_shortest(int curx,int cury)
 {
 	
 	pvisiter = NULL;
-	//清理链表 
-	Pallway p1, p2;
-	pWay p3, p4;
-	p1 = AllHead;
-	if(AllHead == NULL)
-		p2 = NULL;
-	else
-		p2 = AllHead->Next;
-		
-	while(p2 != NULL)
-	{
-		p1->Next = p2->Next;
-		//
-		p3 = p2->ThisWay;
-		if(p2->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p2->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p2->ThisWay != NULL)
-		{
-			p2->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p2);
-		p2 = p1->Next;
-	}
 	
-	if(AllHead != NULL)
-	{
-		AllHead = NULL;
-		//
-		p3 = p1->ThisWay;
-		if(p1->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p1->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p1->ThisWay != NULL)
-		{
-			p1->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p1);	
-	}
+	//清理链表 
+	AllHead = clear_AllWay(AllHead);
 	//清理结束
 	
 	 
@@ -193,7 +185,7 @@ int find_way_shortest(int curx,int cury)
 	//递归存储最短路径解 
 	head1 = NULL;
 	tail1 = head1;
-    f(tailer - 1);
+    fbfs(tailer - 1);
 
     //存入allway总路径表
     Alltail = AllHead;
@@ -213,27 +205,11 @@ int find_way_shortest(int curx,int cury)
 
 }
 
-//使用深度优先搜索DFS
-int dir[4][4] = {{2,0,1,0},{-2,0,-1,0},{0,2,0,1},{0,-2,0,-1}};
 
-int visiter[100+4][100+4];
 
-int txdp,tydp,txdpwall,tydpwall;
+//****************************求全部解模块*********************************//
 
-struct depthlist{
-    int x;
-    int y;
-};
-
-struct depthlist s[10000];
-
-int top = 0;
-int solution = 0;
-
-Pallway dpalltail;
-pWay dpthistail;
-
-//递归主体 
+//DFS判断递归主体函数 
 void dfs(int x, int y)
 {
     if(visiter[MZX+1][MZY+1]==1)
@@ -315,7 +291,7 @@ void dfs(int x, int y)
         }
 }
 
-//找路主体 
+//求全部解 DFS主体函数 
 int find_way_all(int curx, int cury)
 {
 	
@@ -342,65 +318,9 @@ int find_way_all(int curx, int cury)
 			}
         }
     }
+    
     //清理链表 
-	Pallway p1, p2;
-	pWay p3, p4;
-	p1 = AllHead;
-	if(AllHead == NULL)
-		p2 = NULL;
-	else
-		p2 = AllHead->Next;
-		
-	while(p2 != NULL)
-	{
-		p1->Next = p2->Next;
-		//
-		p3 = p2->ThisWay;
-		if(p2->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p2->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p2->ThisWay != NULL)
-		{
-			p2->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p2);
-		p2 = p1->Next;
-	}
-	
-	if(AllHead != NULL)
-	{
-		AllHead = NULL;
-		//
-		p3 = p1->ThisWay;
-		if(p1->ThisWay == NULL)
-			p4 = NULL;
-		else
-			p4 = p1->ThisWay->next;
-		
-		while(p4 != NULL)
-		{
-			p3->next = p4->next;
-			free(p4);
-			p4 = p3->next;
-		}
-		if(p1->ThisWay != NULL)
-		{
-			p1->ThisWay = NULL;
-			free(p3);	
-		}
-		//
-		free(p1);	
-	}
+	AllHead = clear_AllWay(AllHead);
 	//清理结束
 	
     //起点初始化
@@ -422,11 +342,11 @@ int find_way_all(int curx, int cury)
 }
 
 
+
+//****************************求下一步模块*********************************// 
 int next_move(void)
 {
     //调用广搜函数（最短路径函数）
     find_way_shortest(MajorRole.x, MajorRole.y);
     //但display时只显示下一步
 }
-
-
