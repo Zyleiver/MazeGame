@@ -61,22 +61,30 @@ void display(void)
 					Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
 
 		// —™¡øœ‘ æ
-		SetPenColor("Light Light Gray");
-		drawBox(240, 158, 10, 10, 0, "hp", 'M', "Red");
-		SetPenColor("Red");
-		drawBox(250, 160, 10 * MajorRole.hp / 4, 5, 1, "", 'M', "Red");
-		SetPenColor("Black");
-		drawBox(250, 160, 30, 5, 0, "", 'M', "Black");
+		if(page_stage == GAME_PAGE)
+		{
+			SetPenColor("Light Light Gray");
+			drawBox(0, 168, 10, 10, 0, "hp", 'M', "Red");
+			SetPenColor("Red");
+			drawBox(10.01, 170, 10 * MajorRole.hp / 4, 5, 1, "", 'M', "Red");
+			SetPenColor("Black");
+			drawBox(10.01, 170, 30, 5, 0, "", 'M', "Black");
+		}
+
 
 		// Ω±“œ‘ æ
-		DrawCoin(245, 145, 5, 0);
-		SetPenColor("Light Light Gray");
-		char m[10];
-		sprintf(m, "%d", CoinGet);
-		drawBox(250, 140, 5, 10, 0, ": ", 'L', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(255, 140, 10, 10, 0, m, 'L', "Black");
-		SetPenColor("Black");
+		if(page_stage == GAME_PAGE)
+		{
+			DrawCoin(5.01, 160, 5, 0);
+			SetPenColor("Light Light Gray");
+			char m[10];
+			sprintf(m, "%d", CoinGet);
+			drawBox(10.01, 155, 5, 10, 0, ": ", 'L', "Black");
+			SetPenColor("Light Light Gray");
+			drawBox(15.01, 155, 10, 10, 0, m, 'L', "Black");
+			SetPenColor("Black");
+		}
+
 
 		// ª≠π÷ ﬁ
 		if (page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE)

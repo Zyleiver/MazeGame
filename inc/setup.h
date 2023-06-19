@@ -1,20 +1,17 @@
 #ifndef SETUP_H_
 #define SETUP_H_
 
-extern int coinNum;
+extern int Map[100][100]; 	//地图数组 
+extern int MZX;				//地图算法横向总长 
+extern int MZY;				//地图算法纵向总长 
 
-extern int monsternum;
-//暂时先令地图为18*18，宏定义数值计算公式
-//用户输入地图尺寸X、Y.  MZX = X*2 - 1; MZY = Y*2 - 1
-//这就意味着生成的地图不将墙算进用户指定的格数中
-//可以画细奇数列偶数行的方格（——）和偶数列奇数行的方格（|）————即墙
-//并且将偶数列偶数行的方格画成（.）————这个位置永远都是墙
-//奇数列奇数行则一定是ROAD或COIN或START或END
-//而且在主角和怪兽移动时，需要在程序上跨越两个ROAD，这样前端显示才是跨越了一个“方格”
-//来保持整体方形且满足用户要求
-extern int MZX;
-extern int MZY;
-
+extern int coinNum;		//金币数量 
+extern int monsternum;	//怪兽数量 
+extern int endtime;		//胜利结算动画变量 
+extern int dietime;		//失利结算动画变量 
+extern int iscracked;	//碰撞时间变量 
+extern int ender;		//判断胜利还是失利 
+extern int bubuhat;		//成就使用变量 
 
 extern double Xlength;  //Xlength=地图横向总长
 extern double Ylength;  //Ylength=地图纵向总长
@@ -22,27 +19,21 @@ extern double length;   //格子大小
 extern double X0;       //地图左下角横坐标
 extern double Y0;       //地图右下角纵坐标
 
-extern int iscracked;	//碰撞判断变量 
-extern endtime;			//结算界面变量 
-extern dietime;			//失败界面变量 
-extern bubuhat;			//成就变量
- 
-//创建一个随机的新地图
-void CreateNewMap(void);
 
-//手动创建地图/地图编辑
-void BuildMap(void);
+//****************************自动生成迷宫模块*********************************//
 
-//人物、怪兽初始化 
-void GameInit(void);
-
-//游戏初始化（人物、怪兽、金币初始化）
-void InitMap(void);
-
-//
-void EditMap(int x, int y, int buttonusing);
-
-extern int Map[100][100];
+void CreateNewMap(void);	//自动生成基图函数
+void GameInit(void);		//人物、怪兽自动初始化函数
 
 
+//****************************手动生成迷宫模块*********************************//
+
+void BuildMap(void);						//地图基图初始化
+void EditMap(int x, int y, int buttonusing);//迷宫编辑函数
+
+
+//****************************游戏动态构建模块*********************************//
+
+//时间回调函数 
+void myTimerEvent(int timerID); 
 #endif

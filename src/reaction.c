@@ -999,7 +999,7 @@ void build_map_auto(void)
         int coinlow = MessageBox(NULL, "金币数量不得为负数", "提醒", MB_OK | MB_ICONINFORMATION);
         CodCrt = 0;
     }
-    else if (coinNum > (int)((double)(xscale * yscale) * 7 / 9))
+    else if (coinNum > (xscale*yscale - xscale-yscale))
     {
         int coinmuch = MessageBox(NULL, "金币数量过多", "提醒", MB_OK | MB_ICONINFORMATION);
         CodCrt = 0;
