@@ -59,7 +59,7 @@ void display(void)
 				 Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
 
 		// 血量显示
-		if (page_stage == GAME_PAGE)
+		if(page_stage == GAME_PAGE || page_stage == MENU_PAGE || page_stage == TOOL_PAGE)
 		{
 			SetPenColor("Light Light Gray");
 			drawBox(80, 182, 10, 10, 0, "hp", 'M', "Red");
@@ -69,8 +69,9 @@ void display(void)
 			drawBox(90.01, 184, 30, 5, 0, "", 'M', "Black");
 		}
 
-		// 金币数量显示
-		if (page_stage == GAME_PAGE)
+
+		// 金币显示
+		if(page_stage == GAME_PAGE || page_stage == MENU_PAGE || page_stage == TOOL_PAGE)
 		{
 			DrawCoin(175.01, 186, 5, 0);
 			SetPenColor("Light Light Gray");
