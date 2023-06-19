@@ -43,21 +43,7 @@ struct nonvisit
 //自动生成基图函数 
 void CreateNewMap(void)
 {
-     //生成地图规模
-     /*
-    if (abs(xscale - yscale) < 3)
-    {
-        length = 145 / sqrt(xscale * yscale);
-    }
-    else if (xscale > yscale)
-    {
-        length = 180 / xscale;
-    }
-    else
-    {
-        length = 160 / yscale;
-    }
-    
+   
      if(170/yscale>=230/xscale)
     {
     	length=230/xscale;
@@ -65,7 +51,7 @@ void CreateNewMap(void)
 	{
 		length=170/yscale;
 	}
-	*/
+	
 
     Xlength = (double)xscale * length;
     Ylength = (double)yscale * length;
@@ -376,21 +362,7 @@ void GameInit(void)
 //地图基图初始化 
 void BuildMap(void)
 {
-    //生成地图规模
-    /*
-    if (abs(xscale - yscale) < 3)
-    {
-        length = 145 / sqrt(xscale * yscale);
-    }
-    else if (xscale > yscale)
-    {
-        length = 180 / xscale;
-    }
-    else
-    {
-        length = 160 / yscale;
-    }
-    */
+    
     if(170/yscale>=230/xscale)
     {
     	length=230/xscale;

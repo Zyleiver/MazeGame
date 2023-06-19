@@ -12,13 +12,13 @@ enum BUTTON
 	ExitGame,		  // 退出
 	Menu,			  // 菜单
 	CrtNewMap,		  // 新建地图（Ctrl+c）
-	OpenMap,		  // 打开地图（Ctrl+o）
-	SaveGame,		  // 存档（Ctrl+s）
-	BackToMP,		  // 返回主界面（Ctrl+b）
+	OpenMap,		  // 打开地图（Ctrl+x）
+	SaveGame,		  // 保存地图（Ctrl+v）
+	BackToMP,		  // 返回主界面（Ctrl+q）
 	Tools,			  // 工具
 	PromptNextStep,	  // 提示下一步（Shift+p）
 	ShowShortestPath, // 显示最短路径（Shift+r）
-	ShowAllPath,	  // 显示全部路径（Shift+q）
+	ShowAllPath,	  // 显示全部路径（Shift+m）
 	Instruction,	  // 游戏说明
 	About_Game,		  // 关于
 	Back,			  // 回退

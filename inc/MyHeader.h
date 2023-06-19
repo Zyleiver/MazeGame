@@ -13,7 +13,6 @@
 
 // inc from teacher
 #include "boolean.h"
-// #include "exception.h"
 #include "extgraph.h"
 #include "gcalloc.h"
 #include "genlib.h"
@@ -23,8 +22,6 @@
 #include "random.h"
 #include "simpio.h"
 #include "strlib.h"
-
-
 
 //*************************setup**************************
 
@@ -43,7 +40,7 @@ enum Page_Stage
     MENU_PAGE,     // 菜单界面
     TOOL_PAGE,     // 工具界面
     END_PAGE,      // 结束界面
-    INSTRUCT_PAGE, //指示关于界面
+    INSTRUCT_PAGE, // 指示关于界面
 };
 
 extern int page_stage;
@@ -63,7 +60,6 @@ typedef struct
 } Button;
 typedef Button *PButton;
 
-
 // 按钮状态，Button_UP为松开，Button_DOWN为按下
 enum Button_stage
 {
@@ -78,35 +74,6 @@ enum Button_visible
     VISIBLE,       // 可视
 };
 
-// 按钮
-/*
-// 所有的按钮
-extern Button StartNewGame;     // 开始新游戏
-extern Button BuildMapAuto;     // 自动生成地图
-extern Button BuildMapManu;     // 手动生成地图
-extern Button EmptyMap;         // 空白地图
-extern Button UseTemp;          // 使用模板
-extern Button TempFromSys;      // 系统模板
-extern Button TempFromFile;     // 存档模板
-extern Button ReadFiles;        // 读取存档
-extern Button ExitGame;         // 退出
-extern Button Menu;             // 菜单
-extern Button CrtNewMap;        // 新建地图（Ctrl+c）
-extern Button OpenMap;          // 打开地图（Ctrl+o）
-extern Button SaveGame;         // 存档（Ctrl+s）
-extern Button SaveAsTemp;       // 保存为模板（Ctrl+m）
-extern Button BackToMP;         // 返回主界面（Ctrl+b）
-extern Button Tools;            // 工具
-extern Button EditMap;          // 编辑地图（Ctrl+e）
-extern Button PromptNextStep;   // 提示下一步（Shift+p）
-extern Button ShowShortestPath; // 显示最短路径（Shift+r）
-extern Button ShowAllPath;      // 显示全部路径（Shift+a）
-extern Button LeftShiftPath;    // 显示全部路径时左切
-extern Button RightShiftPath;   // 显示全部路径时右切
-extern Button Instruction;      // 使用说明
-extern Button About_Game;       // 关于
-extern Button Back;             // 回退
-*/
 // 元素相关——————————————————————————————————————————————————————
 
 // 方块元素，ROAD为路，WALL为墙，COIN为金币
@@ -129,8 +96,8 @@ typedef struct
 } Charactor;
 
 // 所有角色
-Charactor MajorRole; // 主角
-Charactor Monster[1000];   // 怪兽
+Charactor MajorRole;     // 主角
+Charactor Monster[1000]; // 怪兽
 
 // 路线相关————————————————————————————————————————————————————————
 
@@ -169,14 +136,15 @@ typedef struct AllWay *Pallway; // 路径链表的指针
 extern Pallway AllHead;
 extern Pallway pvisiter;
 
-//时钟相关
+// 时钟相关
 void myTimerEvent(int timerID);
-//时钟ID
-typedef enum{
+// 时钟ID
+typedef enum
+{
     MonsterTimer,
     FlashTimer,
     GameTouchTimer,
-}timeID;
+} timeID;
 
 // my own inc
 #include "clue.h"
@@ -185,6 +153,5 @@ typedef enum{
 #include "reaction.h"
 #include "setup.h"
 #include "initgame.h"
-
 
 #endif

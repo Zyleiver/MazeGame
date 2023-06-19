@@ -16,15 +16,13 @@ void display(void)
 	int imap, jmap;
 
 	// 绘制最短路径
-	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE)
-		 && ButtonEnum[ShowShortestPath].stage == Button_DOWN)
+	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[ShowShortestPath].stage == Button_DOWN)
 	{
 		drawsway();
 	}
 
 	// 绘制一条全部路径
-	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE)
-		 && ButtonEnum[ShowAllPath].stage == Button_DOWN)
+	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[ShowAllPath].stage == Button_DOWN)
 	{
 		drawaway();
 	}
@@ -57,11 +55,11 @@ void display(void)
 
 		// 画角色
 		SetPenColor("Red");
-		DrawRole(X0 + (MajorRole.x - 1) / 2 * length + length / 2, 
-					Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
+		DrawRole(X0 + (MajorRole.x - 1) / 2 * length + length / 2,
+				 Y0 + (MajorRole.y - 1) / 2 * length + length / 2, length);
 
 		// 血量显示
-		if(page_stage == GAME_PAGE)
+		if (page_stage == GAME_PAGE)
 		{
 			SetPenColor("Light Light Gray");
 			drawBox(80, 182, 10, 10, 0, "hp", 'M', "Red");
@@ -71,9 +69,8 @@ void display(void)
 			drawBox(90.01, 184, 30, 5, 0, "", 'M', "Black");
 		}
 
-
 		// 金币数量显示
-		if(page_stage == GAME_PAGE)
+		if (page_stage == GAME_PAGE)
 		{
 			DrawCoin(175.01, 186, 5, 0);
 			SetPenColor("Light Light Gray");
@@ -84,7 +81,6 @@ void display(void)
 			drawBox(185.01, 182, 10, 10, 0, m, 'L', "Black");
 			SetPenColor("Black");
 		}
-
 
 		// 画怪兽
 		if (page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE)
@@ -112,8 +108,7 @@ void display(void)
 	}
 
 	// 绘制下一步
-	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) 
-		&& ButtonEnum[PromptNextStep].stage == Button_DOWN)
+	if ((page_stage == GAME_PAGE || page_stage == TOOL_PAGE || page_stage == MENU_PAGE) && ButtonEnum[PromptNextStep].stage == Button_DOWN)
 	{
 		draw_prom_image();
 	}
@@ -121,7 +116,7 @@ void display(void)
 	// 绘制按钮
 	SetPenColor("Blue");
 	int j = 0;
-	for (j; j < ButtonNum; j++) 
+	for (j; j < ButtonNum; j++)
 	{
 		drawbutton(j);
 	}
@@ -131,26 +126,26 @@ void display(void)
 		drawpreimage();
 	}
 
-	//胜利界面
+	// 胜利界面
 	if (page_stage == END_PAGE && endtime != 0 && MajorRole.hp != 0)
 	{
 		draw_win_image();
 	}
 
-	//失败界面
+	// 失败界面
 	if (page_stage == END_PAGE && dietime != 0 && MajorRole.hp == 0)
 	{
 		draw_lose_image();
 	}
-	
-	//主页面
-	if(page_stage == MAIN_PAGE)
+
+	// 主页面
+	if (page_stage == MAIN_PAGE)
 	{
 		draw_init_image();
-	} 
+	}
 }
 
-//画金币
+// 画金币
 void DrawCoin(double mx, double my, double l, int InMap)
 {
 	if (!InMap)
@@ -176,7 +171,7 @@ void DrawCoin(double mx, double my, double l, int InMap)
 	DrawLine(0, -l * 3 / 16);
 }
 
-//画怪兽
+// 画怪兽
 void DrawMonster(double mx, double my, double l)
 {
 	SetPenColor("Brown");
@@ -214,7 +209,7 @@ void DrawMonster(double mx, double my, double l)
 	return;
 }
 
-//画终点
+// 画终点
 void DrawGoal(double mx, double my, double l)
 {
 	MovePen(mx, my);
@@ -238,7 +233,7 @@ void DrawGoal(double mx, double my, double l)
 	EndFilledRegion();
 }
 
-//画角色
+// 画角色
 void DrawRole(double mx, double my, double l)
 {
 	if (ButtonEnum[PromptNextStep].stage == Button_DOWN)
@@ -338,7 +333,7 @@ void DrawRole(double mx, double my, double l)
 	return;
 }
 
-//画预览金币
+// 画预览金币
 void DrawPreCoin(double mx, double my, double l)
 {
 	SetPenColor("Yellow");
@@ -359,7 +354,7 @@ void DrawPreCoin(double mx, double my, double l)
 	DrawLine(0, -l * 3 / 16);
 }
 
-//画预览终点
+// 画预览终点
 void DrawPreGoal(double mx, double my, double l)
 {
 	MovePen(mx, my);
@@ -383,7 +378,7 @@ void DrawPreGoal(double mx, double my, double l)
 	EndFilledRegion();
 }
 
-//画预览角色
+// 画预览角色
 void DrawPreRole(double mx, double my, double l)
 {
 	SetPenColor("White");
@@ -452,7 +447,7 @@ void DrawPreRole(double mx, double my, double l)
 	drawRectangle(mx + l / 8, my - l / 6, l / 24, l / 6, 1);
 }
 
-//画下一步的帽子
+// 画下一步的帽子
 void drawhat(double mx, double my, double l)
 {
 	SetPenColor("White");
@@ -487,7 +482,7 @@ void drawhat(double mx, double my, double l)
 	DrawLine(l / 2, 0);
 }
 
-//画最短路径和全部路径的一格图像
+// 画最短路径和全部路径的一格图像
 void DrawWayArrow(double mx, double my, double length, int stage)
 {
 
@@ -683,7 +678,7 @@ void DrawWayArrow(double mx, double my, double length, int stage)
 	SetPenColor("Black");
 }
 
-//绘制最短路径
+// 绘制最短路径
 void drawsway(void)
 {
 	pWay pshortestpen;
@@ -766,7 +761,7 @@ void drawsway(void)
 	}
 }
 
-//绘制全部路径的一条
+// 绘制全部路径的一条
 void drawaway(void)
 {
 	pWay pallwaypen;
@@ -849,286 +844,286 @@ void drawaway(void)
 	}
 }
 
-//画按钮
-void drawbutton (int j)
+// 画按钮
+void drawbutton(int j)
 {
 	if (ButtonEnum[j].visible == VISIBLE)
+	{
+		if (ButtonEnum[j].stage == Button_UP)
 		{
-			if (ButtonEnum[j].stage == Button_UP)
-			{
-				SetPenColor("Light Gray");
-				drawRectangle(ButtonEnum[j].x,
-							  ButtonEnum[j].y,
-							  ButtonEnum[j].lx,
-							  ButtonEnum[j].ly, 1);
-				SetPenColor("Black");
-				drawBox(ButtonEnum[j].x,
-						ButtonEnum[j].y,
-						ButtonEnum[j].lx,
-						ButtonEnum[j].ly,
-						0,
-						ButtonEnum[j].name,
-						'M', "Blue");
-			}
-			else
-			{
-				SetPenColor("Light Gray");
-				drawRectangle(ButtonEnum[j].x,
-							  ButtonEnum[j].y,
-							  ButtonEnum[j].lx,
-							  ButtonEnum[j].ly, 1);
-				SetPenColor("Black");
-				drawBox(ButtonEnum[j].x,
-						ButtonEnum[j].y,
-						ButtonEnum[j].lx,
-						ButtonEnum[j].ly,
-						0,
-						ButtonEnum[j].name,
-						'M', "Red");
-				SetPenColor("Blue");
-			}
+			SetPenColor("Light Gray");
+			drawRectangle(ButtonEnum[j].x,
+						  ButtonEnum[j].y,
+						  ButtonEnum[j].lx,
+						  ButtonEnum[j].ly, 1);
+			SetPenColor("Black");
+			drawBox(ButtonEnum[j].x,
+					ButtonEnum[j].y,
+					ButtonEnum[j].lx,
+					ButtonEnum[j].ly,
+					0,
+					ButtonEnum[j].name,
+					'M', "Blue");
 		}
+		else
+		{
+			SetPenColor("Light Gray");
+			drawRectangle(ButtonEnum[j].x,
+						  ButtonEnum[j].y,
+						  ButtonEnum[j].lx,
+						  ButtonEnum[j].ly, 1);
+			SetPenColor("Black");
+			drawBox(ButtonEnum[j].x,
+					ButtonEnum[j].y,
+					ButtonEnum[j].lx,
+					ButtonEnum[j].ly,
+					0,
+					ButtonEnum[j].name,
+					'M', "Red");
+			SetPenColor("Blue");
+		}
+	}
 }
 
-//画预览图
+// 画预览图
 void drawpreimage(void)
 {
 	if (ifpre) // 呈现预览状态
+	{
+		switch (putting)
 		{
-			switch (putting)
+		case PutWall:
+			// 画框框
+			SetPenColor("Blue");
+			if (editx % 2 == 1)
 			{
-			case PutWall:
-				// 画框框
-				SetPenColor("Blue");
-				if (editx % 2 == 1)
-				{
-					drawRectangle(X0 + (editx - 1) / 2 * length, Y0 + (edity) / 2 * length - 0.8, length, 1.6, 0);
-				}
-				else
-				{
-					drawRectangle(X0 + editx / 2 * length - 0.8, Y0 + (edity - 1) / 2 * length, 1.6, length, 0);
-				}
-				SetPenColor("Black");
-				break;
-
-			case PutCoin:
-				// 画预览金币
-				DrawPreCoin(X0 + (editx - 1) / 2 * length + length / 2, Y0 + (edity - 1) / 2 * length + length / 2, length);
-				break;
-
-			case PutRole:
-				// 画预览角色
-				DrawPreRole(X0 + (editx - 1) / 2 * length + length / 2, Y0 + (edity - 1) / 2 * length + length / 2, length);
-				break;
-
-			case PutGoal:
-				// 画预览终点
-				DrawPreGoal(X0 + (editx - 1) / 2 * length + length / 2, Y0 + (edity - 1) / 2 * length + length / 2, length);
-				break;
-
-			case Erase:
-				// 画框框
-				SetPenColor("Blue");
-				if (editx % 2 == 1)
-				{
-					drawRectangle(X0 + (editx - 1) / 2 * length, Y0 + (edity) / 2 * length - 0.8, length, 1.6, 0);
-				}
-				else
-				{
-					drawRectangle(X0 + editx / 2 * length - 0.8, Y0 + (edity - 1) / 2 * length, 1.6, length, 0);
-				}
-				SetPenColor("Black");
-				break;
+				drawRectangle(X0 + (editx - 1) / 2 * length, Y0 + (edity) / 2 * length - 0.8, length, 1.6, 0);
 			}
+			else
+			{
+				drawRectangle(X0 + editx / 2 * length - 0.8, Y0 + (edity - 1) / 2 * length, 1.6, length, 0);
+			}
+			SetPenColor("Black");
+			break;
+
+		case PutCoin:
+			// 画预览金币
+			DrawPreCoin(X0 + (editx - 1) / 2 * length + length / 2, Y0 + (edity - 1) / 2 * length + length / 2, length);
+			break;
+
+		case PutRole:
+			// 画预览角色
+			DrawPreRole(X0 + (editx - 1) / 2 * length + length / 2, Y0 + (edity - 1) / 2 * length + length / 2, length);
+			break;
+
+		case PutGoal:
+			// 画预览终点
+			DrawPreGoal(X0 + (editx - 1) / 2 * length + length / 2, Y0 + (edity - 1) / 2 * length + length / 2, length);
+			break;
+
+		case Erase:
+			// 画框框
+			SetPenColor("Blue");
+			if (editx % 2 == 1)
+			{
+				drawRectangle(X0 + (editx - 1) / 2 * length, Y0 + (edity) / 2 * length - 0.8, length, 1.6, 0);
+			}
+			else
+			{
+				drawRectangle(X0 + editx / 2 * length - 0.8, Y0 + (edity - 1) / 2 * length, 1.6, length, 0);
+			}
+			SetPenColor("Black");
+			break;
 		}
+	}
 }
 
-//画胜利界面
+// 画胜利界面
 void draw_win_image(void)
 {
 	int sizepenn;
 	char *pen_pencolor;
-		pen_pencolor = GetPenColor();
-		sizepenn = GetPointSize();
-		MovePen(100, 120);
-		SetPointSize(100);
-		if (endtime > 175)
-		{
-			SetPenColor("Green");
-		}
-		else if (endtime > 150)
-		{
-			SetPenColor("Brown");
-		}
-		else if (endtime > 125)
-		{
-			SetPenColor("Red");
-		}
-		else if (endtime > 100)
-		{
-			SetPenColor("Blue");
-		}
-		else if (endtime > 75)
-		{
-			SetPenColor("Violet");
-		}
-		else if (endtime > 50)
-		{
-			SetPenColor("Yellow");
-		}
-		else if (endtime > 25)
-		{
-			SetPenColor("Gray");
-		}
-		else
-		{
-			SetPenColor("Green");
-		}
-		DrawTextString("!!! W I N !!!");
-		SetPointSize(sizepenn);
-		SetPenColor(pen_pencolor);
+	pen_pencolor = GetPenColor();
+	sizepenn = GetPointSize();
+	MovePen(100, 120);
+	SetPointSize(100);
+	if (endtime > 175)
+	{
+		SetPenColor("Green");
+	}
+	else if (endtime > 150)
+	{
+		SetPenColor("Brown");
+	}
+	else if (endtime > 125)
+	{
+		SetPenColor("Red");
+	}
+	else if (endtime > 100)
+	{
+		SetPenColor("Blue");
+	}
+	else if (endtime > 75)
+	{
+		SetPenColor("Violet");
+	}
+	else if (endtime > 50)
+	{
+		SetPenColor("Yellow");
+	}
+	else if (endtime > 25)
+	{
+		SetPenColor("Gray");
+	}
+	else
+	{
+		SetPenColor("Green");
+	}
+	DrawTextString("!!! W I N !!!");
+	SetPointSize(sizepenn);
+	SetPenColor(pen_pencolor);
 }
 
-//画失败界面
+// 画失败界面
 void draw_lose_image(void)
 {
 	int sizepene;
 	char *penpencolor;
-		penpencolor = GetPenColor();
-		sizepene = GetPointSize();
-		MovePen(100, 120);
-		SetPointSize(100);
+	penpencolor = GetPenColor();
+	sizepene = GetPointSize();
+	MovePen(100, 120);
+	SetPointSize(100);
 
-		if (dietime > 75)
-		{
-			SetPenColor("Violet");
-		}
-		else if (dietime > 50)
-		{
-			SetPenColor("Gray");
-		}
-		else if (dietime > 25)
-		{
-			SetPenColor("Violet");
-		}
-		else
-		{
-			SetPenColor("Gray");
-		}
-		DrawTextString("TRY AGAIN!!!");
-		SetPointSize(sizepene);
-		SetPenColor(penpencolor);
+	if (dietime > 75)
+	{
+		SetPenColor("Violet");
+	}
+	else if (dietime > 50)
+	{
+		SetPenColor("Gray");
+	}
+	else if (dietime > 25)
+	{
+		SetPenColor("Violet");
+	}
+	else
+	{
+		SetPenColor("Gray");
+	}
+	DrawTextString("TRY AGAIN!!!");
+	SetPointSize(sizepene);
+	SetPenColor(penpencolor);
 }
 
-//画主页面元素
+// 画主页面元素
 void draw_init_image(void)
-{	
+{
 	SetPenColor("Light Light Gray");
-	drawBox(100,5,100,10,0,"( 请在目录下的data文件夹中保存与读取您的地图^_^ )",'M',"Black");
+	drawBox(100, 5, 100, 10, 0, "( 请在目录下的data文件夹中保存与读取您的地图^_^ )", 'M', "Black");
 	int sizepeninit;
-		sizepeninit = GetPointSize();
-		MovePen(102,160);
-		SetPointSize(120);
+	sizepeninit = GetPointSize();
+	MovePen(102, 160);
+	SetPointSize(120);
 	char *ssetpenprecolor;
-		ssetpenprecolor = GetPenColor();
-		SetPenColor("Dark Gray");
-		DrawTextString("M  A  Z  E");
-		SetPenColor("Gray");
-		MovePen(103,160);
-		DrawTextString("M  A  Z  E");
-		SetPenColor("Light Gray");
-		MovePen(104,160);
-		DrawTextString("M  A  Z  E");
-		SetPenColor(ssetpenprecolor);
-		SetPointSize(sizepeninit);
-		
+	ssetpenprecolor = GetPenColor();
+	SetPenColor("Dark Gray");
+	DrawTextString("M  A  Z  E");
+	SetPenColor("Gray");
+	MovePen(103, 160);
+	DrawTextString("M  A  Z  E");
+	SetPenColor("Light Gray");
+	MovePen(104, 160);
+	DrawTextString("M  A  Z  E");
+	SetPenColor(ssetpenprecolor);
+	SetPointSize(sizepeninit);
+
 	DrawCoin(217, 115, 30, 1);
-	DrawRole(180,77.5,30);
-	DrawMonster(250,77.5,30);
+	DrawRole(180, 77.5, 30);
+	DrawMonster(250, 77.5, 30);
 	DrawGoal(217.5, 45, 30);
-	
+
 	int ssset_pensize;
 	char *ssset_pencolor;
 	ssset_pensize = GetPenSize();
 	ssset_pencolor = GetPenColor();
 	SetPenColor("Light Gray");
 	SetPenSize(5);
-	MovePen(268.5,77.5);
-	DrawArc(52,0,360);
+	MovePen(268.5, 77.5);
+	DrawArc(52, 0, 360);
 	SetPenColor("Gray");
-	MovePen(267.25,77.4);
-	DrawArc(51,0,360);
+	MovePen(267.25, 77.4);
+	DrawArc(51, 0, 360);
 	SetPenColor("Light Gray");
-	MovePen(266.25,77.2);
-	DrawArc(50,0,360);
-	
-	MovePen(190,115);
-	DrawLine(57,-70);
-	MovePen(245,115);
-	DrawLine(-57,-70);
+	MovePen(266.25, 77.2);
+	DrawArc(50, 0, 360);
+
+	MovePen(190, 115);
+	DrawLine(57, -70);
+	MovePen(245, 115);
+	DrawLine(-57, -70);
 	SetPenSize(ssset_pensize);
-	SetPenColor(ssset_pencolor);	
+	SetPenColor(ssset_pencolor);
 }
 
-//绘制地图参数输入框
+// 绘制地图参数输入框
 void draw_getdata_box(void)
 {
 	SetPenColor("Light Light Gray");
-		drawBox(160, 140, 40, 10, 0, "地图规格 \( 4<=x<=40,4<=y<=40 \) ", 'L', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(160, 130, 10, 10, 0, "x:", 'L', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(185, 130, 10, 10, 0, "y:", 'L', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(160, 100, 40, 10, 0, "怪兽数量 \( 小于999 \) :", 'L', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(160, 70, 40, 10, 0, "金币数量 \( 若手动编辑无需输入 \) :", 'L', "Black");
-		textbox(GenUIID(0), 170, 130, 10, 10, mapx, 3);
-		textbox(GenUIID(0), 195, 130, 10, 10, mapy, 3);
-		textbox(GenUIID(0), 235, 100, 10, 10, monsnum, 4);
-		textbox(GenUIID(0), 235, 70, 10, 10, coinnum, 4);
-		SetPenColor("Black");
-		drawRectangle(140, 50, 110, 110, 0);
+	drawBox(160, 140, 40, 10, 0, "地图规格 \( 4<=x<=40,4<=y<=40 \) ", 'L', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(160, 130, 10, 10, 0, "x:", 'L', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(185, 130, 10, 10, 0, "y:", 'L', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(160, 100, 40, 10, 0, "怪兽数量 \( 小于999 \) :", 'L', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(160, 70, 40, 10, 0, "金币数量 \( 若手动编辑无需输入 \) :", 'L', "Black");
+	textbox(GenUIID(0), 170, 130, 10, 10, mapx, 3);
+	textbox(GenUIID(0), 195, 130, 10, 10, mapy, 3);
+	textbox(GenUIID(0), 235, 100, 10, 10, monsnum, 4);
+	textbox(GenUIID(0), 235, 70, 10, 10, coinnum, 4);
+	SetPenColor("Black");
+	drawRectangle(140, 50, 110, 110, 0);
 }
 
-//绘制关于界面
+// 绘制关于界面
 void draw_aboutgame_page(void)
 {
 	int sizepen = GetPenSize();
-		SetPenSize(2);
-		SetPenColor("Light Light Gray");
-		drawRectangle(0, 0, 300, 200, 1);
-		drawBox(120, 150, 60, 20, 0, "关 于", 'M', "Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(110, 130, 30, 10, 0, "作者：", 'M', "Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 130, 30, 10, 0, "郑灵杰", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 120, 30, 10, 0, "耿传洪", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 110, 30, 10, 0, "王志龙", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(105, 100, 40, 10, 0, "作品名称：", 'M', "Blue");
-		SetPenColor("Light Light Gray");
-		drawBox(140, 100, 40, 10, 0, "你逃它追插翅难飞", 'M', "Black");
-		SetPenColor("Light Light Gray");
-		drawBox(105, 50, 90, 5, 0, "谨此纪念我们的童年", 'M', "Blue");
-		SetPenColor("Violet");
-		drawRectangle(95, 40, 110, 132, 0);
-		SetPenColor("Blue");
-		drawRectangle(100, 45, 100, 120, 0);
-		SetPenSize(sizepen);
+	SetPenSize(2);
+	SetPenColor("Light Light Gray");
+	drawRectangle(0, 0, 300, 200, 1);
+	drawBox(120, 150, 60, 20, 0, "关 于", 'M', "Blue");
+	SetPenColor("Light Light Gray");
+	drawBox(110, 130, 30, 10, 0, "作者：", 'M', "Blue");
+	SetPenColor("Light Light Gray");
+	drawBox(140, 130, 30, 10, 0, "郑灵杰", 'M', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(140, 120, 30, 10, 0, "耿传洪", 'M', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(140, 110, 30, 10, 0, "王志龙", 'M', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(105, 100, 40, 10, 0, "作品名称：", 'M', "Blue");
+	SetPenColor("Light Light Gray");
+	drawBox(140, 100, 40, 10, 0, "你逃它追插翅难飞", 'M', "Black");
+	SetPenColor("Light Light Gray");
+	drawBox(105, 50, 90, 5, 0, "谨此纪念我们的童年", 'M', "Blue");
+	SetPenColor("Violet");
+	drawRectangle(95, 40, 110, 132, 0);
+	SetPenColor("Blue");
+	drawRectangle(100, 45, 100, 120, 0);
+	SetPenSize(sizepen);
 }
 
-//画下一步
+// 画下一步
 void draw_prom_image(void)
 {
 	pWay pshortestpen;
-		pshortestpen = AllHead->ThisWay;
-		drawhat(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2,
-				 Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2, length);
-		if (MajorRole.x == pshortestpen->next->x && MajorRole.y == pshortestpen->next->y)
-		{
-			ButtonEnum[PromptNextStep].stage = Button_UP;
-		}	
+	pshortestpen = AllHead->ThisWay;
+	drawhat(X0 + (pshortestpen->next->x - 1) * length / 2 + length / 2,
+			Y0 + (pshortestpen->next->y - 1) * length / 2 + length / 2, length);
+	if (MajorRole.x == pshortestpen->next->x && MajorRole.y == pshortestpen->next->y)
+	{
+		ButtonEnum[PromptNextStep].stage = Button_UP;
+	}
 }
